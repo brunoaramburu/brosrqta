@@ -1,0 +1,155 @@
+.row-destacados{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.col-imagenes {
+    width: 60%;
+    height: auto;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align items to the start vertically */
+}
+
+.container-imagenes {
+    width: 80%; /* Adjust width as needed */
+    aspect-ratio: 1/1;
+    border: 1px solid black;
+    overflow: hidden; /* This ensures that the image doesn't overflow the container */
+}
+
+.container-imagenes img {
+    width: 100%; /* Ensure image fills its container */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove any extra space beneath the image */
+}
+
+.col-informacion{
+    width: 40%;
+    height: 1000px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+.no-padding{
+    padding-block: 0px;
+}
+
+.padding-10-left{
+    padding-left: 10px;
+}
+
+.nombre-producto{
+    font-size: 20px;
+    font-weight: 550;
+}
+
+.precio-producto{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.talles-producto{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-block: 10px;
+}
+
+.boton-agregar-carrito{
+    background-color: #1D1B1B;
+    color: white;
+    width: 100%;
+    height: 70px;
+    border: 2px solid #1D1B1B;
+    transition: background-color 0s ease 0s;
+    transition: color 0s ease 0s;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton-agregar-carrito:hover{
+    background-color: white;
+    color: #1D1B1B;
+}
+
+.container-boton-agregar-carrito{
+    width: 95%;
+    margin-block: 30px;
+    margin-inline: 2%;
+}
+
+.container-guia-talles{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.imagen-talles{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: 1%;
+    width: 98%;
+    height: auto;
+}
+
+.titulo-relacionados{
+    font-size: 17px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px;
+}
+
+.selected-talle {
+    border: 3px inset gray;
+    margin-inline: 2px;
+    width: 50px;
+    aspect-ratio: 1/1;
+    font-weight: 600;
+    border-radius: 0;
+}
+
+.boton-talle{
+    margin-inline: 2px;
+    width: 50px;
+    aspect-ratio: 1/1;
+    font-weight: 600;
+    border-radius: 0;
+    border: 1px solid gray;
+}
+
+.tarjeta-productos-relacionados{
+    padding-inline: 10px;
+}
+
+.color-option{
+    margin-inline: 2px;
+    width: 50px;
+    aspect-ratio: 1/1;
+    border: 1px solid gray;
+}
+
+.selected-color{
+    border: 3px inset gray;
+}
+
+.error-message{
+    font-weight: 600;
+}
+
+.productos-relacionados{
+    margin-top: 10px;
+}
+
+.margin-producto{
+    margin-bottom: 1000px;
+}
+
+.imagen-producto{
+    width: 95%;
+    padding: 20px;
+}

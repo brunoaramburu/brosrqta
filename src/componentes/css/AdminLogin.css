@@ -1,0 +1,49 @@
+.container-form-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-login{
+    height: 600px;
+    width: 800px;
+    background-color: rgb(29, 27, 27);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+.logo-form{
+    height: 50px;
+    width: 50px;
+    background-color: green;
+}
+
+.titulo-form{
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+}
+
+.input-contraseña{
+    height: 10%;
+    width: 60%;
+    margin-block-start: 100px;
+    margin-block-end: 40px;
+}
+
+.boton-ingresar{
+    height: 10%;
+    width: 60%;
+    background-color: #1D1B1B;
+    transition: background-color 1s ease 0s;
+    color: white;
+    border: 2px solid white;
+}
+
+.boton-ingresar:hover{
+    background-color: #525241;
+}

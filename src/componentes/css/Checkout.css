@@ -1,0 +1,98 @@
+.container-checkout-1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.customer-form {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.customer-form input{
+    height: 30px;
+}
+
+.customer-form select{
+    height: 36px;
+}
+
+.customer-form-container{
+    width: 55%;
+    border-right: 2px dashed black;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.container-tabla-carrito-checkout{
+    width: 35%;
+}
+
+.tabla-container {
+    display: flex;
+    justify-content: left; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Fill the entire height of the modal */
+}
+
+.tabla-carrito td {
+    text-align: left;
+    vertical-align: middle;
+    width: auto; /* Remove the fixed width for table cells */
+}
+
+.payment-method-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.section-nombre{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.span-nombre{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.span-id{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.span-id-number{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.span-telefono{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-direccion{
+    margin-bottom: 5px;
+}
+
+.customer-form label{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.titulo-checkout{
+    font-weight: 550;
+    margin-top: 10px;
+}

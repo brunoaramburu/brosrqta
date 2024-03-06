@@ -1,0 +1,72 @@
+.tabla-carrito-checkout {
+    align-items: center; /* Center vertically */
+    width: 100%; /* Fill the entire height of the modal */
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tabla-carrito td {
+    
+    width: auto; /* Remove the fixed width for table cells */
+}
+
+.contenido-centrado{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Fill the entire height of the modal */
+}
+
+.carrito-modal-content{
+    right: 0;
+}
+
+.carrito-space-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.boton-cerrar-carrito{
+    background-color: transparent;
+    border: 0;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.btn-quantity{
+    background-color: transparent;
+    border: 0;
+    color: grey;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.cantidad-carrito{
+    align-items: center;
+}
+
+.boton-eliminar{
+    background-color: white;
+    color: #1D1B1B;
+    border: 1px solid #1D1B1B;
+    transition: background-color 0s ease 0s;
+    transition: color 0s ease 0s;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.boton-eliminar:hover{
+    background-color: #1D1B1B;
+    color: white;
+}
+
+.titulo-carrito{
+    font-size: 16px;
+}
+
+.titulo-item-carrito{
+    margin-top: 10px;
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+</head>
+<body>
+    <h2>Order Confirmation</h2>
+    <p>Thank you for placing an order with us! Your order ID is {{ orden_id }}.</p>
+    
+    <h3>Order Details:</h3>
+    <ul>
+        {% for producto in productos %}
+            <li>
+                <strong>{{ producto.description }}</strong><br>
+                Precio: {{ producto.price }}<br>
+                Cantidad: {{ producto.quantity }}<br>
+                <!-- Add more product details here as needed -->
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <p>We appreciate your business.</p>
+</body>
+</html>

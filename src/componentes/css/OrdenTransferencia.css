@@ -1,0 +1,56 @@
+/* Add this CSS to center the order details */
+.container-orden {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+  
+.detalle-orden {
+    text-align: center;
+    padding: 20px;
+    max-width: 400px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #000000a4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.detalle-orden > div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Add margin between rows */
+}
+
+.detalle-orden > div p {
+    margin: 5px;
+}
+
+.container-pasos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.pasos-a-seguir{
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #000000a4;
+    margin: 10px;
+    max-width: 50%;
+    min-width: 50%;
+}
+
+.tabla-orden-transferencia{
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #000000a4;
+    max-width: 80%;
+    padding: 10px;
+}

@@ -1,0 +1,241 @@
+h1{
+    color: rgb(25, 25, 25);
+}
+
+h2{
+    color: rgb(25, 25, 25);
+}
+
+h3{
+    color: rgb(25, 25, 25);
+}
+
+h4{
+    color: rgb(25, 25, 25);
+}
+
+.navbar{
+    width: 100%;
+    height: 60px;
+    background-color: rgb(25, 25, 25);
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-izquierda{
+    background-color: rgb(25, 25, 25);
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+    padding: 10px;
+}
+
+.nav-derecha{
+    background-color: rgb(25, 25, 25);
+    display: flex;
+    justify-content: space-around;
+    width: 20%;
+    padding: 10px;
+}
+
+.tienda{
+    font-weight: 800;
+}
+
+.item-nav{
+    font-size: 12px;
+    color: white;
+}
+
+.link{
+    text-decoration: none;
+    opacity: 1;
+    transition: opacity 0.4s ease 0s;
+}
+
+/* Define the hover effect to make the line appear */
+.link:hover {
+    opacity: 0.6;
+}
+
+.aviso{
+    height: 35px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.texto-aviso{
+    font-size: 11px;
+    font-weight: 450;
+    padding-block: 8px;
+    margin-top: 0;
+    color: rgbrgb(25, 25, 25);
+}
+
+.barra-busqueda{
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid black;
+    border-right: 0px;
+    background-image: url('../img/search.png');
+    background-size: 25px; /* Set the size of your image */
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 30px;
+}
+
+.barra-busqueda:focus {
+    outline: none;
+}  
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    transition: background-color 0.7s ease 0s;
+}
+
+.product-item:hover {
+    background-color: lightgray;
+}
+
+.product-item img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    margin-right: 10px;
+}
+
+.product-price {
+    align-self: flex-end;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+  
+.barra-busqueda {
+    width: 100%;
+}
+
+.search-toggle-link {
+    cursor: pointer;
+    font-size: 12px;
+    color: black;
+    text-decoration: underline;
+    margin-right: 20px;
+}
+  
+.close-link {
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+  
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+  
+.barra-busqueda {
+    width: 100%;
+    padding-right: 60px; /* Leave space for the close icon */
+}
+  
+.close-link {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+  
+.close-icon {
+    margin-right: 5px;
+}
+
+.buscar-text{
+    cursor: pointer;
+}
+
+.carrito-text{
+    cursor: pointer;
+}
+
+.navbar-container {
+    position: relative; /* Ensure relative positioning for the container */
+}
+  
+.search-container {
+    position: relative;
+     /* Change to relative positioning */
+    /* Add other necessary styles */
+}
+
+.search-results {
+    position: absolute;
+    top: 100%; /* Position the search results below the search input */
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Set a background color or styles as needed */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for better visibility */
+    z-index: 1; /* Ensure the search results appear above other content */
+    /* Add other styling as desired */
+}
+
+.logo-nav{
+    display: flex;
+    align-items: center;
+}
+
+.logo{
+    color: white;
+}
+
+.fade-in-out {
+    animation: fade-in-out 7s linear infinite;
+}
+
+.container-logo-nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes fade-in-out {
+    0% {
+        opacity: 0;
+        transform: translateX(-200%);
+    }
+    20%, 80% {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(200%);
+    }
+}

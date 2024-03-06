@@ -1,0 +1,44 @@
+.titulo-colecciones{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin-block-end: 0;
+}
+
+.row-colecciones{
+    margin-bottom: 20px;
+}
+
+.tarjeta-colecciones{
+    width: 100%;
+    height: 400px;
+    background-color: red;
+    text-align: center;
+    padding-block: 20px;
+}
+
+.img-tarjeta-colecciones{
+    width: 100%;
+    height: 80%;
+    background-color: aqua;
+}
+
+.titulo-tarjeta-colecciones{
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    margin-inline: 20px;
+}
+
+.boton-tarjeta-colecciones{
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.titulo-categoria{
+    margin-block: 15px;
+    display: flex;
+    justify-content: center;
+}

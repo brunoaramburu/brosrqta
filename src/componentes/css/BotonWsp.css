@@ -1,0 +1,41 @@
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	left:40px;
+	background-color:#25d366;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  	font-size:30px;
+  	z-index:100;
+}
+.float:hover {
+	text-decoration: none;
+	color: #25d366;
+    background-color:#fff;
+}
+
+.float-instagram{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:120px;
+	left:40px;
+	background-color:#C13584;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  	font-size:30px;
+  	z-index:100;
+}
+.float-instagram:hover {
+	text-decoration: none;
+	color: #C13584;
+    background-color:#fff;
+}
+
+.my-float{
+	margin-top:16px;
+}
