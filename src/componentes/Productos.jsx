@@ -9,7 +9,7 @@ function Productos() {
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/productos/') 
+        fetch(`${process.env.REACT_APP_API_URL}/api/productosconcolores/`) 
         .then(response => response.json())
         .then(data => setProductos(data))
         .then(console.log(productos))
@@ -23,12 +23,21 @@ function Productos() {
             <div className="Productos">
                 <div className="row">
                 {productos.map(producto => (
-                    <div className="tarjeta-Productos" key={producto.id}>
-                    <img src={"http://localhost:8000" + producto.img} className="img-tarjeta-Productos"></img>
-                    <p className="titulo-tarjeta-Productos">{producto.nombre}</p>
-                    <p className="precio-tarjeta-Productos">${producto.precio}</p>
-                    <a href={`/producto/${producto.id}`} className="boton-tarjeta-Productos">VER PRODUCTO</a>
-                    </div>
+                    <a href={`/producto/${producto.id}`} style={{ textDecoration: 'none', color: 'black'}}>
+                        <span key={producto.id}>
+                        <div className="tarjeta-producto">
+                            <img src={`${process.env.REACT_APP_API_URL}/media/${producto.img}`} className="img-tarjeta-Productos" alt={producto.nombre} />
+                            <p className="titulo-tarjeta-Productos">{producto.nombre}</p>
+                            <div className="color-circles">
+                                {producto.colores.map(color => (
+                                    <div key={color.nombre} className="color-circle" style={{ backgroundColor: color.rgb_value }}></div>
+                                ))}
+                            </div>
+                            <p className="precio-tarjeta-Productos">${producto.precio}</p>
+                            <button className="ver-producto-button">VER PRODUCTO</button>
+                        </div>
+                        </span>
+                    </a>
                 ))}
                 </div>
             </div>

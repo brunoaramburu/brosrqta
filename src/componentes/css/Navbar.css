@@ -119,10 +119,13 @@ h4{
 
 .product-name {
     margin-right: 10px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .product-price {
-    align-self: flex-end;
+    align-self: center;
+    font-size: 14px;
 }
 
 .search-container {
@@ -171,6 +174,11 @@ h4{
     display: flex;
     align-items: center;
     margin-right: 20px;
+    transition: background-color 0.7s ease 0s;
+}
+
+.close-link:hover{
+    background-color: lightgray;
 }
   
 .close-icon {
@@ -190,20 +198,24 @@ h4{
 }
   
 .search-container {
-    position: relative;
-     /* Change to relative positioning */
-    /* Add other necessary styles */
+    position: absolute; /* Posicionamiento absoluto */
+    top: 100%; /* Coloca la barra de búsqueda debajo de la barra de navegación */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Asegura que esté por encima del contenido */
 }
 
 .search-results {
     position: absolute;
-    top: 100%; /* Position the search results below the search input */
+    top: calc(100% + 10px); /* Ajusta el margen superior según el tamaño de la barra de búsqueda */
     left: 0;
     width: 100%;
-    background-color: #fff; /* Set a background color or styles as needed */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow for better visibility */
-    z-index: 1; /* Ensure the search results appear above other content */
-    /* Add other styling as desired */
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Asegura que esté por encima del contenido */
+    margin-top: 46px; /* Agrega un margen superior */
 }
 
 .logo-nav{
@@ -213,6 +225,13 @@ h4{
 
 .logo{
     color: white;
+}
+
+.logo:hover{
+    box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.575);
+	-webkit-box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.57);
+	-moz-box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.57);
+    border-radius: 30px;
 }
 
 .fade-in-out {

@@ -26,24 +26,24 @@ function DetalleProducto() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productResponse = await fetch(`http://localhost:8000/api/producto/${id}/`);
+        const productResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/producto/${id}/`);
         const productData = await productResponse.json();
         setProducto(productData);
         setImagenes([{ image_url: productData.img }]);
         
-        const productColoresTamanosResponse = await fetch(`http://localhost:8000/api/producto/${id}/detalle`);
+        const productColoresTamanosResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/producto/${id}/detalle`);
         const productColoresTamanosData = await productColoresTamanosResponse.json();
         setProductoTamanosColores(productColoresTamanosData);
 
-        const imagenesResponse = await fetch(`http://localhost:8000/api/imagenesproducto/${id}`);
+        const imagenesResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/imagenesproducto/${id}`);
         const imagenesData = await imagenesResponse.json();
         setAllImages(imagenesData); // Store all images
 
-        const relatedProductsResponse = await fetch(`http://localhost:8000/api/productosconcolores`);
+        const relatedProductsResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/productosconcolores`);
         const relatedProductsData = await relatedProductsResponse.json();
         setRelatedProducts(relatedProductsData);
 
-        const fotoTalleResponse = await fetch(`http://localhost:8000/api/fototalle/${productData.fototalle}`);
+        const fotoTalleResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/fototalle/${productData.fototalle}`);
         const fotoTalleData = await fotoTalleResponse.json();
         setFotoTalle(fotoTalleData);
       } catch (error) {
@@ -56,11 +56,11 @@ function DetalleProducto() {
 
   const [productoTamanos, setProductoTamanos] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/api/talles/${id}/`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/talles/${id}/`)
       .then(response => response.json())
       .then(data => {
         const updatedData = data.map(async productoTamano => {
-          const tamanoResponse = await fetch(`http://localhost:8000/api/talle/${productoTamano.tamaño}/`);
+          const tamanoResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/talle/${productoTamano.tamaño}/`);
           const tamanoData = await tamanoResponse.json();
           return { ...productoTamano, tamaño_nombre: tamanoData.nombre };
         });
@@ -167,7 +167,21 @@ function DetalleProducto() {
   useEffect(() => {
     const fetchProductColors = async () => {
       try {
-        const colorResponse = await fetch(`http://localhost:8000/api/productocolores?id=${id}`);
+        const colorResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/productocolores?id=${id}`);
+        const colorData = await colorResponse.json();
+        setColorData(colorData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchProductColors();
+  }, [id, selectedColor]);
+
+
+  useEffect(() => {
+    const fetchProductColors = async () => {
+      try {
+        const colorResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/productocolores?id=${id}`);
         const colorData = await colorResponse.json();
         setColorData(colorData);
       } catch (error) {
@@ -191,6 +205,9 @@ function DetalleProducto() {
     if (uniqueColors.length === 1) {
       handleColorSelection(uniqueColors[0].color);
     }
+    if (uniqueColors.length > 1) {
+      handleColorSelection(uniqueColors[0].color);
+    }
   }, [productoTamanosColores]);
 
   useEffect(() => {
@@ -204,14 +221,13 @@ function DetalleProducto() {
       <div className="row-destacados">
         <div className="col-imagenes">
           {imagenes.map(image => (
-            <img className="imagen-producto" key={image.image_url} src={"http://localhost:8000" + image.image_url} alt={producto.nombre} />
+            <img className="imagen-producto" key={image.image_url} src={`${process.env.REACT_APP_API_URL}${image.image_url}`} alt={producto.nombre} />
           ))}
         </div>
         <div className="col-informacion">
           <p className="nombre-producto padding-10-left">{producto.nombre}</p>
           <p className="precio-producto padding-10-left">${producto.precio}</p>
           <p className="descripcion-producto padding-10-left">{producto.descripcion}</p>
-          <p className="padding-10-left">Color:</p>
           <div className="talles-producto padding-10-left">
             {uniqueColors.map((color) => (
               <div className={selectedColor === color.color ? 'color-option-container selected-color-container' : 'color-option-container'}>
@@ -226,7 +242,6 @@ function DetalleProducto() {
           </div>
           {availableSizes.length > 0 && (
             <span>
-            <p className="padding-10-left">Talle:</p>
             <div className="talles-producto padding-10-left">
               {availableSizes.map((size) => (
                 <div className={selectedTalle === size ? 'selected-container-talle container-talle' : 'container-talle'} key={size}>
@@ -242,13 +257,16 @@ function DetalleProducto() {
             </span>
           )}
           <div className="container-boton-agregar-carrito">
-          {!isSelectionValid && (
-            <p className="error-message">*Debe seleccionar color y talle para agregar el producto al carrito.</p>
-          )}
           {fotoTalle.img && (
           <span>
-            <a href={"http://localhost:8000/media/" + fotoTalle.img} target="_blank" style={{ textDecoration: 'underline'}}><p>VER GUÍA DE TALLES</p></a>
+            <a href={`${process.env.REACT_APP_API_URL}/media/${fotoTalle.img}`} target="_blank" style={{ textDecoration: 'underline'}}><p>VER GUÍA DE TALLES</p></a>
           </span>
+          )}
+          {!isSelectionValid && (
+            <span>
+              <button className="boton-agregar-carrito-disabled" disabled>AGREGAR AL CARRITO</button>
+              <p className="error-message">*DEBE SELECCIONAR UN COLOR Y UN TALLE PARA AGREGAR EL PRODUCTO AL CARRITO.</p>
+            </span>
           )}
           {isSelectionValid && (
               <span onClick={() => {
@@ -258,7 +276,8 @@ function DetalleProducto() {
               }}>
                 <CarritoModalDetalle isOpen={isCarritoModalOpen} onClose={toggleCarritoModal} />
               </span>
-            )}
+          )}
+          
           </div>
         </div>
       </div>
@@ -273,7 +292,7 @@ function DetalleProducto() {
               <a href={`/producto/${relatedProduct.id}`} style={{ textDecoration: 'none', color: 'black'}}>
                 <span key={producto.id}>
                 <div className="tarjeta-producto">
-                    <img src={"http://localhost:8000/media/" + relatedProduct.img} className="img-tarjeta-Productos" alt={relatedProduct.nombre} />
+                    <img src={`${process.env.REACT_APP_API_URL}/media/${relatedProduct.img}`} className="img-tarjeta-Productos" alt={relatedProduct.nombre} />
                     <p className="titulo-tarjeta-Productos">{relatedProduct.nombre}</p>
                     <div className="color-circles">
                         {relatedProduct.colores.map(color => (

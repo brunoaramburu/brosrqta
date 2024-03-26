@@ -6,7 +6,7 @@ export const ProductosContext = createContext();
 // Create a provider component
 export const ProductosProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
-  const apiUrl = 'http://localhost:8000/productos/';
+  const apiUrl = `${process.env.REACT_APP_API_URL}/api/productos/`;
 
   useEffect(() => {
     fetch(apiUrl)

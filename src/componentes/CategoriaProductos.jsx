@@ -14,7 +14,7 @@ function CategoriaProductos () {
     const [productosconcolores, setProductosConColores] = useState([]);
     
     useEffect(() => {
-        fetch(`http://localhost:8000/api/categoriaproductos?categoria=${id}`) 
+        fetch(`${process.env.REACT_APP_API_URL}/api/categoriaproductos?categoria=${id}`) 
         .then(response => response.json())
         .then(data => setProductos(data))
         .then(console.log(productos))
@@ -22,7 +22,7 @@ function CategoriaProductos () {
     }, []);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/categoria?id=${id}`) 
+        fetch(`${process.env.REACT_APP_API_URL}/api/categoria?id=${id}`) 
         .then(response => response.json())
         .then(data => setCategoria(data))
         .then(console.log(categoria))
@@ -30,7 +30,7 @@ function CategoriaProductos () {
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/productosconcolores/') 
+        fetch(`${process.env.REACT_APP_API_URL}/api/productosconcolores/`) 
         .then(response => response.json())
         .then(data => setProductosConColores(data))
         .then(console.log(productosconcolores))
@@ -49,7 +49,7 @@ function CategoriaProductos () {
                     <a href={`/producto/${producto.id}`} style={{ textDecoration: 'none', color: 'black'}}>
                         <span key={producto.id}>
                         <div className="tarjeta-producto">
-                            <img src={"http://localhost:8000/media/" + producto.img} className="img-tarjeta-Productos" alt={producto.nombre} />
+                            <img src={`${process.env.REACT_APP_API_URL}/media/${producto.img}`} className="img-tarjeta-Productos" alt={producto.nombre} />
                             <p className="titulo-tarjeta-Productos">{producto.nombre}</p>
                             <div className="color-circles">
                                 {producto.colores.map(color => (

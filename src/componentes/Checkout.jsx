@@ -36,7 +36,7 @@ function Checkout() {
     });
     
     useEffect(() => {
-        fetch('http://localhost:8000/api/envio/') 
+        fetch(`${process.env.REACT_APP_API_URL}/api/envio/`) 
         .then(response => response.json())
         .then(data => {
             setCostoEnvioSucursal(data[0].aSucursal);
@@ -205,7 +205,7 @@ function Checkout() {
             };
     
             // Make an HTTP POST request to the Django API endpoint
-            const response = await fetch("http://localhost:8000/api/crearorden/", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/crearorden/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -267,7 +267,7 @@ function Checkout() {
             };
     
             // Make an HTTP POST request to the Django API endpoint
-            const response = await fetch("http://localhost:8000/api/crearorden/", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/crearorden/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -283,7 +283,7 @@ function Checkout() {
             console.log('Order created successfully:', orderResult);
     
             // Redirect to the specified URL
-            window.location.href = `http://localhost:3000/api/ordentransferencia/${orderResult.id}`;
+            window.location.href = `${process.env.REACT_APP_API_URL}/api/ordentransferencia/${orderResult.id}`;
     
             // Your additional logic after creating the order goes here
     
@@ -503,7 +503,7 @@ function Checkout() {
                         <tbody>
                             {carrito.map((item, index) => (
                                 <tr key={index}>
-                                    <td><img src={"http://localhost:8000" + item.img} width="50px" height="50px" alt={item.description} /></td>
+                                    <td><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="50px" height="50px" alt={item.description} /></td>
                                     <td>{item.description + '(x' + item.quantity + ')'}</td>
                                     <td>{item.talle}</td>
                                     <td>{item.color}</td>

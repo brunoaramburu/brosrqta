@@ -1,6 +1,4 @@
 import "./css/Footer.css";
-import LogoWsp from "./img/logowsp.png";
-import LogoIg from "./img/logoig.png";
 import Mail from "./img/mail.png";
 import Telefono from "./img/telefono.png";
 

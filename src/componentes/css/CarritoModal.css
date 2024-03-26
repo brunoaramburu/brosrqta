@@ -33,6 +33,11 @@
     width: 22px;
     height: 22px;
     cursor: pointer;
+    transition: background-color 0.7s ease 0s;
+}
+
+.boton-cerrar-carrito:hover{
+    background-color: lightgray;
 }
 
 .btn-quantity{
@@ -69,4 +74,17 @@
 
 .titulo-item-carrito{
     margin-top: 10px;
+    font-weight: 600;
+}
+
+.texto-carrito{
+    font-size: 13px;
+}
+
+.precio-carrito{
+    font-weight: 600;
+}
+
+.color-carrito{
+    font-weight: 500;
 }

@@ -9,7 +9,7 @@ function Panel() {
   useEffect(() => {
     // Fetch products if logged in
     if (isLogged) {
-      fetch("http://localhost:8000/api/productos/")
+      fetch(`${process.env.REACT_APP_API_URL}/api/productos/`)
         .then((response) => response.json())
         .then((data) => setProducts(data))
         .catch((error) => console.error(error));

@@ -8,7 +8,7 @@ function Categorias() {
     const [categorias, setCategorias] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/categorias/') 
+        fetch(`${process.env.REACT_APP_API_URL}/api/categorias/`) 
         .then(response => response.json())
         .then(data => setCategorias(data))
         .then(console.log(categorias))
@@ -22,11 +22,15 @@ function Categorias() {
             <div className="Productos">
                 <div className="row">
                 {categorias.map(categoria => (
-                    <div className="tarjeta-Productos" key={categoria.id}>
-                    <img src={"http://localhost:8000" + categoria.img} className="img-tarjeta-Productos"></img>
-                    <p className="titulo-tarjeta-Productos titulo-categoria">{categoria.nombre}</p>
-                    <a href={`/categoria/${categoria.id}`} className="boton-tarjeta-Productos ">VER CATEGORIA</a>
+                    <a href={`/categoria/${categoria.id}`} style={{ textDecoration: 'none', color: 'black'}}>
+                    <span key={categoria.id}>
+                    <div className="tarjeta-producto">
+                        <img src={`${process.env.REACT_APP_API_URL}${categoria.img}`} className="img-tarjeta-Productos" alt={categoria.nombre} />
+                        <p className="titulo-tarjeta-Productos titulo-categoria">{categoria.nombre}</p>
+                        <button className="ver-producto-button">VER CATEGORIA</button>
                     </div>
+                    </span>
+                    </a>
                 ))}
                 </div>
             </div>

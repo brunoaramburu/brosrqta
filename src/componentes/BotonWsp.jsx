@@ -1,15 +1,25 @@
 import React from 'react';
 import './css/BotonWsp.css';
+import telefono from './img/telefono.png';
+import instagram from './img/instagram.jpg';
 
 function BotonWsp() {
     
     return (
-    <div>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
+    <span>
+        <div>
             <a href="https://www.whatsapp.com/catalog/5493482250138/?app_absent=0" className="float" target="_blank">
-                <i className="fa fa-whatsapp my-float"></i>
+                <img className='img-etiquetas' src={telefono}></img>
+                <p className='texto-etiquetas'>+5493482250138</p>
             </a>
-    </div>
+        </div>
+        <div>
+            <a href="https://www.instagram.com/brosrqta/" className="float2" target="_blank">
+                <img className='img-etiquetas' src={instagram}></img>
+                <p className='texto-etiquetas'>@brosrqta</p>
+            </a>
+        </div>
+    </span>
     );
 }
 

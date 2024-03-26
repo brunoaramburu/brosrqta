@@ -7,10 +7,10 @@
     <title>Order Confirmation</title>
 </head>
 <body>
-    <h2>Order Confirmation</h2>
-    <p>Thank you for placing an order with us! Your order ID is {{ orden_id }}.</p>
+    <h2>Orden confirmada</h2>
+    <p>Gracias por confiar en nosotros! La ID de tu orden es {{ orden_id }}.</p>
     
-    <h3>Order Details:</h3>
+    <h3>Detalles:</h3>
     <ul>
         {% for producto in productos %}
             <li>
@@ -21,7 +21,5 @@
             </li>
         {% endfor %}
     </ul>
-    
-    <p>We appreciate your business.</p>
 </body>
 </html>

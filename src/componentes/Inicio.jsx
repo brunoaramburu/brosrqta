@@ -8,7 +8,7 @@ function Inicio() {
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/productosconcolores/') 
+        fetch(`${process.env.REACT_APP_API_URL}/api/productosconcolores/`) 
         .then(response => response.json())
         .then(data => setProductos(data))
         .then(console.log(productos))
@@ -42,7 +42,7 @@ function Inicio() {
                         <a href={`/producto/${producto.id}`} style={{ textDecoration: 'none', color: 'black'}}>
                             <span key={producto.id}>
                             <div className="tarjeta-producto">
-                                <img src={"http://localhost:8000/media/" + producto.img} className="img-tarjeta-Productos" alt={producto.nombre} />
+                                <img src={`${process.env.REACT_APP_API_URL}/media/${producto.img}`} className="img-tarjeta-Productos" alt={producto.nombre} />
                                 <p className="titulo-tarjeta-Productos">{producto.nombre}</p>
                                 <div className="color-circles">
                                     {producto.colores.map(color => (
@@ -58,15 +58,16 @@ function Inicio() {
                     </div>
                 </div>
                 <div className="row-btn-ver-todos">
-                    <button className="btn-ver-todos">VER TODOS</button>
+                    <a className="btn-ver-todos" href="/productos">VER TODOS</a>
+                    
                 </div>
-                <div className="container-suscripcion">
+                {/* <div className="container-suscripcion">
                     <p className="texto-suscripcion">SUSCRIBITE PARA RECIBIR NOVEDADES</p>
                     <div>
                         <input className="input-suscripcion" type="email"></input>
                         <button className="boton-suscripcion">ENVIAR</button>
                     </div>
-                </div>
+                </div> */}
             </div>
             <Footer/>
         </div>

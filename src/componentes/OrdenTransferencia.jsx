@@ -13,7 +13,7 @@ function OrdenTransferencia () {
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/obtenerorden?id=${id}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/obtenerorden?id=${id}`)
             .then(response => response.json())
             .then(data => {
                 setOrden(data);
@@ -93,7 +93,7 @@ function OrdenTransferencia () {
                     <tbody>
                         {productos.map((item, index) => (
                             <tr className='item-tabla-orden' key={index}>
-                                <td><img src={"http://localhost:8000" + item.img} width="50px" height="50px" alt={item.description} /></td>
+                                <td><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="50px" height="50px" alt={item.description} /></td>
                                 <td>{item.description + '(x' + item.quantity + ')'}</td>
                                 <td>{item.talle}</td>
                                 <td>{item.color}</td>

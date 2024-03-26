@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './css/Loader.css';
-import gif from './img/loader.gif';
+import video from './img/loader.mp4'; // Importa tu video .mp4
 
 const Loader = () => {
   const [loading, setLoading] = useState(true);
@@ -8,14 +8,18 @@ const Loader = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3500);
+    }, 50);
+    // }, 6000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return loading ? (
     <div className="loader-container">
-      <img src={gif} alt="Loading" />
+      <video autoPlay loop muted className="video">
+        <source src={video} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </div>
   ) : null;
 };

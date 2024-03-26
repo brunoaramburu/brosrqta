@@ -15,7 +15,7 @@ function Navbar() {
   const [animationKey, setAnimationKey] = useState(0); // Add a state for animation key
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/avisos/') 
+    fetch(`${process.env.REACT_APP_API_URL}/api/avisos/`) 
       .then(response => response.json())
       .then(data => setAvisos(data))
       .catch(error => console.error(error));
@@ -65,10 +65,10 @@ function Navbar() {
         </div>
         <div className="nav-derecha">
           <p className="item-nav buscar-text link" onClick={toggleSearchInput}>BUSCAR</p>
-          <span className='carrito-text link'><CarritoModal isOpen={isCarritoModalOpen} onClose={toggleCarritoModal} /></span>
+          <CarritoModal isOpen={isCarritoModalOpen} onClose={toggleCarritoModal} />
         </div>
       </div>
-      {isSearchInputVisible && (
+      {isSearchInputVisible && isCarritoModalOpen == false &&(
         <div className="search-container">
           <div className="search-bar">
             <input
@@ -84,13 +84,13 @@ function Navbar() {
           </div>
         </div>
       )}
-      {isSearchInputVisible && searchQuery.length > 0 && (
+      {isSearchInputVisible && isCarritoModalOpen == false && searchQuery.length > 0 && (
         <div className="search-container">
           <div className="search-results">
             {filteredProductos.slice(0, 10).map(producto => (
               <a href={`/producto/${producto.id}`} key={producto.id}>
                 <div className="product-item">
-                  <img src={"http://localhost:8000" + producto.img} alt={producto.nombre} />
+                  <img src={`${process.env.REACT_APP_API_URL}${producto.img}`} alt={producto.nombre} />
                   <p className="product-name">{producto.nombre}</p>
                   <p className="product-price">${producto.precio}</p>
                 </div>
