@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './css/Loader.css';
-import video from './img/loader.mp4'; // Importa tu video .mp4
+import video from './img/loader.mp4';
 
 const Loader = () => {
   const [loading, setLoading] = useState(true);
@@ -8,7 +8,7 @@ const Loader = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    // }, 50);
+    //  }, 50);
     }, 6000);
 
     return () => clearTimeout(timer);

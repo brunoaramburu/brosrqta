@@ -55,10 +55,9 @@ function Navbar() {
         </p>
       </div>
       <div className="navbar">
-        <div className="nav-izquierda">
-          <a className='link' href="/"><p className="tienda item-nav">TIENDA</p></a>
+        <div className="nav-derecha">
+          <a className='link' href="/tienda"><p className="tienda item-nav">TIENDA</p></a>
           <a className='link' href="/categorias"><p className="item-nav">CATEGORIAS</p></a>
-          <a className='link' href="/acercade"><p className="item-nav">ACERCA DE</p></a>
         </div>
         <div className="logo-nav">
           <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='50px' height='50px'/></a>

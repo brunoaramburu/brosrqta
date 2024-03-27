@@ -58,7 +58,7 @@ function Inicio() {
                     </div>
                 </div>
                 <div className="row-btn-ver-todos">
-                    <a className="btn-ver-todos" href="/productos">VER TODOS</a>
+                    <a className="btn-ver-todos" href="/tienda">VER TODOS</a>
                     
                 </div>
                 {/* <div className="container-suscripcion">

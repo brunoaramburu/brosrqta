@@ -29,7 +29,7 @@ function App() {
               {/* <Route exact={true} path="/panel" element={<Panel/>}/> */}
               <Route exact={true} path="/categorias" element={<Categorias/>}/>
               <Route exact={true} path="/categoria/:id" element={<CategoriaProductos/>}/>
-              <Route exact={true} path="/productos" element={<Productos/>}/>
+              <Route exact={true} path="/tienda" element={<Productos/>}/>
               <Route exact={true} path="/producto/:id" element={<DetalleProducto/>}/>
               <Route exact={true} path="/checkout" element={<Checkout/>}/>
               <Route exact={true} path="/ordentransferencia/:id" element={<OrdenTransferencia/>}/>

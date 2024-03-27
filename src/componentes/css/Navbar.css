@@ -227,13 +227,6 @@ h4{
     color: white;
 }
 
-.logo:hover{
-    box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.575);
-	-webkit-box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.57);
-	-moz-box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.57);
-    border-radius: 30px;
-}
-
 .fade-in-out {
     animation: fade-in-out 7s linear infinite;
 }
