@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -154,4 +155,4 @@ EMAIL_USE_TLS = True  # Use TLS for secure connection
 EMAIL_HOST_USER = 'brunoaramburu8@gmail.com'
 EMAIL_HOST_PASSWORD = 'mqifgfwwhazjzndu'
 
-CSRF_USE_SESSIONS = True
+CSRF_TRUSTED_ORIGINS = ['https://brosrqta.com.ar']
