@@ -47,6 +47,26 @@ function Navbar() {
     producto.nombre.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleMouseEnter = () => {
+    const categoriasDropdown = document.querySelector('.categorias-dropdown');
+    categoriasDropdown.style.display = 'block';
+  };
+  
+  const handleMouseLeave = () => {
+    const categoriasDropdown = document.querySelector('.categorias-dropdown');
+    categoriasDropdown.style.display = 'none';
+  };
+
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+      fetch(`${process.env.REACT_APP_API_URL}/api/categorias/`) 
+      .then(response => response.json())
+      .then(data => setCategorias(data))
+      .then(console.log(categorias))
+      .catch(error => console.error(error));
+  }, []);
+
   return (
     <div className="navbar-container">
       <div className="aviso">
@@ -55,16 +75,33 @@ function Navbar() {
         </p>
       </div>
       <div className="navbar">
-        <div className="nav-derecha">
+        <div className="nav-derecha" onMouseLeave={handleMouseLeave}>
           <a className='link' href="/tienda"><p className="tienda item-nav">TIENDA</p></a>
-          <a className='link' href="/categorias"><p className="item-nav">CATEGORIAS</p></a>
+          <a onMouseEnter={handleMouseEnter}>
+            <span className='link'><p className="item-nav" >CATEGORIAS</p></span>
+            <div className="categorias-dropdown">
+              <ul>
+                {categorias.map(categoria => (
+                  <li className='link-dropdown'>
+                    <a href={`/categoria/${categoria.id}`} style={{ textDecoration: 'none', color: 'black'}}>
+                    <span className='container-cat-nav'>
+                    <img src={`${process.env.REACT_APP_API_URL}${categoria.img}`} alt={categoria.nombre} className='img-categoria-navbar'/>
+                    <p className='texto-categorias-navbar'>{categoria.nombre}</p>
+                    </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>  
+          </a>
+          
         </div>
         <div className="logo-nav">
           <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='50px' height='50px'/></a>
         </div>
         <div className="nav-derecha">
           <p className="item-nav buscar-text link" onClick={toggleSearchInput}>BUSCAR</p>
-          <CarritoModal isOpen={isCarritoModalOpen} onClose={toggleCarritoModal} />
+          <span><CarritoModal isOpen={isCarritoModalOpen} onClose={toggleCarritoModal} /></span>
         </div>
       </div>
       {isSearchInputVisible && isCarritoModalOpen == false &&(

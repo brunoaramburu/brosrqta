@@ -395,3 +395,59 @@ def ActualizarEstadoUalaView(request):
     except json.JSONDecodeError:
         # Handle JSON decoding error
         return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    
+@csrf_exempt
+def ActualizarEstadoView(request):
+    if request.method == 'POST':
+        try:
+            # Parse the JSON data from the request
+            data = json.loads(request.body)
+
+            # Extract relevant information from the JSON data
+            uuid = data.get("uuid")
+            status = data.get("status")
+
+            # Map status to corresponding 'estado' values
+            estado_mapping = {
+                "APPROVED": "realizada",
+                "PROCESSED": "procesada",
+                "REJECTED": "cancelada",
+            }
+
+            # Fetch the order with idtransferencia = uuid
+            try:
+                order = Orden.objects.get(idtransferencia=uuid)
+            except Orden.DoesNotExist:
+                return JsonResponse({'error': 'Order not found for the given UUID'}, status=404)
+
+            # Update the 'estado' field based on the status
+            new_estado = estado_mapping.get(status)
+            if new_estado is not None:
+                # Update order estado
+                order.estado = new_estado
+                order.save()
+
+                # If the status is 'realizada' or 'procesada', update stock
+                if new_estado in ['realizada', 'procesada']:
+                    for product_info in order.productos:
+                        producto_id = product_info.get('id')
+                        cantidad = product_info.get('quantity')
+                        # Find the ProductoColorTamaño object and update stock
+                        try:
+                            product_color_size = ProductoColorTamaño.objects.get(producto_id=producto_id)
+                            product_color_size.stock -= cantidad
+                            product_color_size.save()
+                        except ProductoColorTamaño.DoesNotExist:
+                            # Handle if product not found
+                            pass
+
+                return JsonResponse({'success': 'Order status updated successfully'})
+            else:
+                return JsonResponse({'error': 'Invalid status value'}, status=400)
+
+        except json.JSONDecodeError:
+            # Handle JSON decoding error
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

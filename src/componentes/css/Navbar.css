@@ -58,6 +58,18 @@ h4{
     opacity: 0.6;
 }
 
+.link-dropdown {
+    text-decoration: none;
+    background-color: transparent; /* Establece el color de fondo predeterminado */
+    transition: background-color 0.4s ease; /* Transición solo para el color de fondo */
+    padding: 0;
+}
+
+/* Define el efecto de hover para cambiar el color de fondo */
+.link-dropdown:hover {
+    background-color: rgba(0, 0, 0, 0.2); /* Cambia el color de fondo al pasar el mouse */
+}
+
 .aviso{
     height: 35px;
     width: 100%;
@@ -235,6 +247,49 @@ h4{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.categorias-dropdown {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    margin-top: 12px;
+}
+
+.categorias-dropdown ul {
+list-style-type: none;
+padding: 0;
+margin: 0;
+}
+
+.nav-derecha:hover .categorias-dropdown,
+.categorias-dropdown:hover {
+display: block;
+}
+
+.img-categoria-navbar{
+    height: 100%;
+    aspect-ratio: 1/1;
+    padding: 0;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+.texto-categorias-navbar{
+    justify-content: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.container-cat-nav{
+    display: flex;
+    text-align: center;
+    height: 50px;
 }
 
 @keyframes fade-in-out {

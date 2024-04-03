@@ -54,3 +54,15 @@
     max-width: 80%;
     padding: 10px;
 }
+
+.titulo-orden-transferencia{
+    justify-content: left;
+}
+
+.td-numero-paso{
+    font-weight: 600;
+}
+
+.tabla-pasos-medio{
+    margin-block: 20px;
+}

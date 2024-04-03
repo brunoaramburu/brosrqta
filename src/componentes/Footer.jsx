@@ -1,3 +1,4 @@
+import BotonWsp from "./BotonWsp";
 import "./css/Footer.css";
 import Mail from "./img/mail.png";
 import Telefono from "./img/telefono.png";
@@ -6,6 +7,7 @@ function Footer() {
 
     return(
         <div>
+            <BotonWsp/>
             <h3 className="titulo-clientes">CONFIARON EN NOSOTROS</h3>
             <div className="footer-items">
                 <div className="footer-cliente">

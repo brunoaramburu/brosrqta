@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from brosback.views import create_preference, ProductoCreateAPIView, ProductoListView, ProductoDetailView, TamanoNombreView, CategoriaListView, ProductsByCategoryView, CategoryDetailView, FotoTalleView, ProductosConColoresView, ProductoDetalleView, ImagenesProductoView, CrearOrdenView, ModificarEstadoView, ObtenerOrdenView, ActualizarEstadoUalaView, AvisoListView, EnvioListView
+from brosback.views import create_preference, ProductoCreateAPIView, ProductoListView, ProductoDetailView, TamanoNombreView, CategoriaListView, ProductsByCategoryView, CategoryDetailView, FotoTalleView, ProductosConColoresView, ProductoDetalleView, ImagenesProductoView, CrearOrdenView, ModificarEstadoView, ObtenerOrdenView, ActualizarEstadoUalaView, AvisoListView, EnvioListView, ActualizarEstadoView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -44,6 +44,7 @@ urlpatterns = [
     path('api/obtenerorden/', ObtenerOrdenView, name='obtener_orden_api'),
     path('api/actualizarestadouala/', ActualizarEstadoUalaView, name='actualizar_estado_uala_api'),
     path('api/modificarestado/<int:id>/', ModificarEstadoView.as_view(), name='modify_estado_api'),
+    path('api/actualizarestado/', ActualizarEstadoView, name='actualizar_estado_api'),
     path('api/envio/', EnvioListView.as_view(), name='envio'),
     path('api/avisos/', AvisoListView.as_view(), name='avisos'),
     path('', TemplateView.as_view(template_name='index.html')),

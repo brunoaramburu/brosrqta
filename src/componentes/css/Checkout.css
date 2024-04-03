@@ -22,7 +22,11 @@
 
 .customer-form-container{
     width: 55%;
-    border-right: 2px dashed black;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.30);
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.30);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.30);
+    padding: 40px;
+    margin: 20px;
 }
 
 .form-section {
@@ -33,6 +37,11 @@
 
 .container-tabla-carrito-checkout{
     width: 35%;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.30);
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.30);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.30);
+    padding: 40px;
+    margin: 20px;
 }
 
 .tabla-container {
@@ -93,6 +102,17 @@
 }
 
 .titulo-checkout{
-    font-weight: 550;
+    font-weight: 600;
     margin-top: 10px;
+}
+
+.input-form-checkout{
+    border: 1px solid black;
+    border-radius: 0;
+}
+
+.tabla-carrito-checkout{
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.20);
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.20);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.20);
 }

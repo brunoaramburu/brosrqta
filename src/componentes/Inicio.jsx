@@ -17,7 +17,7 @@ function Inicio() {
 
     return(
         <div>
-            <Navbar/>
+            <span className="z-index-1"><Navbar/></span>
             <div className="carousel">
 
             </div>

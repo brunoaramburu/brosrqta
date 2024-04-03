@@ -18,7 +18,6 @@ function App() {
   return (
     <div>
         <Loader/>
-        <BotonWsp/>
         <Router>
           <ProductosProvider>
           <CarritoProvider>

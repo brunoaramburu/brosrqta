@@ -30,79 +30,96 @@ function OrdenTransferencia () {
     return(
         <div>
             <Navbar/>
-            <h3 className="titulo-Productos">GRACIAS, RECIBIMOS TU PEDIDO.</h3>
-            <span className='container-orden'>
-            <div className='detalle-orden'>
-                <div>
-                    <p>NÚMERO DE ORDEN:</p>
-                    <p>{orden.id}</p>
-                </div>
-                <div>
-                    <p>FECHA:</p>
-                    <p>{formatDate(orden.fecha)}</p>
-                </div>
-                <div>
-                    <p>MEDIO DE PAGO:</p>
-                    <p>{orden.medio}</p>
-                </div>
-                <div>
-                    <p>TOTAL:</p>
-                    <p>${orden.preciototal}</p>
-                </div>
-            </div>
-            </span>
-            <h3 className="titulo-Productos">
-                PASOS A SEGUIR:
-            </h3>
-            <span className='container-pasos'>
-                <div className='pasos-a-seguir'>
-                    <p className='texto-pasos-a-seguir'>Realiza tu pago directamente en nuestra cuenta bancaria. 
-                    Por favor, usa el número del pedido como referencia de pago. 
-                    Tu pedido no se procesará hasta que se haya recibido el importe en nuestra cuenta.
-                    </p>
-                </div>
-                <div className='pasos-a-seguir'>
-                    <p className='texto-pasos-a-seguir'>IMPORTANTE: el pedido no sera preparado hasta que no se envie el 
-                    comprobante de pago por WHATSAPP al +54 9 2215 54-8273 con el número de pedido correspondiente.
-                    </p>
-                </div>
-                <div className='pasos-a-seguir cuenta-bancaria'>
-                    <p className='texto-pasos-a-seguir'>
-                    Nombre: BROS
-                    </p>
-                    <p className='texto-pasos-a-seguir'>
-                    Alias: bros.mp
-                    </p>
-                    <p className='texto-pasos-a-seguir'>
-                    CBU/CVU n°: 0000003100071795533792
-                    </p>
-                </div>
-                <h3 className="titulo-Productos">
-                PRODUCTOS:
-                </h3>
-                <table className='tabla-carrito-checkout tabla-orden-transferencia'>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Nombre</th>
-                            <th>Tamaño</th>
-                            <th>Color</th>
-                            <th>Precio unitario</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {productos.map((item, index) => (
-                            <tr className='item-tabla-orden' key={index}>
-                                <td><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="50px" height="50px" alt={item.description} /></td>
-                                <td>{item.description + '(x' + item.quantity + ')'}</td>
-                                <td>{item.talle}</td>
-                                <td>{item.color}</td>
-                                <td>${item.price}</td>
+            <span className='container-checkout-1'>
+                <div className='customer-form-container'>
+                    <h2 className="titulo-orden-transferencia">RESUMEN DE TU PEDIDO</h2>
+                    <span className='container-orden'>
+                    <table className='tabla-carrito-checkout'>
+                        <thead>
+                            <tr>
+                                <th>NÚMERO DE ORDEN</th>
+                                <th>FECHA</th>
+                                <th>MEDIO DE PAGO</th>
+                                <th>TOTAL</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{orden.id}</td>
+                                <td>{formatDate(orden.fecha)}</td>
+                                <td>{orden.medio}</td>
+                                <td>${orden.preciototal}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    </span>
+                    <h2 className="titulo-orden-transferencia">
+                    PRODUCTOS
+                    </h2>
+                    <table className='tabla-carrito-checkout'>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Tamaño</th>
+                                <th>Color</th>
+                                <th>Precio unitario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {productos.map((item, index) => (
+                                <tr className='item-tabla-orden' key={index}>
+                                    <td><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="50px" height="50px" alt={item.description} /></td>
+                                    <td>{item.description + '(x' + item.quantity + ')'}</td>
+                                    <td>{item.talle}</td>
+                                    <td>{item.color}</td>
+                                    <td>${item.price}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                <div className='container-tabla-carrito-checkout'>
+                    <h2 className="titulo-orden-transferencia">
+                        PASOS A SEGUIR
+                    </h2>
+                    <table className='tabla-carrito-checkout'>
+                        <tr>
+                            <td className='td-numero-paso'>1.</td>
+                            <td>
+                            Realiza tu pago directamente en nuestra cuenta bancaria. 
+                            Por favor, usa el número de orden como referencia de pago. 
+                            </td>
+                        </tr>
+                    </table>
+                    <table className='tabla-carrito-checkout tabla-pasos-medio'>    
+                        <tr>
+                            <td className='td-numero-paso'>2.</td>
+                            <td>
+                            <div>
+                                <p className='texto-pasos-a-seguir'>
+                                Alias: bros.mp
+                                </p>
+                                <p className='texto-pasos-a-seguir'>
+                                CBU/CVU n°: 0000003100071795533792
+                                </p>
+                            </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table className='tabla-carrito-checkout'>    
+                        <tr>
+                            <td className='td-numero-paso'>3.</td>
+                            <td>
+                            Enviá el comprobante de transferencia con el número de orden a nuestro WhatsApp: +5493482250138.
+                            El pedido no sera preparado hasta que se complete este paso.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </span>
+            
             <Footer/>
         </div>
     );

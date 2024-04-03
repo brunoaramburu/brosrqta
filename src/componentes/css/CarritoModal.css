@@ -1,3 +1,8 @@
+.carrito-modal{
+    position: absolute;
+    z-index: 1500;
+}
+
 .tabla-carrito-checkout {
     align-items: center; /* Center vertically */
     width: 100%; /* Fill the entire height of the modal */

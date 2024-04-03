@@ -126,22 +126,22 @@ function Checkout() {
             return; // Exit the function if no shipping option is selected
         }
         
-        else if (
-            !customerData.nombre ||
-            !customerData.apellido ||
-            !customerData.identificacion.tipo ||
-            !customerData.identificacion.numero ||
-            !customerData.email ||
-            !customerData.telefono.numero ||
-            !customerData.direccion.provincia ||
-            !customerData.direccion.ciudad ||
-            !customerData.direccion.nombre_calle ||
-            !customerData.direccion.numero_calle ||
-            !customerData.direccion.codigo_postal
-        ) {
-            alert('Por favor completa todos los campos requeridos del formulario.');
-            return; // Exit the function if any required field is missing
-        }
+        // else if (
+        //     !customerData.nombre ||
+        //     !customerData.apellido ||
+        //     !customerData.identificacion.tipo ||
+        //     !customerData.identificacion.numero ||
+        //     !customerData.email ||
+        //     !customerData.telefono.numero ||
+        //     !customerData.direccion.provincia ||
+        //     !customerData.direccion.ciudad ||
+        //     !customerData.direccion.nombre_calle ||
+        //     !customerData.direccion.numero_calle ||
+        //     !customerData.direccion.codigo_postal
+        // ) {
+        //     alert('Por favor completa todos los campos requeridos del formulario.');
+        //     return; // Exit the function if any required field is missing
+        // }
 
         else{
         
@@ -175,12 +175,13 @@ function Checkout() {
               Authorization: `Bearer ${access_token}`
             },
             body: JSON.stringify({
-              amount: totalPriceWithShipping.toString(),
-              description: 'Venta',
+            //   amount: totalPriceWithShipping.toString(),
+              amount: '50',
+              description: 'BROS. tienda online',
               userName: 'new_user_1631906477',
               callback_fail: 'https://www.google.com/search?q=failed',
               callback_success: 'https://www.google.com/search?q=success',
-              notification_url: 'https://www.notificationurl.com'
+              notification_url: 'https://www.brosrqta.com.ar/api/actualizarestado'
             })
           });
       
@@ -283,7 +284,7 @@ function Checkout() {
             console.log('Order created successfully:', orderResult);
     
             // Redirect to the specified URL
-            window.location.href = `${process.env.REACT_APP_API_URL}/api/ordentransferencia/${orderResult.id}`;
+            window.location.href = `${process.env.REACT_APP_API_URL}/ordentransferencia/${orderResult.id}`;
     
             // Your additional logic after creating the order goes here
     
@@ -321,6 +322,7 @@ function Checkout() {
                             <span className='span-nombre'>
                             <label for="name">* Nombre:</label>
                             <input
+                                className='input-form-checkout'
                                 type="text"
                                 value={customerData.nombre}
                                 onChange={(e) =>
@@ -331,6 +333,7 @@ function Checkout() {
                             <span className='span-nombre'>
                             <label for="surname">* Apellido:</label>
                             <input
+                                className='input-form-checkout'
                                 type="text"
                                 value={customerData.apellido}
                                 onChange={(e) =>
@@ -344,6 +347,7 @@ function Checkout() {
                                 <span className='span-id'>
                                 <label for="identificationType">* Tipo:</label>
                                 <select
+                                    className='input-form-checkout'
                                     value={customerData.identificacion.tipo}
                                     onChange={(e) =>
                                         setCustomerData({
@@ -360,6 +364,7 @@ function Checkout() {
                                 <span className='span-id-number'>
                                 <label for="identificationNumber">* Número de Identificación:</label>
                                 <input
+                                    className='input-form-checkout'
                                     type="text"
                                     value={customerData.identificacion.numero}
                                     onChange={(e) =>
@@ -375,6 +380,7 @@ function Checkout() {
                         <div className="form-section">
                             <label for="email">* Email:</label>
                             <input
+                                className='input-form-checkout'
                                 type="email"
                                 value={customerData.email}
                                 onChange={(e) =>
@@ -387,6 +393,7 @@ function Checkout() {
                                 <span className='span-telefono'>
                                 <label for="phone">* Teléfono:</label>
                                 <input
+                                    className='input-form-checkout'
                                     type="text"
                                     value={customerData.telefono.numero}
                                     onChange={(e) =>
@@ -404,6 +411,7 @@ function Checkout() {
                                 <span className='span-id'>
                                 <label for="identificationType">* Provincia:</label>
                                 <select
+                                    className='input-form-checkout'
                                     value={customerData.direccion.provincia}
                                     onChange={(e) =>
                                         setCustomerData({
@@ -423,6 +431,7 @@ function Checkout() {
                                 <span className='span-id-number'>
                                 <label for="identificationNumber">* Localidad:</label>
                                 <input
+                                    className='input-form-checkout'
                                     type="text"
                                     value={customerData.direccion.ciudad}
                                     onChange={(e) =>
@@ -438,7 +447,7 @@ function Checkout() {
                         <div className="form-section">
                             <label for="streetName">Dirección:</label>
                             <input
-                                className='input-direccion'
+                                className='input-direccion input-form-checkout'
                                 type="text"
                                 placeholder="* Nombre de la calle"
                                 value={customerData.direccion.nombre_calle}
@@ -450,9 +459,9 @@ function Checkout() {
                                 }
                             />
                             <input
-                                className='input-direccion'
+                                className='input-direccion input-form-checkout'
                                 type="text"
-                                placeholder="* Número de la calle"
+                                placeholder="* Número de la casa"
                                 value={customerData.direccion.numero_calle}
                                 onChange={(e) =>
                                     setCustomerData({
@@ -462,7 +471,7 @@ function Checkout() {
                                 }
                             />
                             <input
-                                className='input-direccion'
+                                className='input-direccion input-form-checkout'
                                 type="text"
                                 placeholder="Departamento / Piso"
                                 value={customerData.direccion.piso}
@@ -474,7 +483,7 @@ function Checkout() {
                                 }
                             />
                             <input
-                                className='input-direccion'
+                                className='input-direccion input-form-checkout'
                                 type="text"
                                 placeholder="* Código postal"
                                 value={customerData.direccion.codigo_postal}
@@ -502,7 +511,7 @@ function Checkout() {
                         </thead>
                         <tbody>
                             {carrito.map((item, index) => (
-                                <tr key={index}>
+                                <tr className='img-items-checkout' key={index}>
                                     <td><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="50px" height="50px" alt={item.description} /></td>
                                     <td>{item.description + '(x' + item.quantity + ')'}</td>
                                     <td>{item.talle}</td>
@@ -521,6 +530,7 @@ function Checkout() {
                         </label>
                         <label>
                             <input
+                                className='input-form-checkout'
                                 type="radio"
                                 value="domicilio"
                                 checked={selectedEnvioMethod === 'domicilio'}
@@ -530,6 +540,7 @@ function Checkout() {
                         </label>
                         <label>
                             <input
+                                className='input-form-checkout'
                                 type="radio"
                                 value="sucursal"
                                 checked={selectedEnvioMethod === 'sucursal'}
@@ -539,6 +550,7 @@ function Checkout() {
                         </label>
                         <label>
                             <input
+                                className='input-form-checkout'
                                 type="radio"
                                 value="retiro"
                                 checked={selectedEnvioMethod === 'retiro'}
@@ -558,7 +570,7 @@ function Checkout() {
                         </label>
                         <label>
                             <input
-                                className='input-radio'
+                                className='input-radio input-form-checkout'
                                 type="radio"
                                 value="uala"
                                 checked={selectedPaymentMethod === 'uala'}
@@ -568,6 +580,7 @@ function Checkout() {
                         </label>
                         <label>
                             <input
+                                className='input-form-checkout'
                                 type="radio"
                                 value="transferencia"
                                 checked={selectedPaymentMethod === 'transferencia'}
@@ -581,6 +594,12 @@ function Checkout() {
                         <Wallet initialization={{ preferenceId: idMP, redirectMode: 'modal' }} customization={customization} />
                         )}
                     </div> */}
+                    <div className="container-boton-agregar-carrito">
+                        {selectedPaymentMethod != 'uala' && selectedPaymentMethod != 'transferencia' && (
+                        <button className="boton-agregar-carrito-disabled" disabled>PAGAR</button>
+                        )}
+                    </div>
+                    
                     <div className="container-boton-agregar-carrito">
                         {selectedPaymentMethod === 'uala' && (
                         <button className='boton-agregar-carrito' onClick={postUALA}>PAGAR CON TARJETA DE CREDITO / DEBITO</button>
