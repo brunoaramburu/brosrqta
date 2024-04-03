@@ -181,7 +181,7 @@ function Checkout() {
               userName: 'new_user_1631906477',
               callback_fail: 'https://www.google.com/search?q=failed',
               callback_success: 'https://www.google.com/search?q=success',
-              notification_url: 'https://www.brosrqta.com.ar/api/actualizarestado'
+              notification_url: 'https://www.brosrqta.com.ar/api/actualizarestado/'
             })
           });
       
