@@ -14,7 +14,7 @@ class CategoriaSerializer(serializers.ModelSerializer):
 class OrdenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orden
-        fields = ['id', 'datoscliente', 'productos', 'fecha', 'estado', 'medio', 'preciototal', 'idtransferencia']    
+        fields = ['id', 'datoscliente', 'productos', 'fecha', 'estado', 'medio', 'preciototal', 'precioenvio', 'precioproductos', 'idtransferencia', 'medioenvio']    
 
 class EnvioSerializer(serializers.ModelSerializer):
     class Meta:

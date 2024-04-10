@@ -17,7 +17,7 @@ function Productos() {
     }, []);
 
     return(
-        <div>
+        <div className="padding-top-navbar">
             <Navbar/>
             <h3 className="titulo-Productos">PRODUCTOS</h3>
             <div className="Productos">
@@ -27,6 +27,7 @@ function Productos() {
                         <span key={producto.id}>
                         <div className="tarjeta-producto">
                             <img src={`${process.env.REACT_APP_API_URL}/media/${producto.img}`} className="img-tarjeta-Productos" alt={producto.nombre} />
+                            <span className="padding-contenido-tarjeta-productos">
                             <p className="titulo-tarjeta-Productos">{producto.nombre}</p>
                             <div className="color-circles">
                                 {producto.colores.map(color => (
@@ -34,6 +35,8 @@ function Productos() {
                                 ))}
                             </div>
                             <p className="precio-tarjeta-Productos">${producto.precio}</p>
+                            </span>
+                            <span className="ver-producto-span"></span>
                             <button className="ver-producto-button">VER PRODUCTO</button>
                         </div>
                         </span>

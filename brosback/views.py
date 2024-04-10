@@ -291,18 +291,25 @@ def CrearOrdenView(request):
             # Save the order
             orden = serializer.save()
 
-            email_subject = f'Tu orden fue realizada con el numero {orden.id}'
+            # Only send email if medio is 'transferencia'
+            if orden.medio == 'transferencia':
+                email_subject = f'Orden de compra n.º{orden.id} realizada con éxito.'
 
-            # Render HTML email template with product data
-            email_message = render_to_string('email_orden_template.html', {
-                'orden_id': orden.id,
-                'productos': orden.productos,
-            })
+                # Render HTML email template with product data
+                email_message = render_to_string('email_transferencia.html', {
+                    'orden_id': orden.id,
+                    'productos': orden.productos,
+                    'preciototal': orden.preciototal,
+                    'precioproductos': orden.precioproductos,
+                    'precioenvio': orden.precioenvio,
+                    'datoscliente': orden.datoscliente,
+                    'medioenvio': orden.medioenvio,
+                })
 
-            # Send email with HTML content
-            email_to = [orden.datoscliente.get('email', 'fallback_email@example.com')]
-            send_mail(email_subject, '', 'brunoaramburu8@gmail.com', email_to, html_message=email_message)
-            
+                # Send email with HTML content
+                email_to = [orden.datoscliente.get('email', 'fallback_email@example.com')]
+                send_mail(email_subject, '', 'brunoaramburu8@gmail.com', email_to, html_message=email_message)
+
             # Return the order details as JSON response
             orden_data = {
                 'id': orden.id,
@@ -312,6 +319,9 @@ def CrearOrdenView(request):
                 'estado': orden.estado,
                 'medio': orden.medio,
                 'preciototal': orden.preciototal,
+                'precioproductos': orden.precioproductos,
+                'precioenvio': orden.precioenvio,
+                'medioenvio': orden.medioenvio,
                 'idtransferencia': orden.idtransferencia,
             }
 
@@ -440,6 +450,20 @@ def ActualizarEstadoView(request):
                         except ProductoColorTamaño.DoesNotExist:
                             # Handle if product not found
                             pass
+
+                    # Send email to the customer
+                    email_subject = f'Tu compra fue realizada con éxito - Orden n.º{order.id}'
+                    email_message = render_to_string('email_uala.html', {
+                        'orden_id': order.id,
+                        'productos': order.productos,
+                        'preciototal': order.preciototal,
+                        'precioproductos': order.precioproductos,
+                        'precioenvio': order.precioenvio,
+                        'datoscliente': order.datoscliente,
+                        'medioenvio': order.medioenvio,
+                    })
+                    email_to = [order.datoscliente.get('email', 'fallback_email@example.com')]
+                    send_mail(email_subject, '', 'brunoaramburu8@gmail.com', email_to, html_message=email_message)
 
                 return JsonResponse({'success': 'Order status updated successfully'})
             else:

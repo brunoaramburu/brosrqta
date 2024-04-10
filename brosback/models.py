@@ -104,7 +104,10 @@ class Orden(models.Model):
     fecha = models.DateTimeField(default=timezone.now)
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES)
     medio = models.CharField(max_length=25, choices=MEDIO_CHOICES)
+    precioproductos = models.CharField(max_length=50)
+    precioenvio = models.CharField(max_length=50)
     preciototal = models.CharField(max_length=50)
+    medioenvio = models.CharField(max_length=100)
     idtransferencia = models.CharField(max_length=100, default=None)
 
     def __str__(self):

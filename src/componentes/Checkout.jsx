@@ -175,8 +175,7 @@ function Checkout() {
               Authorization: `Bearer ${access_token}`
             },
             body: JSON.stringify({
-            //   amount: totalPriceWithShipping.toString(),
-              amount: '50',
+              amount: totalPriceWithShipping.toString(),
               description: 'BROS. tienda online',
               userName: 'new_user_1631906477',
               callback_fail: 'https://www.google.com/search?q=failed',
@@ -202,6 +201,9 @@ function Checkout() {
                 estado: 'pendiente',
                 medio: 'uala',
                 preciototal: totalPriceWithShipping,
+                precioproductos: totalPrice,
+                precioenvio: envio,
+                medioenvio: selectedEnvioMethod,
                 idtransferencia: paymentResult.uuid,
             };
     
@@ -264,6 +266,9 @@ function Checkout() {
                 estado: 'pendiente',
                 medio: 'transferencia',
                 preciototal: totalPriceWithShipping,
+                precioproductos: totalPrice,
+                precioenvio: envio,
+                medioenvio: selectedEnvioMethod,
                 idtransferencia: ".",
             };
     
@@ -309,313 +314,304 @@ function Checkout() {
     const totalPriceWithShipping = totalPrice + (envio || 0);
 
     return(
-        <div>
+        <div className="padding-top-navbar">
             <Navbar/>
-                {step === 1 && (
-                // Part 2: Display customer data form
-                <span className='container-checkout-1'>
-                <div className='customer-form-container'>    
-                    <h2>DETALLES DE FACTURACIÓN</h2>
-                    <p>{'(*) Campos obligatorios.'}</p>
-                    <form className="customer-form">
-                            <div className="form-section section-nombre">
-                            <span className='span-nombre'>
-                            <label for="name">* Nombre:</label>
+            {step === 1 && (
+            // Part 2: Display customer data form
+            <span className='container-checkout-1'>
+            <div className='customer-form-container'>    
+                <h2>DETALLES DE FACTURACIÓN</h2>
+                <p>{'(*) Campos obligatorios.'}</p>
+                <form className="customer-form">
+                        <div className="form-section section-nombre">
+                        <span className='span-nombre'>
+                        <label for="name">* Nombre:</label>
+                        <input
+                            className='input-form-checkout'
+                            type="text"
+                            value={customerData.nombre}
+                            onChange={(e) =>
+                                setCustomerData({ ...customerData, nombre: e.target.value })
+                            }
+                        />
+                        </span>
+                        <span className='span-nombre'>
+                        <label for="surname">* Apellido:</label>
+                        <input
+                            className='input-form-checkout'
+                            type="text"
+                            value={customerData.apellido}
+                            onChange={(e) =>
+                                setCustomerData({ ...customerData, apellido: e.target.value })
+                            }
+                        />
+                        </span>        
+                    </div>
+                    <div className="form-section">
+                        <div className="section-nombre">
+                            <span className='span-id'>
+                            <label for="identificationType">* Tipo:</label>
+                            <select
+                                className='input-form-checkout'
+                                value={customerData.identificacion.tipo} // Aquí estás estableciendo el valor seleccionado en el estado
+                                onChange={(e) =>
+                                    setCustomerData({
+                                        ...customerData,
+                                        identificacion: { ...customerData.identificacion, tipo: e.target.value },
+                                    })
+                                }
+                            >
+                                <option value="DNI">DNI</option> {/* Aquí está el valor para DNI */}
+                                <option value="Passport">Pasaporte</option> {/* Aquí está el valor para Pasaporte */}
+                                {/* Add more identification types as needed */}
+                            </select>
+                            </span>
+                            <span className='span-id-number'>
+                            <label for="identificationNumber">* Número de Identificación:</label>
                             <input
                                 className='input-form-checkout'
                                 type="text"
-                                value={customerData.nombre}
+                                value={customerData.identificacion.numero}
                                 onChange={(e) =>
-                                    setCustomerData({ ...customerData, nombre: e.target.value })
+                                    setCustomerData({
+                                        ...customerData,
+                                        identificacion: { ...customerData.identificacion, numero: e.target.value },
+                                    })
                                 }
                             />
                             </span>
-                            <span className='span-nombre'>
-                            <label for="surname">* Apellido:</label>
+                        </div> 
+                    </div>
+                    <div className="form-section">
+                        <label for="email">* Email:</label>
+                        <input
+                            className='input-form-checkout'
+                            type="email"
+                            value={customerData.email}
+                            onChange={(e) =>
+                                setCustomerData({ ...customerData, email: e.target.value })
+                            }
+                        />
+                    </div>
+                    <div className="form-section">
+                        <div className="section-nombre">
+                            <span className='span-telefono'>
+                            <label for="phone">* Teléfono:</label>
                             <input
                                 className='input-form-checkout'
                                 type="text"
-                                value={customerData.apellido}
+                                value={customerData.telefono.numero}
                                 onChange={(e) =>
-                                    setCustomerData({ ...customerData, apellido: e.target.value })
+                                    setCustomerData({
+                                        ...customerData,
+                                        telefono: { ...customerData.telefono, numero: e.target.value },
+                                    })
                                 }
                             />
-                            </span>        
+                            </span>
                         </div>
-                        <div className="form-section">
-                            <div className="section-nombre">
-                                <span className='span-id'>
-                                <label for="identificationType">* Tipo:</label>
-                                <select
-                                    className='input-form-checkout'
-                                    value={customerData.identificacion.tipo}
-                                    onChange={(e) =>
-                                        setCustomerData({
-                                            ...customerData,
-                                            identification: { ...customerData.identificacion, tipo: e.target.value },
-                                        })
-                                    }
-                                >
-                                    <option value="DNI">DNI</option>
-                                    <option value="Passport">Pasaporte</option>
-                                    {/* Add more identification types as needed */}
-                                </select>
-                                </span>
-                                <span className='span-id-number'>
-                                <label for="identificationNumber">* Número de Identificación:</label>
-                                <input
-                                    className='input-form-checkout'
-                                    type="text"
-                                    value={customerData.identificacion.numero}
-                                    onChange={(e) =>
-                                        setCustomerData({
-                                            ...customerData,
-                                            identificacion: { ...customerData.identificacion, numero: e.target.value },
-                                        })
-                                    }
-                                />
-                                </span>
-                            </div> 
-                        </div>
-                        <div className="form-section">
-                            <label for="email">* Email:</label>
+                    </div>
+                    <div className="form-section">
+                        <div className="section-nombre">
+                            <span className='span-id'>
+                            <label for="identificationType">* Provincia:</label>
+                            <select
+                                className='input-form-checkout'
+                                value={customerData.direccion.provincia}
+                                onChange={(e) =>
+                                    setCustomerData({
+                                        ...customerData,
+                                        direccion: { ...customerData.direccion, provincia: e.target.value },
+                                    })
+                                }
+                            >
+                                <option value="">Selecciona una provincia</option>
+                                {argentineProvinces.map((province) => (
+                                    <option key={province} value={province}>
+                                        {province}
+                                    </option>
+                                ))}
+                            </select>
+                            </span>
+                            <span className='span-id-number'>
+                            <label for="identificationNumber">* Localidad:</label>
                             <input
                                 className='input-form-checkout'
-                                type="email"
-                                value={customerData.email}
-                                onChange={(e) =>
-                                    setCustomerData({ ...customerData, email: e.target.value })
-                                }
-                            />
-                        </div>
-                        <div className="form-section">
-                            <div className="section-nombre">
-                                <span className='span-telefono'>
-                                <label for="phone">* Teléfono:</label>
-                                <input
-                                    className='input-form-checkout'
-                                    type="text"
-                                    value={customerData.telefono.numero}
-                                    onChange={(e) =>
-                                        setCustomerData({
-                                            ...customerData,
-                                            telefono: { ...customerData.telefono, numero: e.target.value },
-                                        })
-                                    }
-                                />
-                                </span>
-                            </div>
-                        </div>
-                        <div className="form-section">
-                            <div className="section-nombre">
-                                <span className='span-id'>
-                                <label for="identificationType">* Provincia:</label>
-                                <select
-                                    className='input-form-checkout'
-                                    value={customerData.direccion.provincia}
-                                    onChange={(e) =>
-                                        setCustomerData({
-                                            ...customerData,
-                                            direccion: { ...customerData.direccion, provincia: e.target.value },
-                                        })
-                                    }
-                                >
-                                    <option value="">Selecciona una provincia</option>
-                                    {argentineProvinces.map((province) => (
-                                        <option key={province} value={province}>
-                                            {province}
-                                        </option>
-                                    ))}
-                                </select>
-                                </span>
-                                <span className='span-id-number'>
-                                <label for="identificationNumber">* Localidad:</label>
-                                <input
-                                    className='input-form-checkout'
-                                    type="text"
-                                    value={customerData.direccion.ciudad}
-                                    onChange={(e) =>
-                                        setCustomerData({
-                                            ...customerData,
-                                            direccion: { ...customerData.direccion, ciudad: e.target.value },
-                                        })
-                                    }
-                                />
-                                </span>
-                            </div> 
-                        </div>
-                        <div className="form-section">
-                            <label for="streetName">Dirección:</label>
-                            <input
-                                className='input-direccion input-form-checkout'
                                 type="text"
-                                placeholder="* Nombre de la calle"
-                                value={customerData.direccion.nombre_calle}
+                                value={customerData.direccion.ciudad}
                                 onChange={(e) =>
                                     setCustomerData({
                                         ...customerData,
-                                        direccion: { ...customerData.direccion, nombre_calle: e.target.value },
+                                        direccion: { ...customerData.direccion, ciudad: e.target.value },
                                     })
                                 }
                             />
-                            <input
-                                className='input-direccion input-form-checkout'
-                                type="text"
-                                placeholder="* Número de la casa"
-                                value={customerData.direccion.numero_calle}
-                                onChange={(e) =>
-                                    setCustomerData({
-                                        ...customerData,
-                                        direccion: { ...customerData.direccion, numero_calle: e.target.value },
-                                    })
-                                }
-                            />
-                            <input
-                                className='input-direccion input-form-checkout'
-                                type="text"
-                                placeholder="Departamento / Piso"
-                                value={customerData.direccion.piso}
-                                onChange={(e) =>
-                                    setCustomerData({
-                                        ...customerData,
-                                        direccion: { ...customerData.direccion, piso: e.target.value },
-                                    })
-                                }
-                            />
-                            <input
-                                className='input-direccion input-form-checkout'
-                                type="text"
-                                placeholder="* Código postal"
-                                value={customerData.direccion.codigo_postal}
-                                onChange={(e) =>
-                                    setCustomerData({
-                                        ...customerData,
-                                        direccion: { ...customerData.direccion, codigo_postal: e.target.value },
-                                    })
-                                }
-                            />
-                        </div>
-                    </form>
-                </div>
-                <div className='container-tabla-carrito-checkout'>
-                    <h2>TU PEDIDO</h2>
-                    <table className='tabla-carrito-checkout'>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Nombre</th>
-                                <th>Tamaño</th>
-                                <th>Color</th>
-                                <th>Precio unitario</th>
+                            </span>
+                        </div> 
+                    </div>
+                    <div className="form-section">
+                        <label for="streetName">Dirección:</label>
+                        <input
+                            className='input-direccion input-form-checkout'
+                            type="text"
+                            placeholder="* Nombre de la calle"
+                            value={customerData.direccion.nombre_calle}
+                            onChange={(e) =>
+                                setCustomerData({
+                                    ...customerData,
+                                    direccion: { ...customerData.direccion, nombre_calle: e.target.value },
+                                })
+                            }
+                        />
+                        <input
+                            className='input-direccion input-form-checkout'
+                            type="text"
+                            placeholder="* Número"
+                            value={customerData.direccion.numero_calle}
+                            onChange={(e) =>
+                                setCustomerData({
+                                    ...customerData,
+                                    direccion: { ...customerData.direccion, numero_calle: e.target.value },
+                                })
+                            }
+                        />
+                        <input
+                            className='input-direccion input-form-checkout'
+                            type="text"
+                            placeholder="Departamento / Piso"
+                            value={customerData.direccion.piso}
+                            onChange={(e) =>
+                                setCustomerData({
+                                    ...customerData,
+                                    direccion: { ...customerData.direccion, piso: e.target.value },
+                                })
+                            }
+                        />
+                        <input
+                            className='input-direccion input-form-checkout'
+                            type="text"
+                            placeholder="* Código postal"
+                            value={customerData.direccion.codigo_postal}
+                            onChange={(e) =>
+                                setCustomerData({
+                                    ...customerData,
+                                    direccion: { ...customerData.direccion, codigo_postal: e.target.value },
+                                })
+                            }
+                        />
+                    </div>
+                </form>
+            </div>
+            <div className='container-tabla-carrito-checkout'>
+                <h2>TU PEDIDO</h2>
+                <table className='tabla-carrito-checkout'>
+                    <tbody>
+                        {carrito.map((item, index) => (
+                            <tr className='img-items-checkout' key={index}>
+                                <td><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="70px" height="70px" alt={item.description} /></td>
+                                <td>{item.description + '(' + item.talle + ')' + ' x' + item.quantity}<br />{item.color}</td>
+                                <td>${item.price}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {carrito.map((item, index) => (
-                                <tr className='img-items-checkout' key={index}>
-                                    <td><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="50px" height="50px" alt={item.description} /></td>
-                                    <td>{item.description + '(x' + item.quantity + ')'}</td>
-                                    <td>{item.talle}</td>
-                                    <td>{item.color}</td>
-                                    <td>${item.price}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <div className='carrito-space-between'>
-                        <p>Total {'('}{totalQuantity}{')'} items: </p><h3>${totalPrice}</h3>
-                    </div>
-                    <div className="payment-method-container">
-                        <label className='titulo-checkout'>
-                            Envio:
-                        </label>
-                        <label>
-                            <input
-                                className='input-form-checkout'
-                                type="radio"
-                                value="domicilio"
-                                checked={selectedEnvioMethod === 'domicilio'}
-                                onChange={() => setSelectedEnvioMethod('domicilio')}
-                            />
-                            Envio a domicilio por Correo Argentino {'('}${costoEnvioDomicilio}{')'}
-                        </label>
-                        <label>
-                            <input
-                                className='input-form-checkout'
-                                type="radio"
-                                value="sucursal"
-                                checked={selectedEnvioMethod === 'sucursal'}
-                                onChange={() => setSelectedEnvioMethod('sucursal')}
-                            />
-                            Envio a sucursal de Correo Argentino {'('}${costoEnvioSucursal}{')'}
-                        </label>
-                        <label>
-                            <input
-                                className='input-form-checkout'
-                                type="radio"
-                                value="retiro"
-                                checked={selectedEnvioMethod === 'retiro'}
-                                onChange={() => setSelectedEnvioMethod('retiro')}
-                            />
-                            Retiro en ~direccion de bros~
-                        </label>
-                    </div>
-                    {envio != 0 && (
-                        <div className='carrito-space-between'>
-                            <p>Costo total con envio: </p><h3>${totalPriceWithShipping}</h3>
-                        </div>
-                    )}
-                    <div className="payment-method-container">
-                        <label className='titulo-checkout'>
-                            Medio de pago:
-                        </label>
-                        <label>
-                            <input
-                                className='input-radio input-form-checkout'
-                                type="radio"
-                                value="uala"
-                                checked={selectedPaymentMethod === 'uala'}
-                                onChange={() => setSelectedPaymentMethod('uala')}
-                            />
-                            Pagar con tarjeta de credito / debito
-                        </label>
-                        <label>
-                            <input
-                                className='input-form-checkout'
-                                type="radio"
-                                value="transferencia"
-                                checked={selectedPaymentMethod === 'transferencia'}
-                                onChange={() => setSelectedPaymentMethod('transferencia')}
-                            />
-                            Pagar con transferencia bancaria
-                        </label>
-                    </div>
-                    {/* <div className="container-boton-agregar-carrito">
-                        {selectedPaymentMethod === 'mercadopago' && (
-                        <Wallet initialization={{ preferenceId: idMP, redirectMode: 'modal' }} customization={customization} />
-                        )}
-                    </div> */}
-                    <div className="container-boton-agregar-carrito">
-                        {selectedPaymentMethod != 'uala' && selectedPaymentMethod != 'transferencia' && (
-                        <button className="boton-agregar-carrito-disabled" disabled>PAGAR</button>
-                        )}
-                    </div>
-                    
-                    <div className="container-boton-agregar-carrito">
-                        {selectedPaymentMethod === 'uala' && (
-                        <button className='boton-agregar-carrito' onClick={postUALA}>PAGAR CON TARJETA DE CREDITO / DEBITO</button>
-                        )}
-                    </div>
-                    <div className="container-boton-agregar-carrito">
-                    {selectedPaymentMethod === 'transferencia' && (
-                        <button className='boton-agregar-carrito' onClick={() => transferenciaCheckout()}>PAGAR CON TRANSFERENCIA</button>
-                    )}
-                    </div>
+                        ))}
+                        <tr className='img-items-checkout'>
+                            <td className='total-precio-items'>Total {'('}{totalQuantity}{')'} items:</td>
+                            <td></td>
+                            <td className='total-precio-items'>${totalPrice}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div className="payment-method-container">
+                    <label className='titulo-checkout'>
+                        Envio:
+                    </label>
+                    <label>
+                        <input
+                            className='input-form-checkout'
+                            type="radio"
+                            value="domicilio"
+                            checked={selectedEnvioMethod === 'domicilio'}
+                            onChange={() => setSelectedEnvioMethod('domicilio')}
+                        />
+                        Envio a domicilio por Correo Argentino {'('}${costoEnvioDomicilio}{')'}
+                    </label>
+                    <label>
+                        <input
+                            className='input-form-checkout'
+                            type="radio"
+                            value="sucursal"
+                            checked={selectedEnvioMethod === 'sucursal'}
+                            onChange={() => setSelectedEnvioMethod('sucursal')}
+                        />
+                        Envio a sucursal de Correo Argentino {'('}${costoEnvioSucursal}{')'}
+                    </label>
+                    <label>
+                        <input
+                            className='input-form-checkout'
+                            type="radio"
+                            value="retiro"
+                            checked={selectedEnvioMethod === 'retiro'}
+                            onChange={() => setSelectedEnvioMethod('retiro')}
+                        />
+                        Retiro en ~direccion de bros~
+                    </label>
                 </div>
-                </span>
+                {envio != 0 && (
+                    <div className='carrito-space-between'>
+                        <p>Costo total con envio: </p><h3>${totalPriceWithShipping}</h3>
+                    </div>
                 )}
-                {step === 2 && (
-                    <span></span>
+                <div className="payment-method-container">
+                    <label className='titulo-checkout'>
+                        Medio de pago:
+                    </label>
+                    <label>
+                        <input
+                            className='input-radio input-form-checkout'
+                            type="radio"
+                            value="uala"
+                            checked={selectedPaymentMethod === 'uala'}
+                            onChange={() => setSelectedPaymentMethod('uala')}
+                        />
+                        Pagar con tarjeta de credito / debito
+                    </label>
+                    <label>
+                        <input
+                            className='input-form-checkout'
+                            type="radio"
+                            value="transferencia"
+                            checked={selectedPaymentMethod === 'transferencia'}
+                            onChange={() => setSelectedPaymentMethod('transferencia')}
+                        />
+                        Pagar con transferencia bancaria
+                    </label>
+                </div>
+                {/* <div className="container-boton-agregar-carrito">
+                    {selectedPaymentMethod === 'mercadopago' && (
+                    <Wallet initialization={{ preferenceId: idMP, redirectMode: 'modal' }} customization={customization} />
+                    )}
+                </div> */}
+                <div className="container-boton-agregar-carrito">
+                    {selectedPaymentMethod != 'uala' && selectedPaymentMethod != 'transferencia' && (
+                    <button className="boton-agregar-carrito boton-pagar-checkout">PAGAR</button>
+                    )}
+                </div>
+                
+                <div className="container-boton-agregar-carrito">
+                    {selectedPaymentMethod === 'uala' && (
+                    <button className='boton-agregar-carrito boton-pagar-checkout' onClick={postUALA}>PAGAR</button>
+                    )}
+                </div>
+                <div className="container-boton-agregar-carrito">
+                {selectedPaymentMethod === 'transferencia' && (
+                    <button className='boton-agregar-carrito boton-pagar-checkout' onClick={() => transferenciaCheckout()}>PAGAR</button>
                 )}
+                </div>
+            </div>
+            </span>
+            )}
+            {step === 2 && (
+                <span></span>
+            )}
             <Footer/>
         </div>
     )

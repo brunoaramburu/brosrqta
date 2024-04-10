@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orden Confirmada</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; line-height: 1.6; text-align: center; margin: 0; padding: 0; background-color: #f4f4f4;">
+    <table align="center" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin: auto; background-color: #fff; border-radius: 8px; overflow: hidden;">
+        <tr>
+            <td style="padding: 20px 0; background-color: rgb(25, 25, 25); color: #fff;">
+                <img src="https://brosrqta.com.ar/static/media/favicon.ico" alt="Logo" width="60" height="60" style="border-radius: 50%;">
+            </td>
+        </tr>
+        <tr>
+            <td style="padding-bottom: 20px; text-align: center;">
+                <h2 style="color: rgb(25, 25, 25);">ORDEN N.º{{ orden_id }} CONFIRMADA</h2>
+                <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>
+                <h3 style="margin-top: 20px; color: rgb(25, 25, 25);">PASOS A SEGUIR</h3>
+                <span style="display: block; margin-bottom: 15px; color: #333;">
+                <strong>Realiza tu pago directamente en nuestra cuenta bancaria.</strong><br>
+                Por favor, usa el número de orden como referencia de pago.
+                </span>
+                <span style="display: block; margin-bottom: 15px; color: #333;"><strong>Alias:</strong> bros.mp <br> <strong>CBU/CVU n°:</strong> 0000003100071795533792</span>
+                <span style="display: block; margin-bottom: 15px; color: #333;">
+                Enviá el comprobante de transferencia con el número de orden a nuestro WhatsApp:<br>
+                <strong>+5493482250138</strong><br>
+                 El pedido no será preparado hasta que se complete este paso.
+                </span>
+                <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>
+                <h3 style="margin-top: 20px; color: rgb(25, 25, 25);">PRODUCTOS</h3>
+                <span style="display: flex; justify-content: center; align-items: center; padding-bottom: 20px;">
+                <table style="width: 70%; text-align: left; margin: auto;">
+                    {% for producto in productos %}
+                    <tr style="border: 1px solid rgb(25, 25, 25); border-radius: 2px;">
+                        <td style="width: 25%;">
+                            <img src="https://brosrqta.com.ar{{ producto.img }}" alt="{{ producto.description }}" width="auto" height="80" style="margin-right: 15px; border-radius: 2px;">
+                        </td>
+                        <td style="width: 50%; text-align: center;">
+                            <strong>{{ producto.description }} (x{{ producto.quantity }})</strong>
+                            <br>
+                            Color: {{ producto.color }}
+                            <br>
+                            Talle: {{ producto.talle }}
+                        </td>
+                        <td style="text-align: right; font-size: 15px; width: 25%;">
+                            <strong>${{ producto.price }}</strong>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                </span>
+                {% if medioenvio != 'retiro' %}
+                    <h3 style="margin-top: 20px; color: rgb(25, 25, 25); text-align: center;">SUBTOTAL: <span style="color: black;">${{ precioproductos }}</span></h3>
+                    <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>
+                    <h3 style="margin-top: 20px; color: rgb(25, 25, 25); text-align: center;">ENVIO (A {{ medioenvio }} - Correo Argentino): <span style="color: black;">${{ precioenvio }}</span></h3>
+                {% endif %}
+                {% if medioenvio == 'retiro' %}
+                <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>    
+                <h3 style="margin-top: 20px; color: rgb(25, 25, 25); text-align: center;">RETIRAR EN ~DIRECCION LOCAL BROS~</h3>
+                {% endif %}
+                <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>
+                <h3 style="margin-top: 20px; color: rgb(25, 25, 25); text-align: center;">TOTAL: <span style="color: black;">${{ preciototal }}</span></h3>
+                <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>
+                {% if medioenvio == 'retiro' %}
+                <h3 style="margin-top: 20px; color: rgb(25, 25, 25);">DATOS DE FACTURACION</h3>
+                {% endif %}
+                {% if medioenvio != 'retiro' %}
+                    <h3 style="margin-top: 20px; color: rgb(25, 25, 25);">DATOS DE FACTURACION Y ENVIO</h3>
+                {% endif %}
+                <div style="margin-top: 20px; text-align: center;">
+                    <strong>{{ datoscliente.nombre }} {{ datoscliente.apellido }}</strong><br>
+                    <strong>Teléfono:</strong> {{ datoscliente.telefono.numero }}<br>
+                    <strong>Identificación:</strong> {{ datoscliente.identificacion.tipo }} {{ datoscliente.identificacion.numero }}<br>
+                    <strong>Dirección:</strong> 
+                    {{ datoscliente.direccion.nombre_calle }} {{ datoscliente.direccion.numero_calle }},
+                    {% if datoscliente.direccion.piso %}
+                    {{ datoscliente.direccion.piso }},
+                    {% endif %}
+                    {{ datoscliente.direccion.codigo_postal }}, {{ datoscliente.direccion.provincia }}, {{ datoscliente.direccion.ciudad }}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: rgb(25, 25, 25); color: #fff; padding: 10px 0;">
+                <img src="https://brosrqta.com.ar/static/media/logoigemail.png" alt="" width="auto" height="30px">
+                <p style="margin: 0;">© BROS</p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

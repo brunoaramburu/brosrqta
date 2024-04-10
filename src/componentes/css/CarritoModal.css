@@ -11,8 +11,25 @@
 }
 
 .tabla-carrito td {
-    
     width: auto; /* Remove the fixed width for table cells */
+}
+
+.td-carrito{
+    text-align: center;
+}
+
+.td-carrito-left{
+    text-align: left;
+}
+
+.tabla-carrito {
+    text-align: center;
+    width: 100%;
+}
+
+.tabla-carrito-pc {
+    text-align: center;
+    width: 100%;
 }
 
 .contenido-centrado{
@@ -47,11 +64,14 @@
 
 .btn-quantity{
     background-color: transparent;
-    border: 0;
+    border: 1px solid lightgray;
+    margin-inline: 5px;
     color: grey;
     font-size: 18px;
     font-weight: 500;
     cursor: pointer;
+    width: 25px;
+    height: 25px;
 }
 
 .cantidad-carrito{
@@ -65,7 +85,7 @@
     transition: background-color 0s ease 0s;
     transition: color 0s ease 0s;
     cursor: pointer;
-    margin-bottom: 10px;
+    font-size: 12px;
 }
 
 .boton-eliminar:hover{
@@ -80,10 +100,11 @@
 .titulo-item-carrito{
     margin-top: 10px;
     font-weight: 600;
+    font-size: 14px;
 }
 
 .texto-carrito{
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .precio-carrito{
@@ -92,4 +113,11 @@
 
 .color-carrito{
     font-weight: 500;
+}
+
+.border-thead{
+    height: 3px;
+    background-color: lightgray;
+    padding: 0;
+    margin: 0;
 }

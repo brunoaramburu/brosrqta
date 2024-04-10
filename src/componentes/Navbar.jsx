@@ -11,23 +11,24 @@ function Navbar() {
   const [isSearchInputVisible, setIsSearchInputVisible] = useState(false);
   const productos = useContext(ProductosContext);
   const [avisos, setAvisos] = useState([]);
-  const [avisoIndex, setAvisoIndex] = useState(0);
-  const [animationKey, setAnimationKey] = useState(0); // Add a state for animation key
+  const [currentAvisoIndex, setCurrentAvisoIndex] = useState(0);
+  const [animationTrigger, setAnimationTrigger] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/api/avisos/`) 
       .then(response => response.json())
       .then(data => setAvisos(data))
       .catch(error => console.error(error));
+      
   }, []);
 
   useEffect(() => {
-    const intervaloAviso = setInterval(() => {
-      setAvisoIndex(prevIndex => (prevIndex + 1) % avisos.length);
-      setAnimationKey(prevKey => prevKey + 1); // Increment animation key to reset animation
-    }, 7000);
+    const interval = setInterval(() => {
+      setCurrentAvisoIndex(prevIndex => (prevIndex + 1) % avisos.length);
+      setAnimationTrigger(true);
+    }, 8000); // Cambiar el aviso cada 8 segundos
 
-    return () => clearInterval(intervaloAviso);
+    return () => clearInterval(interval); // Limpiar el intervalo al desmontar el componente
   }, [avisos]);
 
   const toggleCarritoModal = () => {
@@ -69,10 +70,14 @@ function Navbar() {
 
   return (
     <div className="navbar-container">
+      <div className="aviso-container">
       <div className="aviso">
-        <p key={animationKey} className={`texto-aviso fade-in-out`} style={{ animationDuration: '7s' }}>
-          {avisos.length > 0 && avisos[avisoIndex].aviso}
-        </p>
+          {avisos.length > 0 && (
+            <p className={`texto-aviso ${animationTrigger ? 'fade-in-out' : ''}`}>
+              {avisos[currentAvisoIndex].aviso}
+            </p>
+          )}
+        </div>
       </div>
       <div className="navbar">
         <div className="nav-derecha" onMouseLeave={handleMouseLeave}>

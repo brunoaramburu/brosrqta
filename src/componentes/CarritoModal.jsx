@@ -3,12 +3,12 @@ import Modal from 'react-modal';
 import { CarritoContext } from './contexts/CarritoContext';
 import "./css/CarritoModal.css";
 import closeIcon from "./img/close.png";
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 Modal.setAppElement('#root'); // Set the app root element for accessibility
 
 function CarritoModal({ isOpen, onClose }) {
-    
+
     const [carrito, setCarrito] = useContext(CarritoContext);
     // Calculate total quantity of items in the cart
     const totalQuantity = carrito.reduce((total, item) => total + item.quantity, 0);
@@ -36,15 +36,16 @@ function CarritoModal({ isOpen, onClose }) {
 
     const customStyles = {
         content: {
-          top: '0%',
-          left: 'auto',
-          right: '0%',
-          bottom: 'auto',
-          transform: 'translate(0%, 0%)',
-          width: '20%',
-          height: '100%',
-          borderLeft: '2px solid black',
-          borderRadius: '0',
+            top: '25%',
+            left: '12%',
+            transform: 'translate(0%, 0%)',
+            width: '76%',
+            height: '60%',
+            border: '1px solid #888888',
+            borderRadius: '0',
+            padding: '25px',
+            paddingTop: '10px',
+            paddingBottom: '10px',
         },
     };
 
@@ -56,62 +57,83 @@ function CarritoModal({ isOpen, onClose }) {
             <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles} contentLabel="Cart Modal">
                 {totalQuantity === 0 ? (
                     <span>
-                    <div className='carrito-space-between'>
-                    <h2 className='titulo-carrito'>CARRITO</h2>    
-                    <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
-                    </div>
-                    <div className="carrito-modal-content">
-                        <p>El carrito está vacío...</p>
-                    </div>
+                        <div className='carrito-space-between'>
+                            <h2 className='titulo-carrito'>CARRITO</h2>
+                            <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
+                        </div>
+                        <div className="carrito-modal-content">
+                            <p>El carrito está vacío...</p>
+                        </div>
                     </span>
                 ) : (
                     <div className="carrito-modal-content">
                         <div>
                             <div>
                                 <div className='carrito-space-between'>
-                                    <h2 className='titulo-carrito'>CARRITO</h2>    
+                                    <h2 className='titulo-carrito'>CARRITO</h2>
                                     <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
                                 </div>
                                 <div className='tabla-container'>
-                                    <table className='tabla-carrito'>
-                                        <tbody>
+                                    <table className='tabla-carrito-pc'>
+                                        <thead>
+                                            <td className='td-carrito texto-carrito'>PRODUCTO</td>
+                                            <td className='td-carrito texto-carrito'></td>
+                                            <td className='td-carrito texto-carrito'>COLOR</td>
+                                            <td className='td-carrito texto-carrito'>CANTIDAD</td>
+                                            <td className='td-carrito texto-carrito'>PRECIO UNIDAD</td>
+                                            <td className='td-carrito texto-carrito'></td>
+                                        </thead>
+                                        <td className='border-thead'></td>
+                                        <td className='border-thead'></td>
+                                        <td className='border-thead'></td>
+                                        <td className='border-thead'></td>
+                                        <td className='border-thead'></td>
+                                        <td className='border-thead'></td>
+                                        <tbody className='tbody-carrito'>
                                             {carrito.map((item, index) => (
                                                 <tr key={index}>
-                                                    <td><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="100px" height="100px" alt={item.description} /></td>
-                                                    <div className='titulo-item-carrito texto-carrito'>{item.description}<span className='color-carrito'>{"("}{item.color}{")"}</span></div>
-                                                    <div className='texto-carrito'>{item.talle}</div>
-                                                    <div className='cantidad-carrito texto-carrito'>
-                                                        <button className='btn-quantity' onClick={() => {
-                                                        // Check if quantity is equal to 1 before subtracting one
-                                                        if (item.quantity === 1) {
-                                                            // If quantity is 1, delete the item
-                                                            handleDeleteItem(index);
-                                                        } else {
-                                                            // If quantity is greater than 1, subtract one
-                                                            handleSubtractOne(index);
-                                                        }
-                                                        }}>
-                                                            -
-                                                        </button>
-                                                        {item.quantity}
-                                                        <button className='btn-quantity' onClick={() => handleAddOne(index)}>+</button>
-                                                    </div>
-                                                    <div className='texto-carrito precio-carrito'>${item.price}</div>
-                                                    <div className='texto-carrito'><button className='boton-eliminar texto-carrito' onClick={() => handleDeleteItem(index)}>Eliminar</button></div>    
+                                                    <td className='td-carrito'><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="60px" height="60px" alt={item.description} /></td>
+                                                    <td className='td-carrito-left'><span className='titulo-item-carrito'>{item.description}{"("}{item.talle}{")"}</span></td>
+                                                    <td className='td-carrito'><span className='texto-carrito'>{item.color}</span></td>
+                                                    <td className='td-carrito'>
+                                                        <div className='cantidad-carrito texto-carrito'>
+                                                            <button className='btn-quantity' onClick={() => {
+                                                                // Check if quantity is equal to 1 before subtracting one
+                                                                if (item.quantity === 1) {
+                                                                    // If quantity is 1, delete the item
+                                                                    handleDeleteItem(index);
+                                                                } else {
+                                                                    // If quantity is greater than 1, subtract one
+                                                                    handleSubtractOne(index);
+                                                                }
+                                                            }}>
+                                                                -
+                                                            </button>
+                                                            {item.quantity}
+                                                            <button className='btn-quantity' onClick={() => handleAddOne(index)}>+</button>
+                                                        </div>
+                                                    </td>
+                                                    <td className='texto-carrito precio-carrito'>${item.price}</td>
+                                                    <td className='texto-carrito'><button className='boton-eliminar' onClick={() => handleDeleteItem(index)}>ELIMINAR</button></td>
                                                 </tr>
                                             ))}
+                                            <tr>
+                                                <td><p>Total {'('}{totalQuantity}{')'} items: </p></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><h3>${totalPrice}</h3></td>
+                                                <td></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div className='carrito-space-between'>
-                                    <p>Total {'('}{totalQuantity}{')'} items: </p><h3>${totalPrice}</h3>
-                                </div>
                                 <div className="container-boton-agregar-carrito">
-                                <Link to={'/checkout'}>
-                                    <button className="boton-agregar-carrito">
-                                        CHECKOUT
-                                    </button>
-                                </Link>
+                                    <Link to={'/checkout'}>
+                                        <button className="boton-agregar-carrito">
+                                            INICIAR COMPRA
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

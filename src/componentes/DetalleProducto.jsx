@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 import { CarritoContext } from "./contexts/CarritoContext";
 import CarritoModalDetalle from './CarritoModalDetalle';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import ReglaImg from "./img/regla.png";
+import toast, { Toaster } from 'react-hot-toast';
 
 function DetalleProducto() {
   const { id } = useParams();
@@ -214,8 +216,10 @@ function DetalleProducto() {
     setIsSelectionValid(selectedColor !== null && selectedTalle !== null);
   }, [selectedColor, selectedTalle]);
 
+  const errorTalle = () => toast.error("Debe seleccionar un talle.");
+
   return (
-    <div>
+    <div className="z-index-carrito padding-top-navbar">
       <Navbar />
       <span className="margin-producto">
       <div className="row-destacados">
@@ -227,19 +231,22 @@ function DetalleProducto() {
         <div className="col-informacion">
           <p className="nombre-producto padding-10-left">{producto.nombre}</p>
           <p className="precio-producto padding-10-left">${producto.precio}</p>
-          <p className="descripcion-producto padding-10-left">{producto.descripcion}</p>
+          <span><p className="descripcion-producto padding-10-left">{producto.descripcion}</p></span>
+          <p className="colores-talles">Colores</p>
           <div className="talles-producto padding-10-left">
-            {uniqueColors.map((color) => (
-              <div className={selectedColor === color.color ? 'color-option-container selected-color-container' : 'color-option-container'}>
+            {allImages.map((image) => (
+              <div className={selectedColor === image.color ? 'color-option-container selected-color-container' : 'color-option-container'}>
                 <button
-                key={color.color}
-                className={selectedColor === color.color ? 'color-option selected-color' : 'color-option'}
-                style={{ backgroundColor: color.rgb }}
-                onClick={() => handleColorSelection(color.color)}
-              ></button>
+                key={image.color}
+                className={selectedColor === image.color ? 'color-option selected-color' : 'color-option'}
+                onClick={() => handleColorSelection(image.color)}
+              >
+                <img src={`${process.env.REACT_APP_API_URL}${image.image_url}`} alt="" width="100%" height="100%"/>
+              </button>
               </div>
             ))}
           </div>
+          <p className="colores-talles">Talles</p>
           {availableSizes.length > 0 && (
             <span>
             <div className="talles-producto padding-10-left">
@@ -258,14 +265,22 @@ function DetalleProducto() {
           )}
           <div className="container-boton-agregar-carrito">
           {fotoTalle.img && (
-          <span>
-            <a href={`${process.env.REACT_APP_API_URL}/media/${fotoTalle.img}`} target="_blank" style={{ textDecoration: 'underline'}}><p>VER GUÍA DE TALLES</p></a>
-          </span>
+            <a className="container-guia-talles" href={`${process.env.REACT_APP_API_URL}/media/${fotoTalle.img}`} target="_blank"><img src={ReglaImg} className="guia-talles-img" /><p className="texto-guia-talles">VER GUÍA DE TALLES</p></a>
           )}
           {!isSelectionValid && (
             <span>
-              <button className="boton-agregar-carrito-disabled" disabled>AGREGAR AL CARRITO</button>
-              <p className="error-message">*DEBE SELECCIONAR UN COLOR Y UN TALLE PARA AGREGAR EL PRODUCTO AL CARRITO.</p>
+              <button className="boton-agregar-carrito" onClick={errorTalle}>AGREGAR AL CARRITO</button>
+              <Toaster 
+              position="bottom-center"
+              reverseOrder={false}
+              toastOptions={{ 
+                // Define default options
+                className: '',
+                style: {
+                  borderRadius: "0px",
+                  border: "1px solid rgb(25, 25, 25)",
+                }}}
+              />
             </span>
           )}
           {isSelectionValid && (
@@ -284,7 +299,7 @@ function DetalleProducto() {
       </span>
       <div className="productos-relacionados">
         <h3 className="titulo-relacionados">PRODUCTOS RELACIONADOS</h3>
-        <div className="row-destacados">
+        <div className="row">
           {relatedProducts
             .filter(relatedProduct => relatedProduct.grupo == producto.grupo)
             .slice(0, 4)
@@ -293,6 +308,7 @@ function DetalleProducto() {
                 <span key={producto.id}>
                 <div className="tarjeta-producto">
                     <img src={`${process.env.REACT_APP_API_URL}/media/${relatedProduct.img}`} className="img-tarjeta-Productos" alt={relatedProduct.nombre} />
+                    <span className="padding-contenido-tarjeta-productos">
                     <p className="titulo-tarjeta-Productos">{relatedProduct.nombre}</p>
                     <div className="color-circles">
                         {relatedProduct.colores.map(color => (
@@ -300,6 +316,8 @@ function DetalleProducto() {
                         ))}
                     </div>
                     <p className="precio-tarjeta-Productos">${relatedProduct.precio}</p>
+                    </span>
+                    <span className="ver-producto-span"></span>
                     <button className="ver-producto-button">VER PRODUCTO</button>
                 </div>
                 </span>

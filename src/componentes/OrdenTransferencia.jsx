@@ -28,7 +28,7 @@ function OrdenTransferencia () {
     };
     
     return(
-        <div>
+        <div className='padding-top-navbar'>
             <Navbar/>
             <span className='container-checkout-1'>
                 <div className='customer-form-container'>

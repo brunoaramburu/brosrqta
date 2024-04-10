@@ -16,7 +16,7 @@ function Categorias() {
     }, []);
 
     return(
-        <div>
+        <div className="padding-top-navbar">
             <Navbar/>
             <h3 className="titulo-colecciones">CATEGORIAS</h3>
             <div className="Productos">
@@ -27,6 +27,7 @@ function Categorias() {
                     <div className="tarjeta-producto">
                         <img src={`${process.env.REACT_APP_API_URL}${categoria.img}`} className="img-tarjeta-Productos" alt={categoria.nombre} />
                         <p className="titulo-tarjeta-Productos titulo-categoria">{categoria.nombre}</p>
+                        <span className="ver-producto-span"></span>
                         <button className="ver-producto-button">VER CATEGORIA</button>
                     </div>
                     </span>
