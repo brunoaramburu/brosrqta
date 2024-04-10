@@ -218,6 +218,12 @@ function DetalleProducto() {
 
   const errorTalle = () => toast.error("Debe seleccionar un talle.");
 
+  useEffect(() => {
+    if (uniqueColors.length > 0) {
+      handleColorSelection(uniqueColors[0].color);
+    }
+  }, [uniqueColors]);
+
   return (
     <div className="z-index-carrito padding-top-navbar">
       <Navbar />
@@ -256,7 +262,7 @@ function DetalleProducto() {
                     onClick={() => handleSizeButtonClick(size)}
                     className={selectedTalle === size ? 'selected-talle' : 'boton-talle'}
                   >
-                    {size}
+                    <p>{size}</p>
                   </button>
                 </div>
               ))}

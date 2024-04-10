@@ -50,6 +50,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('categorias/', TemplateView.as_view(template_name='index.html')),
     path('tienda/', TemplateView.as_view(template_name='index.html')),
+    path('checkout/', TemplateView.as_view(template_name='index.html')),
     re_path(r'^producto/(?P<path>.*)$', TemplateView.as_view(template_name='index.html')),
     re_path(r'^categoria/(?P<path>.*)$', TemplateView.as_view(template_name='index.html')),
     re_path(r'^ordentransferencia/(?P<path>.*)$', TemplateView.as_view(template_name='index.html')),

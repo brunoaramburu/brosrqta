@@ -125,11 +125,11 @@ function CarritoModalDetalle({ isOpen, onClose }) {
                                     </table>
                                 </div>
                                 <div className="container-boton-agregar-carrito">
-                                <Link to={'/checkout'}>
-                                    <button className="boton-agregar-carrito">
-                                        INICIAR COMPRA
-                                    </button>
-                                </Link>
+                                <a href='/checkout'>
+                                <button className="boton-agregar-carrito">
+                                    INICIAR COMPRA
+                                </button>
+                                </a>
                                 </div>
                             </div>
                         </div>

@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { CarritoContext } from './contexts/CarritoContext';
 // import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import "./css/Checkout.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 function Checkout() {
 
@@ -50,6 +51,13 @@ function Checkout() {
     // initMercadoPago('APP_USR-57cfda65-c921-4b9b-bca3-33d643b378ee', {locale: 'es'});
 
     // Calculate total quantity of items in the cart
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const numIdentificacionRegex = /^[0-9]+$/;
+    const numTelefonoRegex = /^[0-9+]+$/;
+    const codigoPostalRegex = /^[0-9]+$/;
+    const numeroCalleRegex = /^[0-9]+$/;
+
     const totalQuantity = carrito.reduce((total, item) => total + item.quantity, 0);
 
     const totalPrice = carrito.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -121,29 +129,10 @@ function Checkout() {
     ];
 
     const postUALA = async () => {
-        if (!selectedEnvioMethod) {
-            alert('Por favor selecciona una opción de envío.');
-            return; // Exit the function if no shipping option is selected
-        }
         
-        // else if (
-        //     !customerData.nombre ||
-        //     !customerData.apellido ||
-        //     !customerData.identificacion.tipo ||
-        //     !customerData.identificacion.numero ||
-        //     !customerData.email ||
-        //     !customerData.telefono.numero ||
-        //     !customerData.direccion.provincia ||
-        //     !customerData.direccion.ciudad ||
-        //     !customerData.direccion.nombre_calle ||
-        //     !customerData.direccion.numero_calle ||
-        //     !customerData.direccion.codigo_postal
-        // ) {
-        //     alert('Por favor completa todos los campos requeridos del formulario.');
-        //     return; // Exit the function if any required field is missing
-        // }
+        
+        
 
-        else{
         
         try {
           // Obtener el token
@@ -194,7 +183,6 @@ function Checkout() {
           // Check if the response has a checkoutLink
           if (paymentResult.links && paymentResult.links.checkoutLink) {
             // Open a new window with the checkout link
-            window.open(paymentResult.links.checkoutLink, '_blank');
             const requestData = {
                 datoscliente: customerData,
                 productos: carrito,
@@ -222,13 +210,12 @@ function Checkout() {
     
             const orderResult = await response.json();
             console.log('Order created successfully:', orderResult);
+            window.location.href=(paymentResult.links.checkoutLink);
           } else {
             console.error('El resultado del pago no contiene un enlace de pago');
           }
         } catch (err) {
           console.error(err);
-        }
-        
         }
     };
 
@@ -251,13 +238,43 @@ function Checkout() {
             !customerData.direccion.numero_calle ||
             !customerData.direccion.codigo_postal
         ) {
-            alert('Por favor completa todos los campos requeridos del formulario.');
+            toast.error('Por favor completa todos los campos requeridos del formulario.');
             return; // Exit the function if any required field is missing
+        }
+
+        else if (!emailRegex.test(customerData.email)) {
+            toast.error('Por favor ingresa un correo electrónico válido.');
+            return; // Salir de la función si el correo electrónico no es válido
+        }
+    
+        // Verificar si el número de identificación contiene solo números
+        else if (!numIdentificacionRegex.test(customerData.identificacion.numero)) {
+            toast.error('El número de identificación debe contener solo números.');
+            return; // Salir de la función si el número de identificación no contiene solo números
+        }
+    
+        // Verificar si el número de teléfono contiene solo números y puede incluir el signo "+"
+        else if (!numTelefonoRegex.test(customerData.telefono.numero)) {
+            toast.error('El número de teléfono debe contener solo números y puede incluir el signo "+".');
+            return; // Salir de la función si el número de teléfono no cumple con el formato especificado
+        }
+    
+        // Verificar si el código postal contiene solo números
+        else if (!codigoPostalRegex.test(customerData.direccion.codigo_postal)) {
+            toast.error('El código postal debe contener solo números.');
+            return; // Salir de la función si el código postal no contiene solo números
+        }
+    
+        // Verificar si el número de calle contiene solo números
+        else if (!numeroCalleRegex.test(customerData.direccion.numero_calle)) {
+            toast.error('El número de calle debe contener solo números.');
+            return; // Salir de la función si el número de calle no contiene solo números
         }
 
         else{
         
-        
+        toast.loading('Generando orden de transferencia...');
+
         try {
             // Prepare the data to be sent to the Django backend
             const requestData = {
@@ -313,12 +330,110 @@ function Checkout() {
 
     const totalPriceWithShipping = totalPrice + (envio || 0);
 
+    const postUALAWithRetry = async () => {
+        let maxRetries = 10; // Número máximo de intentos
+        let retries = 0;
+        let success = false;
+    
+        if (!selectedEnvioMethod) {
+            toast.error("Debe seleccionar un medio de envio.");
+            return;
+        }
+        else if (
+            !customerData.nombre ||
+            !customerData.apellido ||
+            !customerData.identificacion.tipo ||
+            !customerData.identificacion.numero ||
+            !customerData.email ||
+            !customerData.telefono.numero ||
+            !customerData.direccion.provincia ||
+            !customerData.direccion.ciudad ||
+            !customerData.direccion.nombre_calle ||
+            !customerData.direccion.numero_calle ||
+            !customerData.direccion.codigo_postal
+        ) {
+            toast.error('Por favor completa todos los campos requeridos del formulario.');
+            return; // Exit the function if any required field is missing
+        }
+        else if (!emailRegex.test(customerData.email)) {
+            toast.error('Por favor ingresa un correo electrónico válido.');
+            return; // Salir de la función si el correo electrónico no es válido
+        }
+    
+        // Verificar si el número de identificación contiene solo números
+        else if (!numIdentificacionRegex.test(customerData.identificacion.numero)) {
+            toast.error('El número de identificación debe contener solo números.');
+            return; // Salir de la función si el número de identificación no contiene solo números
+        }
+    
+        // Verificar si el número de teléfono contiene solo números y puede incluir el signo "+"
+        else if (!numTelefonoRegex.test(customerData.telefono.numero)) {
+            toast.error('El número de teléfono debe contener solo números y puede incluir el signo "+".');
+            return; // Salir de la función si el número de teléfono no cumple con el formato especificado
+        }
+    
+        // Verificar si el código postal contiene solo números
+        else if (!codigoPostalRegex.test(customerData.direccion.codigo_postal)) {
+            toast.error('El código postal debe contener solo números.');
+            return; // Salir de la función si el código postal no contiene solo números
+        }
+    
+        // Verificar si el número de calle contiene solo números
+        else if (!numeroCalleRegex.test(customerData.direccion.numero_calle)) {
+            toast.error('El número de calle debe contener solo números.');
+            return; // Salir de la función si el número de calle no contiene solo números
+        }
+        else{
+            toast.loading('Generando orden de pago...');
+            
+            while (retries < maxRetries && !success) {
+                retries++;
+                
+                try {
+                    await postUALA(); // Intentar realizar el pago
+                    success = true; // El pago se realizó con éxito
+                } catch (error) {
+                    console.error('Error al intentar realizar el pago con Ualá:', error);
+        
+                    if (retries < maxRetries) {
+                        console.log('Reintentando el pago en 5 segundos...');
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                    } else {
+                        console.log('Se alcanzó el número máximo de intentos. Deteniendo el reintento.');
+                    }
+                }
+            }
+        }
+    };
+
+    const errorMetodos = () => toast.error("Debe seleccionar un medio de pago y envio.");
+
     return(
         <div className="padding-top-navbar">
             <Navbar/>
-            {step === 1 && (
-            // Part 2: Display customer data form
+            {carrito.length === 0 ? (
+            <div className="container-no-productos">
+                <h2>No hay productos en el carrito</h2>
+                <p>¡Agrega algunos productos a tu carrito antes de proceder con el pago!</p>
+                <a href='/tienda'>
+                <button className="boton-agregar-carrito boton-tienda">
+                    IR A LA TIENDA
+                </button>
+                </a>
+            </div>
+            ) : (
+            
             <span className='container-checkout-1'>
+            <Toaster 
+            position="bottom-center"
+            reverseOrder={false}
+            toastOptions={{ 
+            className: '',
+            style: {
+                borderRadius: "0px",
+                border: "1px solid rgb(25, 25, 25)",
+            }}}
+            />
             <div className='customer-form-container'>    
                 <h2>DETALLES DE FACTURACIÓN</h2>
                 <p>{'(*) Campos obligatorios.'}</p>
@@ -592,13 +707,13 @@ function Checkout() {
                 </div> */}
                 <div className="container-boton-agregar-carrito">
                     {selectedPaymentMethod != 'uala' && selectedPaymentMethod != 'transferencia' && (
-                    <button className="boton-agregar-carrito boton-pagar-checkout">PAGAR</button>
+                    <button className="boton-agregar-carrito boton-pagar-checkout" onClick={errorMetodos}>PAGAR</button>
                     )}
                 </div>
                 
                 <div className="container-boton-agregar-carrito">
                     {selectedPaymentMethod === 'uala' && (
-                    <button className='boton-agregar-carrito boton-pagar-checkout' onClick={postUALA}>PAGAR</button>
+                    <button className='boton-agregar-carrito boton-pagar-checkout' onClick={postUALAWithRetry}>PAGAR</button>
                     )}
                 </div>
                 <div className="container-boton-agregar-carrito">
@@ -608,9 +723,6 @@ function Checkout() {
                 </div>
             </div>
             </span>
-            )}
-            {step === 2 && (
-                <span></span>
             )}
             <Footer/>
         </div>

@@ -157,3 +157,14 @@
     background-color: rgb(25, 25, 25);
     border: 1px solid rgb(230, 230, 230);
 }
+
+.container-no-productos{
+    padding: 20px;
+    width: 100%;
+    height: 80vh;
+}
+
+.boton-tienda{
+    width: 20%;
+    height: 40px;
+}
