@@ -12,8 +12,15 @@ function Checkout() {
     const [costoEnvioSucursal, setCostoEnvioSucursal] = useState();
     const [costoEnvioDomicilio, setCostoEnvioDomicilio] = useState();
     const [envio, setEnvio] = useState(0);
+    const [envioGratis, setEnvioGratis] = useState();
+    const [envioGratisHabilitado, setEnvioGratisHabilitado] = useState(false);
+    const [descuentoTransferencia, setDescuentoTransferencia] = useState();
+    const [descuentoTransferenciaHabilitado, setDescuentoTransferenciaHabilitado] = useState(false);
     const [selectedEnvioMethod, setSelectedEnvioMethod] = useState();
     const [carrito, setCarrito] = useContext(CarritoContext);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [totalPriceOriginal, setTotalPriceOriginal] = useState(0);
+    const [totalPriceReady, setTotalPriceReady] = useState(false);
     const [step, setStep] = useState(1); // Use step to determine which part of the modal to show
     const [customerData, setCustomerData] = useState({
         nombre: "",
@@ -35,13 +42,67 @@ function Checkout() {
             ciudad: ""
         }
     });
+
+    useEffect(() => {
+        setTotalPrice(carrito.reduce((total, item) => total + (item.price * item.quantity), 0));
+        setTotalPriceOriginal(carrito.reduce((total, item) => total + (item.price * item.quantity), 0));
+        setTotalPriceReady(true);
+        setSelectedPaymentMethod();
+        setSelectedEnvioMethod();
+    }, [carrito]);
+
+    useEffect(() => {
+        if (selectedPaymentMethod === 'transferencia' && descuentoTransferenciaHabilitado) {
+            const descuento = Math.floor(totalPrice * (descuentoTransferencia / 100));
+            const nuevoTotalPrice = totalPrice - descuento;
+            setTotalPrice(nuevoTotalPrice);
+            if (envioGratis >= nuevoTotalPrice){
+                setSelectedEnvioMethod();
+            }
+        }
+        else if (selectedPaymentMethod === 'uala'){
+            setTotalPrice(totalPriceOriginal);
+        }
+    }, [selectedPaymentMethod]);
     
+    useEffect(() => {
+        if (totalPriceReady && envioGratis !== undefined && totalPrice >= envioGratis) {
+            setEnvioGratisHabilitado(true);
+            setEnvio(0);
+        } else {
+            setEnvioGratisHabilitado(false);
+        }
+    }, [envioGratis, totalPrice, totalPriceReady]);
+
+
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/api/envio/`) 
         .then(response => response.json())
         .then(data => {
             setCostoEnvioSucursal(data[0].aSucursal);
             setCostoEnvioDomicilio(data[0].aDomicilio);
+        })
+        .catch(error => console.error(error));
+    }, []);
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/api/enviogratis/`) 
+        .then(response => response.json())
+        .then(data => {
+            if(data[0].activo == true) {
+                setEnvioGratis(data[0].compraminima);
+            }
+        })
+        .catch(error => console.error(error));
+    }, []);
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/api/descuentotransferencia/`) 
+        .then(response => response.json())
+        .then(data => {
+            if(data[0].activo == true) {}
+            setDescuentoTransferencia(data[0].porcentaje);
+            setDescuentoTransferenciaHabilitado(true);
         })
         .catch(error => console.error(error));
     }, []);
@@ -59,8 +120,6 @@ function Checkout() {
     const numeroCalleRegex = /^[0-9]+$/;
 
     const totalQuantity = carrito.reduce((total, item) => total + item.quantity, 0);
-
-    const totalPrice = carrito.reduce((total, item) => total + (item.price * item.quantity), 0);
 
     // const handleMP = (e) => {
     //     e.preventDefault();
@@ -136,15 +195,15 @@ function Checkout() {
         
         try {
           // Obtener el token
-          const tokenResponse = await fetch("https://auth.stage.ua.la/1/auth/token", {
+          const tokenResponse = await fetch("https://auth.prod.ua.la/1/auth/token", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              user_name: 'new_user_1631906477',
-              client_id: '5qqGKGm4EaawnAH0J6xluc6AWdQBvLW3',
-              client_secret_id: 'cVp1iGEB-DE6KtL4Hi7tocdopP2pZxzaEVciACApWH92e8_Hloe8CD5ilM63NppG',
+              user_name: 'agustinmar7inez',
+              client_id: 'dquzqeURm4HRXaUrD3Ujffxw2OZYNqS6',
+              client_secret_id: 'xhDAxH_KrauKJmebMLCA-NSAsjKm71zjhm7VegDQV6HD_WMIW60O95_LZBr1dNUP',
               grant_type: 'client_credentials'
             })
           });
@@ -157,18 +216,19 @@ function Checkout() {
           console.log('Token:', access_token);
       
           // Hacer la llamada para generar el pago con el token
-          const paymentResponse = await fetch("https://checkout.stage.ua.la/1/checkout", {
+          const paymentResponse = await fetch("https://checkout.prod.ua.la/1/checkout", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${access_token}`
             },
             body: JSON.stringify({
-              amount: totalPriceWithShipping.toString(),
+            //   amount: totalPriceWithShipping.toString(),
+                amount: '50',
               description: 'BROS. tienda online',
-              userName: 'new_user_1631906477',
-              callback_fail: 'https://www.google.com/search?q=failed',
-              callback_success: 'https://www.google.com/search?q=success',
+              userName: 'agustinmar7inez',
+              callback_fail: `${process.env.REACT_APP_API_URL}/pago-rechazado`,
+              callback_success: `${process.env.REACT_APP_API_URL}/pago-exitoso`,
               notification_url: 'https://www.brosrqta.com.ar/api/actualizarestado/'
             })
           });
@@ -221,8 +281,8 @@ function Checkout() {
 
     const transferenciaCheckout = async () => {
         if (!selectedEnvioMethod) {
-            alert('Por favor selecciona una opción de envío.');
-            return; // Exit the function if no shipping option is selected
+            toast.error('Debe seleccionar un medio de envio.');
+            return; // Exit the function if any required field is missing
         }
         
         else if (
@@ -318,11 +378,11 @@ function Checkout() {
     };
 
     useEffect(() => {
-        if (selectedEnvioMethod === 'sucursal') {
+        if (selectedEnvioMethod === 'sucursal' && !envioGratisHabilitado) {
             setEnvio(costoEnvioSucursal);
-        } else if (selectedEnvioMethod === 'domicilio') {
+        } else if (selectedEnvioMethod === 'domicilio' && !envioGratisHabilitado) {
             setEnvio(costoEnvioDomicilio);
-        } else if (selectedEnvioMethod === 'retiro') {
+        } else if (selectedEnvioMethod === 'retiro' && !envioGratisHabilitado) {
             setEnvio(0);
         }
         console.log(envio);
@@ -432,6 +492,7 @@ function Checkout() {
             style: {
                 borderRadius: "0px",
                 border: "1px solid rgb(25, 25, 25)",
+                textAlign: "center",
             }}}
             />
             <div className='customer-form-container'>    
@@ -618,13 +679,20 @@ function Checkout() {
                 </form>
             </div>
             <div className='container-tabla-carrito-checkout'>
-                <h2>TU PEDIDO</h2>
+                <h2 className='titulo-tu-pedido'>TU PEDIDO</h2>
+                <div className='separacion-checkout'></div>
                 <table className='tabla-carrito-checkout'>
                     <tbody>
                         {carrito.map((item, index) => (
                             <tr className='img-items-checkout' key={index}>
-                                <td><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="70px" height="70px" alt={item.description} /></td>
-                                <td>{item.description + '(' + item.talle + ')' + ' x' + item.quantity}<br />{item.color}</td>
+                                <td className='td-img-item'><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="70px" height="70px" alt={item.description} />
+                                <div className='texto-item-checkout'>
+                                {item.description +'(x' + item.quantity + ')'}<br />
+                                Talle: {item.talle} <br />
+                                Color: {item.color}
+                                </div>
+                                </td>
+                                <td></td>
                                 <td>${item.price}</td>
                             </tr>
                         ))}
@@ -636,38 +704,65 @@ function Checkout() {
                     </tbody>
                 </table>
                 <div className="payment-method-container">
+                    <div className='separacion-checkout'></div>
                     <label className='titulo-checkout'>
                         Envio:
                     </label>
+                    {envioGratisHabilitado ? (
+                        <label>
+                            <input
+                                className='input-form-checkout'
+                                type="checkbox"
+                                value="domicilio"
+                                checked={selectedEnvioMethod === 'domicilio'}
+                                onChange={() => setSelectedEnvioMethod('domicilio')}
+                            />
+                            Envio a domicilio por Correo Argentino (GRATIS)
+                        </label>
+                    ) : (
+                        <label>
+                            <input
+                                className='input-form-checkout'
+                                type="checkbox"
+                                value="domicilio"
+                                checked={selectedEnvioMethod === 'domicilio'}
+                                onChange={() => setSelectedEnvioMethod('domicilio')}
+                            />
+                            Envio a domicilio por Correo Argentino (${costoEnvioDomicilio})
+                        </label>
+                    )}
+                    {envioGratisHabilitado ? (
+                        <label>
+                            <input
+                                className='input-form-checkout'
+                                type="checkbox"
+                                value="sucursal"
+                                checked={selectedEnvioMethod === 'sucursal'}
+                                onChange={() => setSelectedEnvioMethod('sucursal')}
+                            />
+                            Envio a sucursal de Correo Argentino (GRATIS)
+                        </label>
+                    ) : (
+                        <label>
+                            <input
+                                className='input-form-checkout'
+                                type="checkbox"
+                                value="sucursal"
+                                checked={selectedEnvioMethod === 'sucursal'}
+                                onChange={() => setSelectedEnvioMethod('sucursal')}
+                            />
+                            Envio a sucursal de Correo Argentino (${costoEnvioSucursal})
+                        </label>
+                    )}
                     <label>
                         <input
                             className='input-form-checkout'
-                            type="radio"
-                            value="domicilio"
-                            checked={selectedEnvioMethod === 'domicilio'}
-                            onChange={() => setSelectedEnvioMethod('domicilio')}
-                        />
-                        Envio a domicilio por Correo Argentino {'('}${costoEnvioDomicilio}{')'}
-                    </label>
-                    <label>
-                        <input
-                            className='input-form-checkout'
-                            type="radio"
-                            value="sucursal"
-                            checked={selectedEnvioMethod === 'sucursal'}
-                            onChange={() => setSelectedEnvioMethod('sucursal')}
-                        />
-                        Envio a sucursal de Correo Argentino {'('}${costoEnvioSucursal}{')'}
-                    </label>
-                    <label>
-                        <input
-                            className='input-form-checkout'
-                            type="radio"
+                            type="checkbox"
                             value="retiro"
                             checked={selectedEnvioMethod === 'retiro'}
                             onChange={() => setSelectedEnvioMethod('retiro')}
                         />
-                        Retiro en ~direccion de bros~
+                        Retiro en <a href="https://maps.app.goo.gl/aCG18yCDpEiqVXTh9" target='_blank' className='label-retiro'>San Martín 771, Reconquista, Santa Fe</a>
                     </label>
                 </div>
                 {envio != 0 && (
@@ -676,13 +771,14 @@ function Checkout() {
                     </div>
                 )}
                 <div className="payment-method-container">
+                    <div className="separacion-checkout"></div>
                     <label className='titulo-checkout'>
                         Medio de pago:
                     </label>
                     <label>
                         <input
                             className='input-radio input-form-checkout'
-                            type="radio"
+                            type="checkbox"
                             value="uala"
                             checked={selectedPaymentMethod === 'uala'}
                             onChange={() => setSelectedPaymentMethod('uala')}
@@ -692,12 +788,12 @@ function Checkout() {
                     <label>
                         <input
                             className='input-form-checkout'
-                            type="radio"
+                            type="checkbox"
                             value="transferencia"
                             checked={selectedPaymentMethod === 'transferencia'}
                             onChange={() => setSelectedPaymentMethod('transferencia')}
                         />
-                        Pagar con transferencia bancaria
+                        Pagar con transferencia bancaria{descuentoTransferenciaHabilitado && <span>{' ('}{descuentoTransferencia}% de descuento{')'}</span>}
                     </label>
                 </div>
                 {/* <div className="container-boton-agregar-carrito">
@@ -707,18 +803,18 @@ function Checkout() {
                 </div> */}
                 <div className="container-boton-agregar-carrito">
                     {selectedPaymentMethod != 'uala' && selectedPaymentMethod != 'transferencia' && (
-                    <button className="boton-agregar-carrito boton-pagar-checkout" onClick={errorMetodos}>PAGAR</button>
+                    <button className="boton-cel boton-pagar-checkout" onClick={errorMetodos}>PAGAR</button>
                     )}
                 </div>
                 
                 <div className="container-boton-agregar-carrito">
                     {selectedPaymentMethod === 'uala' && (
-                    <button className='boton-agregar-carrito boton-pagar-checkout' onClick={postUALAWithRetry}>PAGAR</button>
+                    <button className='boton-cel boton-pagar-checkout' onClick={postUALAWithRetry}>PAGAR</button>
                     )}
                 </div>
                 <div className="container-boton-agregar-carrito">
                 {selectedPaymentMethod === 'transferencia' && (
-                    <button className='boton-agregar-carrito boton-pagar-checkout' onClick={() => transferenciaCheckout()}>PAGAR</button>
+                    <button className='boton-cel boton-pagar-checkout' onClick={() => transferenciaCheckout()}>PAGAR</button>
                 )}
                 </div>
             </div>

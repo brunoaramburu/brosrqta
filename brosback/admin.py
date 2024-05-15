@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Categoria, Grupo, Producto, Tamaño, CarritoCheckout, FotoTalle, Color, ProductoColorTamaño, ImagenesProducto, Orden, Aviso, Envio
+from .models import Categoria, Grupo, Producto, Tamaño, CarritoCheckout, FotoTalle, Color, ProductoColorTamaño, ImagenesProducto, Orden, Aviso, Envio, EnvioGratis, DescuentoTransferencia
 from prettyjson import PrettyJSONWidget
 
 admin.site.register(Categoria)
@@ -14,6 +14,8 @@ admin.site.register(ProductoColorTamaño)
 admin.site.register(ImagenesProducto)
 admin.site.register(Aviso)
 admin.site.register(Envio)
+admin.site.register(DescuentoTransferencia)
+admin.site.register(EnvioGratis)
 
 class OrdenForm(forms.ModelForm):
     class Meta:

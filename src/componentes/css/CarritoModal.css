@@ -76,6 +76,7 @@
 
 .cantidad-carrito{
     align-items: center;
+    display: flex;
 }
 
 .boton-eliminar{
@@ -120,4 +121,35 @@
     background-color: lightgray;
     padding: 0;
     margin: 0;
+}
+
+.padding-carrito-cel{
+    padding-inline: 20px;
+}
+
+.imagen-borrar-carrito-cel{
+    border: 1px solid lightgray;
+    display: flex;
+    margin-inline: auto;
+}
+
+.texto-total-carrito-cel{
+    font-weight: 600;
+}
+
+@media only screen and (max-width: 767px) {
+    .boton-cel{
+        background-color: #1D1B1B;
+        color: white;
+        width: 100%;
+        height: 70px;
+        border: 2px solid #1D1B1B;
+        transition: background-color 0s ease 0s;
+        transition: color 0s ease 0s;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .td-carrito{
+        padding-left: 0px;
+    }
 }

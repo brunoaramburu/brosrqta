@@ -93,6 +93,10 @@
     margin-bottom: 20px;
 }
 
+.container-guia-talles:hover{
+    cursor: pointer;
+}
+
 .imagen-talles{
     display: flex;
     justify-content: center;
@@ -118,6 +122,10 @@
     border: 2px solid gray;
 }
 
+.selected-talle:hover {
+    cursor: pointer;
+}
+
 .boton-talle{
     margin-inline: 2px;
     width: 50px;
@@ -125,6 +133,10 @@
     font-weight: 600;
     border-radius: 0;
     border: 1px solid gray;
+}
+
+.boton-talle:hover{
+    cursor: pointer;
 }
 
 .tarjeta-productos-relacionados{
@@ -138,6 +150,10 @@
     aspect-ratio: 1/1;
     border: 1px solid gray;
     padding: 0;
+}
+
+.color-option:hover{
+    cursor: pointer;
 }
 
 .selected-color{
@@ -207,3 +223,65 @@
     display: flex;
     max-width: 100%;
 }
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 80vh;
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    z-index: 999;
+}
+
+@media only screen and (max-width: 767px) {
+    .col-imagenes{
+        width: auto;
+    }
+    .col-informacion{
+        width: auto;
+        height: auto;
+    }
+    .row-destacados{
+        display: block;
+    }
+    .imagen-producto{
+        padding: 0px;
+        width: 100vw;
+    }
+    .padding-top-navbar{
+        padding-top: 60px;
+    }
+    .boton-agregar-carrito{
+        width: 95vw;
+    }
+}
+
+  

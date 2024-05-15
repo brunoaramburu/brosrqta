@@ -119,7 +119,6 @@
 
 .titulo-checkout{
     font-weight: 600;
-    margin-top: 10px;
 }
 
 .input-form-checkout{
@@ -143,7 +142,7 @@
 }
 
 .total-precio-items{
-    padding-block: 20px;
+    padding-top: 20px;
     font-weight: 600;
 }
 
@@ -167,4 +166,57 @@
 .boton-tienda{
     width: 20%;
     height: 40px;
+}
+
+.separacion-checkout{
+    width: 100%;
+    height: 1px;
+    background-color: rgb(180, 180, 180);
+    margin-block: 15px;
+}
+
+.titulo-tu-pedido{
+    margin-bottom: 5px;
+}
+
+.td-img-item{
+    display: flex;
+    align-items: center;
+}
+
+.texto-item-checkout{
+    margin-left: 10px;
+}
+
+.label-retiro{
+    color: rgb(230, 230, 230);
+}
+
+.label-retiro:hover {
+    text-decoration: underline;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .container-checkout-1{
+        display: block;
+    }
+    .customer-form-container{
+        padding: 10px;
+        width: auto;
+    }
+    .container-tabla-carrito-checkout{
+        padding: 10px;
+        width: auto;
+    }
+    .customer-form{
+        padding: 0px;
+        width: auto;
+    }
+    .ver-producto-button{
+        display: none;
+    }
+    .ver-producto-span{
+        display: none;
+    }
 }

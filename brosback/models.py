@@ -119,6 +119,27 @@ class Envio(models.Model):
 
     def __str__(self):
         return f"A domicilio ${self.aDomicilio} - A sucursal ${self.aSucursal}"
+
+class EnvioGratis(models.Model):
+    activo = models.BooleanField(primary_key=True)
+    compraminima = models.IntegerField()
+
+    def __str__(self):
+        return f"Envio gratis activo: {self.activo} - Compra minima: ${self.compraminima}"
+    
+class EnvioGratis(models.Model):
+    activo = models.BooleanField(primary_key=True)
+    compraminima = models.IntegerField()
+
+    def __str__(self):
+        return f"Envio gratis activo: {self.activo} - Compra minima: ${self.compraminima}"
+    
+class DescuentoTransferencia(models.Model):
+    activo = models.BooleanField(primary_key=True)
+    porcentaje = models.IntegerField()
+
+    def __str__(self):
+        return f"Descuento transferencia activo: {self.activo} - Porcentaje: ${self.porcentaje}"
     
 class Aviso(models.Model):
     id = models.AutoField(primary_key=True)

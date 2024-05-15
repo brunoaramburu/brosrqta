@@ -4,8 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 import mercadopago
 import json
 from rest_framework import generics
-from .models import Producto, ProductoColorTamaño, Tamaño, CarritoCheckout, Grupo, Categoria, FotoTalle, ImagenesProducto, Orden, Envio, Aviso
-from .serializers import ProductoSerializer, CategoriaSerializer, OrdenSerializer, EnvioSerializer, AvisoSerializer
+from .models import Producto, ProductoColorTamaño, Tamaño, CarritoCheckout, Grupo, Categoria, FotoTalle, ImagenesProducto, Orden, Envio, Aviso, EnvioGratis, DescuentoTransferencia
+from .serializers import ProductoSerializer, CategoriaSerializer, OrdenSerializer, EnvioSerializer, AvisoSerializer, EnvioGratisSerializer, DescuentoTransferenciaSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.core import serializers
@@ -121,6 +121,18 @@ class EnvioListView(APIView):
     def get(self, request):
         envio = Envio.objects.all()
         serializer = EnvioSerializer(envio, many=True)
+        return Response(serializer.data)
+    
+class EnvioGratisListView(APIView):
+    def get(self, request):
+        enviogratis = EnvioGratis.objects.all()
+        serializer = EnvioGratisSerializer(enviogratis, many=True)
+        return Response(serializer.data)
+    
+class DescuentoTransferenciaListView(APIView):
+    def get(self, request):
+        descuentotransferencia = DescuentoTransferencia.objects.all()
+        serializer = DescuentoTransferenciaSerializer(descuentotransferencia, many=True)
         return Response(serializer.data)
     
 class CategoriaListView(APIView):

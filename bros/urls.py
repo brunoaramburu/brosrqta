@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from brosback.views import create_preference, ProductoCreateAPIView, ProductoListView, ProductoDetailView, TamanoNombreView, CategoriaListView, ProductsByCategoryView, CategoryDetailView, FotoTalleView, ProductosConColoresView, ProductoDetalleView, ImagenesProductoView, CrearOrdenView, ModificarEstadoView, ObtenerOrdenView, ActualizarEstadoUalaView, AvisoListView, EnvioListView, ActualizarEstadoView
+from brosback.views import create_preference, ProductoCreateAPIView, ProductoListView, ProductoDetailView, TamanoNombreView, CategoriaListView, ProductsByCategoryView, CategoryDetailView, FotoTalleView, ProductosConColoresView, ProductoDetalleView, ImagenesProductoView, CrearOrdenView, ModificarEstadoView, ObtenerOrdenView, ActualizarEstadoUalaView, AvisoListView, EnvioListView, ActualizarEstadoView, EnvioGratisListView, DescuentoTransferenciaListView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
 admin.site.site_header = 'BROS'                    
 admin.site.index_title = 'PANEL DE ADMINISTRACIÓN'                 
@@ -46,6 +47,8 @@ urlpatterns = [
     path('api/modificarestado/<int:id>/', ModificarEstadoView.as_view(), name='modify_estado_api'),
     path('api/actualizarestado/', ActualizarEstadoView, name='actualizar_estado_api'),
     path('api/envio/', EnvioListView.as_view(), name='envio'),
+    path('api/enviogratis/', EnvioGratisListView.as_view(), name='envio-gratis'),
+    path('api/descuentotransferencia/', DescuentoTransferenciaListView.as_view(), name='descuento-transferencia'),
     path('api/avisos/', AvisoListView.as_view(), name='avisos'),
     path('', TemplateView.as_view(template_name='index.html')),
     path('categorias/', TemplateView.as_view(template_name='index.html')),
@@ -54,9 +57,5 @@ urlpatterns = [
     re_path(r'^producto/(?P<path>.*)$', TemplateView.as_view(template_name='index.html')),
     re_path(r'^categoria/(?P<path>.*)$', TemplateView.as_view(template_name='index.html')),
     re_path(r'^ordentransferencia/(?P<path>.*)$', TemplateView.as_view(template_name='index.html')),
-
-
-
-
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

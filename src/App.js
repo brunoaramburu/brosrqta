@@ -13,6 +13,8 @@ import CategoriaProductos from "./componentes/CategoriaProductos.jsx";
 import BotonWsp from "./componentes/BotonWsp.jsx";
 import OrdenTransferencia from "./componentes/OrdenTransferencia.jsx";
 import Loader from "./componentes/Loader.jsx";
+import CompraUala from "./componentes/CompraUala.jsx";
+import CompraRechazada from "./componentes/CompraRechazada.jsx";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
               <Route exact={true} path="/tienda" element={<Productos/>}/>
               <Route exact={true} path="/producto/:id" element={<DetalleProducto/>}/>
               <Route exact={true} path="/checkout" element={<Checkout/>}/>
+              <Route exact={true} path="/pago-exitoso" element={<CompraUala/>}/>
+              <Route exact={true} path="/pago-rechazado" element={<CompraRechazada/>}/>
               <Route exact={true} path="/ordentransferencia/:id" element={<OrdenTransferencia/>}/>
             </Routes>
           </LoggedProvider>

@@ -8,11 +8,14 @@ import CarritoModalDetalle from './CarritoModalDetalle';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ReglaImg from "./img/regla.png";
 import toast, { Toaster } from 'react-hot-toast';
+import closeIcon from "./img/close.png";
 
 function DetalleProducto() {
   const { id } = useParams();
 
   const [producto, setProducto] = useState([]);
+  const [isGuiaTallesOpen, setIsGuiaTallesOpen] = useState(false);
+  const [guiaTallesUrl, setGuiaTallesUrl] = useState('');
   const [fotoTalle, setFotoTalle] = useState([]);
   const [imagenes, setImagenes] = useState([]);
   const [productoTamanosColores, setProductoTamanosColores] = useState([]);
@@ -118,7 +121,7 @@ function DetalleProducto() {
         price: producto.precio,
         talle: selectedTalle,
         color: selectedColor,
-        img: producto.img,
+        img: imagenes[0].image_url,
       };
       const updatedCart = [...carrito, productToAdd];
       setCarrito(updatedCart);
@@ -224,9 +227,22 @@ function DetalleProducto() {
     }
   }, [uniqueColors]);
 
+  const handleOpenGuiaTalles = (url) => {
+    setGuiaTallesUrl(url);
+    setIsGuiaTallesOpen(true);
+  };
+
   return (
     <div className="z-index-carrito padding-top-navbar">
       <Navbar />
+      {isGuiaTallesOpen && (
+        <div className="modal-background" onClick={() => setIsGuiaTallesOpen(false)}>
+          <div className="modal-content">
+            <img className='boton-cerrar-carrito close-button' onClick={() => setIsGuiaTallesOpen(false)} src={closeIcon} alt="close" />
+            <img src={guiaTallesUrl} alt="Guía de Talles" />
+          </div>
+        </div>
+      )}
       <span className="margin-producto">
       <div className="row-destacados">
         <div className="col-imagenes">
@@ -271,8 +287,8 @@ function DetalleProducto() {
           )}
           <div className="container-boton-agregar-carrito">
           {fotoTalle.img && (
-            <a className="container-guia-talles" href={`${process.env.REACT_APP_API_URL}/media/${fotoTalle.img}`} target="_blank"><img src={ReglaImg} className="guia-talles-img" /><p className="texto-guia-talles">VER GUÍA DE TALLES</p></a>
-          )}
+            <a className="container-guia-talles" onClick={() => handleOpenGuiaTalles(`${process.env.REACT_APP_API_URL}/media/${fotoTalle.img}`)}><img src={ReglaImg} className="guia-talles-img" /><p className="texto-guia-talles">VER GUÍA DE TALLES</p></a>
+         )}
           {!isSelectionValid && (
             <span>
               <button className="boton-agregar-carrito" onClick={errorTalle}>AGREGAR AL CARRITO</button>

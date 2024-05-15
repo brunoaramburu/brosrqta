@@ -66,3 +66,9 @@
 .tabla-pasos-medio{
     margin-block: 20px;
 }
+
+@media only screen and (max-width: 767px) {
+    .titulo-orden-transferencia{
+        font-size: 18px;
+    }
+}

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Producto, Categoria, Orden, Envio, Aviso
+from .models import Producto, Categoria, Orden, Envio, Aviso, EnvioGratis, DescuentoTransferencia
 
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,6 +19,16 @@ class OrdenSerializer(serializers.ModelSerializer):
 class EnvioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Envio
+        fields = '__all__'
+
+class EnvioGratisSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EnvioGratis
+        fields = '__all__'
+
+class DescuentoTransferenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DescuentoTransferencia
         fields = '__all__'
     
 class AvisoSerializer(serializers.ModelSerializer):
