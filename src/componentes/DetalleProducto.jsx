@@ -251,11 +251,11 @@ function DetalleProducto() {
           ))}
         </div>
         <div className="col-informacion">
-          <p className="nombre-producto padding-10-left">{producto.nombre}</p>
-          <p className="precio-producto padding-10-left">${producto.precio}</p>
-          <span><p className="descripcion-producto padding-10-left">{producto.descripcion}</p></span>
-          <p className="colores-talles">Colores</p>
-          <div className="talles-producto padding-10-left">
+          <p className="nombre-producto padding-10-left margin-block-cel">{producto.nombre}</p>
+          <p className="precio-producto padding-10-left margin-block-cel">${producto.precio}</p>
+          <span><p className="descripcion-producto padding-10-left margin-block-cel">{producto.descripcion}</p></span>
+          <p className="colores-talles margin-block-cel">Colores</p>
+          <div className="talles-producto padding-10-left margin-block-cel">
             {allImages.map((image) => (
               <div className={selectedColor === image.color ? 'color-option-container selected-color-container' : 'color-option-container'}>
                 <button
@@ -268,17 +268,17 @@ function DetalleProducto() {
               </div>
             ))}
           </div>
-          <p className="colores-talles">Talles</p>
+          <p className="colores-talles margin-block-cel">Talles</p>
           {availableSizes.length > 0 && (
             <span>
-            <div className="talles-producto padding-10-left">
+            <div className="talles-producto padding-10-left margin-block-cel">
               {availableSizes.map((size) => (
                 <div className={selectedTalle === size ? 'selected-container-talle container-talle' : 'container-talle'} key={size}>
                   <button
                     onClick={() => handleSizeButtonClick(size)}
                     className={selectedTalle === size ? 'selected-talle' : 'boton-talle'}
                   >
-                    <p>{size}</p>
+                    <p className="texto-talle">{size}</p>
                   </button>
                 </div>
               ))}

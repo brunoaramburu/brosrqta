@@ -94,7 +94,7 @@ h4{
 
 .texto-aviso {
     font-size: 11px;
-    font-weight: 450;
+    font-weight: 600;
     color: rgb(25, 25, 25);
 }
   
@@ -294,11 +294,12 @@ animation: fade-in-out-animation 8s linear infinite;
 .categorias-dropdown {
     display: none;
     position: absolute;
-    background-color: white;
+    background-color: rgb(25, 25, 25);
     z-index: 1000;
     max-height: 0; /* Inicialmente oculto */
     overflow: hidden; /* Oculta el contenido que excede la altura máxima */
     transition: max-height 10s ease; /* Transición suave de altura máxima */
+    padding-top: 12px;
 }
 
 .categorias-dropdown.show {

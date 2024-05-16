@@ -106,8 +106,7 @@ function Navbar() {
         <div className="nav-derecha" onMouseLeave={handleMouseLeave}>
           <a className='link' href="/tienda"><p className="tienda item-nav">TIENDA</p></a>
           <a onMouseEnter={handleMouseEnter}>
-            {categoriasVisible && <span className='link'><p className="item-nav" >↓CATEGORIAS</p></span>}
-            {!categoriasVisible && <span className='link'><p className="item-nav" >CATEGORIAS</p></span>}
+            <span className='link'><p className="item-nav" >CATEGORIAS</p></span>
             <div className={`categorias-dropdown ${categoriasVisible ? 'show' : ''}`}>
               <ul>
                 {categorias.map(categoria => (
@@ -166,10 +165,10 @@ function Navbar() {
             <img src={Menu} alt="" width="18px" height="18px" onClick={handleMenuToggle}/>
           </div>
           <div className="logo-nav">
-            <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='50px' height='50px'/></a>
+            <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='40px' height='40px'/></a>
           </div>
           <div className="nav-derecha nav-derecha-cel">
-            <img src={SearchWhite} alt="buscar" width="20px" height="20px" onClick={toggleSearchInput}/>
+            <span><img src={SearchWhite} alt="buscar" width="17px" height="17px" onClick={toggleSearchInput}/></span>
             <span onClick={toggleCarritoModalCelClose}><CarritoModalCel isOpen={isCarritoModalCelOpen} onClose={toggleCarritoModalCel}/></span>
           </div>
         </div>

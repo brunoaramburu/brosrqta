@@ -52,11 +52,16 @@ function CarritoModal({ isOpen, onClose }) {
     };
 
     return (
-        <span>
-            <img className='boton-carrito-cel' src={Carrito} alt="carrito" width="25px" height="25px" onClick={onClose}/>
+        <div>
+            <div className="carrito-icon-container" onClick={onClose}>
+                <img className="boton-carrito-cel" src={Carrito} alt="carrito" height="18px" />
+                {totalQuantity > 0 && (
+                <div className="cart-badge">{totalQuantity}</div>
+                )}
+            </div>
             <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles} contentLabel="Cart Modal">
                 {totalQuantity === 0 ? (
-                    <span>
+                    <div className='container-carrito-vacio'>
                         <div className='carrito-space-between'>
                             <h2 className='titulo-carrito'>CARRITO</h2>
                             <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
@@ -64,7 +69,7 @@ function CarritoModal({ isOpen, onClose }) {
                         <div className="carrito-modal-content">
                             <p>El carrito está vacío...</p>
                         </div>
-                    </span>
+                    </div>
                 ) : (
                     <div className="carrito-modal-content padding-carrito-cel">
                         <div>
@@ -125,7 +130,7 @@ function CarritoModal({ isOpen, onClose }) {
                     </div>
                 )}
             </Modal>
-        </span>
+        </div>
     );
 }
 

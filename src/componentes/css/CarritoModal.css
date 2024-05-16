@@ -72,6 +72,7 @@
     cursor: pointer;
     width: 25px;
     height: 25px;
+    text-align: center;
 }
 
 .cantidad-carrito{
@@ -135,6 +136,30 @@
 
 .texto-total-carrito-cel{
     font-weight: 600;
+}
+
+.carrito-icon-container {
+    position: relative;
+    display: inline-block;
+}
+  
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-carrito-vacio{
+    padding: 10px;
 }
 
 @media only screen and (max-width: 767px) {
