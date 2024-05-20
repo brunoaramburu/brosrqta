@@ -72,7 +72,6 @@ function Inicio() {
                     </div>
                 </div> */}
             </div>
-            <Footer/>
         </div>
     );
 }

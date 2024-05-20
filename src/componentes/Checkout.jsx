@@ -298,7 +298,7 @@ function Checkout() {
             !customerData.direccion.numero_calle ||
             !customerData.direccion.codigo_postal
         ) {
-            toast.error('Por favor completa todos los campos requeridos del formulario.');
+            toast.error('Por favor, completa todos los campos requeridos del formulario.');
             return; // Exit the function if any required field is missing
         }
 
@@ -412,7 +412,7 @@ function Checkout() {
             !customerData.direccion.numero_calle ||
             !customerData.direccion.codigo_postal
         ) {
-            toast.error('Por favor completa todos los campos requeridos del formulario.');
+            toast.error('Por favor, completa todos los campos requeridos del formulario.');
             return; // Exit the function if any required field is missing
         }
         else if (!emailRegex.test(customerData.email)) {
@@ -474,7 +474,7 @@ function Checkout() {
             {carrito.length === 0 ? (
             <div className="container-no-productos">
                 <h2>No hay productos en el carrito</h2>
-                <p>¡Agrega algunos productos a tu carrito antes de proceder con el pago!</p>
+                <p className='texto-no-productos'>¡Agrega algunos productos a tu carrito antes de proceder con el pago!</p>
                 <a href='/tienda'>
                 <button className="boton-agregar-carrito boton-tienda">
                     IR A LA TIENDA
@@ -499,7 +499,7 @@ function Checkout() {
                 <h2>DETALLES DE FACTURACIÓN</h2>
                 <p>{'(*) Campos obligatorios.'}</p>
                 <form className="customer-form">
-                        <div className="form-section section-nombre">
+                        <div className="form-section section-nombre section-nombre-cel">
                         <span className='span-nombre'>
                         <label for="name">* Nombre:</label>
                         <input
@@ -704,9 +704,35 @@ function Checkout() {
                     </tbody>
                 </table>
                 <div className="payment-method-container">
+                    <div className="separacion-checkout"></div>
+                    <label className='titulo-checkout'>
+                        MEDIO DE PAGO:
+                    </label>
+                    <label>
+                        <input
+                            className='input-radio input-form-checkout'
+                            type="checkbox"
+                            value="uala"
+                            checked={selectedPaymentMethod === 'uala'}
+                            onChange={() => setSelectedPaymentMethod('uala')}
+                        />
+                        Pagar con tarjeta de credito / debito
+                    </label>
+                    <label>
+                        <input
+                            className='input-form-checkout'
+                            type="checkbox"
+                            value="transferencia"
+                            checked={selectedPaymentMethod === 'transferencia'}
+                            onChange={() => setSelectedPaymentMethod('transferencia')}
+                        />
+                        Pagar con transferencia bancaria{descuentoTransferenciaHabilitado && <span>{' ('}{descuentoTransferencia}% de descuento{')'}</span>}
+                    </label>
+                </div>
+                <div className="payment-method-container">
                     <div className='separacion-checkout'></div>
                     <label className='titulo-checkout'>
-                        Envio:
+                        ENVIO:
                     </label>
                     {envioGratisHabilitado ? (
                         <label>
@@ -766,36 +792,14 @@ function Checkout() {
                     </label>
                 </div>
                 {envio != 0 && (
-                    <div className='carrito-space-between'>
-                        <p>Costo total con envio: </p><h3>${totalPriceWithShipping}</h3>
-                    </div>
+                    <span>
+                        <div className='separacion-checkout'></div>
+                        <div className='carrito-space-between'>
+                            <p>Costo total con envio: </p><h3>${totalPriceWithShipping}</h3>
+                        </div>
+                    </span>
                 )}
-                <div className="payment-method-container">
-                    <div className="separacion-checkout"></div>
-                    <label className='titulo-checkout'>
-                        Medio de pago:
-                    </label>
-                    <label>
-                        <input
-                            className='input-radio input-form-checkout'
-                            type="checkbox"
-                            value="uala"
-                            checked={selectedPaymentMethod === 'uala'}
-                            onChange={() => setSelectedPaymentMethod('uala')}
-                        />
-                        Pagar con tarjeta de credito / debito
-                    </label>
-                    <label>
-                        <input
-                            className='input-form-checkout'
-                            type="checkbox"
-                            value="transferencia"
-                            checked={selectedPaymentMethod === 'transferencia'}
-                            onChange={() => setSelectedPaymentMethod('transferencia')}
-                        />
-                        Pagar con transferencia bancaria{descuentoTransferenciaHabilitado && <span>{' ('}{descuentoTransferencia}% de descuento{')'}</span>}
-                    </label>
-                </div>
+                
                 {/* <div className="container-boton-agregar-carrito">
                     {selectedPaymentMethod === 'mercadopago' && (
                     <Wallet initialization={{ preferenceId: idMP, redirectMode: 'modal' }} customization={customization} />
@@ -820,7 +824,6 @@ function Checkout() {
             </div>
             </span>
             )}
-            <Footer/>
         </div>
     )
 }

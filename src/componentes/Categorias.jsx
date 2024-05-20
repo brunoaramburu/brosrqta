@@ -35,7 +35,6 @@ function Categorias() {
                 ))}
                 </div>
             </div>
-            <Footer/>    
         </div>
     );
 }

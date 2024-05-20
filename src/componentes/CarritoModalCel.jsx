@@ -9,7 +9,7 @@ import Borrar from "./img/borrar.png";
 
 Modal.setAppElement('#root'); // Set the app root element for accessibility
 
-function CarritoModal({ isOpen, onClose }) {
+function CarritoModalCel({ isOpen, onClose }) {
 
     const [carrito, setCarrito] = useContext(CarritoContext);
     // Calculate total quantity of items in the cart
@@ -107,17 +107,16 @@ function CarritoModal({ isOpen, onClose }) {
                                                     <td className='td-borrar'><img className='imagen-borrar-carrito-cel' width="25px" height="25px" src={Borrar} alt="" onClick={() => handleDeleteItem(index)}/></td>
                                                 </tr>
                                             ))}
-                                            <tr>
-                                                <td><p className='texto-total-carrito-cel'>TOTAL: </p></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><h3>${totalPrice}</h3></td>
-                                                <td></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                                <div className='borde-tabla-carrito'></div>
+                                    {totalQuantity === 1 ? (
+                                        <p className='total-carrito'>Total ({totalQuantity}) item: <strong>&nbsp;${totalPrice}</strong></p>
+                                    ) : (
+                                        <p className='total-carrito'>Total ({totalQuantity}) items:<strong>&nbsp;${totalPrice}</strong></p>
+                                    )}
+                                    <div className='borde-tabla-carrito'></div>
                                 <div className="container-boton-agregar-carrito">
                                     <a href='/checkout'>
                                     <button className="boton-cel">
@@ -134,4 +133,4 @@ function CarritoModal({ isOpen, onClose }) {
     );
 }
 
-export default CarritoModal;
+export default CarritoModalCel;

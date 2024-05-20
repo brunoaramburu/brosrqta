@@ -44,7 +44,6 @@ function Productos() {
                 ))}
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 }

@@ -21,7 +21,7 @@
 }
 
 .container-checkout-1 select{
-    color: rgb(230, 230, 230);
+    color: rgb(25, 25, 25);
 }
 
 .customer-form {
@@ -45,6 +45,7 @@
     padding: 40px;
     margin: 20px;
     background-color: rgb(25, 25, 25);
+    border-radius: 4px;
 }
 
 .form-section {
@@ -58,6 +59,7 @@
     padding: 40px;
     margin: 20px;
     background-color: rgb(25, 25, 25);
+    border-radius: 4px;
 }
 
 .tabla-container {
@@ -123,9 +125,9 @@
 
 .input-form-checkout{
     border: 1px solid rgb(230, 230, 230);
-    background-color: rgb(25, 25, 25);
-    border-radius: 0;
-    color: rgb(230, 230, 230);
+    background-color: rgb(230, 230, 230);
+    border-radius: 2px;
+    color: rgb(25, 25, 25);
     font-size: 17px;
 }
 
@@ -149,6 +151,12 @@
 .boton-pagar-checkout{
     color: rgb(25, 25, 25);
     background-color: rgb(230, 230, 230);
+    border: 0px;
+    width: 100%;
+    border-radius: 0px;
+    height: 60px;
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .boton-pagar-checkout:hover{
@@ -159,19 +167,22 @@
 
 .container-no-productos{
     padding: 20px;
-    width: 100%;
-    height: 80vh;
+    width: auto;
+    height: 83vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .boton-tienda{
-    width: 20%;
     height: 40px;
 }
 
 .separacion-checkout{
     width: 100%;
-    height: 1px;
-    background-color: rgb(180, 180, 180);
+    height: 2px;
+    background-color: gray;
     margin-block: 15px;
 }
 
@@ -196,6 +207,10 @@
     text-decoration: underline;
 }
 
+.texto-no-productos{
+    text-align: center;
+}
+
 
 @media only screen and (max-width: 767px) {
     .container-checkout-1{
@@ -218,5 +233,25 @@
     }
     .ver-producto-span{
         display: none;
+    }
+    
+    .span-id{
+        width: 100%;
+    }
+    
+    .span-id-number{
+        width: 100%;
+    }
+
+    .section-nombre{
+        display: block;
+    }
+
+    .section-nombre-cel{
+        display: flex;
+    }
+
+    label{
+        margin-block: 5px;
     }
 }

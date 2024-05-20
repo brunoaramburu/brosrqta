@@ -3,19 +3,25 @@ import Modal from 'react-modal';
 import { CarritoContext } from './contexts/CarritoContext';
 import "./css/CarritoModal.css";
 import closeIcon from "./img/close.png";
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
+import Carrito from "./img/carrito.png";
+import Borrar from "./img/borrar.png";
+import CarritoModalDetalle from './CarritoModalDetalle';
 
 Modal.setAppElement('#root'); // Set the app root element for accessibility
 
-function CarritoModalDetalle({ isOpen, onClose }) {
-    
+function CarritoModalDetalleCel({ isOpen, onClose }) {
+
     const [carrito, setCarrito] = useContext(CarritoContext);
+    // Calculate total quantity of items in the cart
     const totalQuantity = carrito.reduce((total, item) => total + item.quantity, 0);
+
     const totalPrice = carrito.reduce((total, item) => total + (item.price * item.quantity), 0);
 
     const handleDeleteItem = (index) => {
         const updatedCarrito = carrito.filter((item, i) => i !== index);
         setCarrito(updatedCarrito);
+        console.log("borrar item");
     };
 
     const handleSubtractOne = (index) => {
@@ -48,49 +54,34 @@ function CarritoModalDetalle({ isOpen, onClose }) {
     };
 
     return (
-        <span>
+        <div>
             <button onClick={onClose} className="boton-agregar-carrito">AGREGAR AL CARRITO</button>
             <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles} contentLabel="Cart Modal">
                 {totalQuantity === 0 ? (
-                    <span>
-                    <div className='carrito-space-between'>
-                    <h2 className='titulo-carrito'>CARRITO</h2>    
-                    <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
+                    <div className='container-carrito-vacio'>
+                        <div className='carrito-space-between'>
+                            <h2 className='titulo-carrito'>CARRITO</h2>
+                            <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
+                        </div>
+                        <div className="carrito-modal-content">
+                            <p>El carrito está vacío...</p>
+                        </div>
                     </div>
-                    <div className="carrito-modal-content">
-                        <p>El carrito está vacío...</p>
-                    </div>
-                    </span>
                 ) : (
                     <div className="carrito-modal-content padding-carrito-cel">
                         <div>
                             <div>
                                 <div className='carrito-space-between'>
-                                    <h2 className='titulo-carrito'>CARRITO</h2>    
+                                    <h2 className='titulo-carrito'>CARRITO</h2>
                                     <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
                                 </div>
                                 <div className='tabla-container'>
                                     <table className='tabla-carrito-pc'>
-                                        <thead>
-                                            <td className='td-carrito texto-carrito'>PRODUCTO</td>
-                                            <td className='td-carrito texto-carrito'></td>
-                                            <td className='td-carrito texto-carrito'>COLOR</td>
-                                            <td className='td-carrito texto-carrito'>CANTIDAD</td>
-                                            <td className='td-carrito texto-carrito'>PRECIO UNIDAD</td>
-                                            <td className='td-carrito texto-carrito'></td>
-                                        </thead>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
                                         <tbody className='tbody-carrito'>
                                             {carrito.map((item, index) => (
                                                 <tr key={index}>
-                                                    <td className='td-carrito'><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="60px" height="60px" alt={item.description} /></td>
+                                                    <td className='td-carrito-left'><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="60px" height="60px" alt={item.description} /></td>
                                                     <td className='td-carrito-left'><span className='titulo-item-carrito'>{item.description}{"("}{item.talle}{")"}</span></td>
-                                                    <td className='td-carrito'><span className='texto-carrito'>{item.color}</span></td>
                                                     <td className='td-carrito'>
                                                         <div className='cantidad-carrito texto-carrito'>
                                                             <button className='btn-quantity' onClick={() => {
@@ -110,34 +101,33 @@ function CarritoModalDetalle({ isOpen, onClose }) {
                                                         </div>
                                                     </td>
                                                     <td className='texto-carrito precio-carrito'>${item.price}</td>
-                                                    <td className='texto-carrito'><button className='boton-eliminar' onClick={() => handleDeleteItem(index)}>ELIMINAR</button></td>
+                                                    <td className='td-borrar'><img className='imagen-borrar-carrito-cel' width="25px" height="25px" src={Borrar} alt="" onClick={() => handleDeleteItem(index)}/></td>
                                                 </tr>
                                             ))}
-                                            <tr>
-                                                <td><p>Total {'('}{totalQuantity}{')'} items: </p></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><h3>${totalPrice}</h3></td>
-                                                <td></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                                <div className='borde-tabla-carrito'></div>
+                                    {totalQuantity === 1 ? (
+                                        <p className='total-carrito'>Total ({totalQuantity}) item: <strong>&nbsp;${totalPrice}</strong></p>
+                                    ) : (
+                                        <p className='total-carrito'>Total ({totalQuantity}) items:<strong>&nbsp;${totalPrice}</strong></p>
+                                    )}
+                                    <div className='borde-tabla-carrito'></div>
                                 <div className="container-boton-agregar-carrito">
-                                <a href='/checkout'>
-                                <button className="boton-agregar-carrito">
-                                    INICIAR COMPRA
-                                </button>
-                                </a>
+                                    <a href='/checkout'>
+                                    <button className="boton-cel">
+                                        INICIAR COMPRA
+                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
             </Modal>
-        </span>
+        </div>
     );
 }
 
-export default CarritoModalDetalle;
+export default CarritoModalDetalleCel;

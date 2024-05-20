@@ -20,11 +20,11 @@ function OrdenTransferencia () {
                 setProductos(data.productos);
 
                 // Verificar si la orden ha expirado
-                // const currentDate = new Date();
-                // const orderDate = new Date(data.fecha);
-                // if (currentDate > orderDate) {
-                //     setOrdenExpirada(true);
-                // }
+                const currentDate = new Date();
+                const orderDate = new Date(data.fecha);
+                if (currentDate > orderDate) {
+                    setOrdenExpirada(true);
+                }
             })
             .catch(error => console.error(error));
     }, [id]); // Include id as a dependency to useEffect    
@@ -72,6 +72,7 @@ function OrdenTransferencia () {
                             </table>
 
                             </span>
+                            <div className='separacion-checkout'></div>
                             <h2 className="titulo-orden-transferencia">
                             PRODUCTOS
                             </h2>
@@ -97,12 +98,13 @@ function OrdenTransferencia () {
                                     ))}
                                 </tbody>
                             </table>
+                            <div className='separacion-checkout'></div>
                 </div>
                 <div className='container-tabla-carrito-checkout'>
                     <h2 className="titulo-orden-transferencia">
                         PASOS A SEGUIR
                     </h2>
-                    <table className='tabla-carrito-checkout'>
+                    <table className='tabla-carrito-checkout table-orden'>
                         <tr>
                             <td className='td-numero-paso'>1.</td>
                             <td>
@@ -111,7 +113,7 @@ function OrdenTransferencia () {
                             </td>
                         </tr>
                     </table>
-                    <table className='tabla-carrito-checkout tabla-pasos-medio'>    
+                    <table className='tabla-carrito-checkout tabla-pasos-medio table-orden'>    
                         <tr>
                             <td className='td-numero-paso'>2.</td>
                             <td>
@@ -126,7 +128,7 @@ function OrdenTransferencia () {
                             </td>
                         </tr>
                     </table>
-                    <table className='tabla-carrito-checkout'>    
+                    <table className='tabla-carrito-checkout table-orden'>    
                         <tr>
                             <td className='td-numero-paso'>3.</td>
                             <td>
@@ -138,7 +140,6 @@ function OrdenTransferencia () {
                 </div>
             </span>
             )}
-            <Footer/>
         </div>
     );
 };

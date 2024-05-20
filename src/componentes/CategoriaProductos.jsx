@@ -67,7 +67,6 @@ function CategoriaProductos () {
                 ))}
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 };

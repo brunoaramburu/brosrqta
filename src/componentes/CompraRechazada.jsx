@@ -9,7 +9,7 @@ function CompraRechazada () {
         <div className='padding-top-navbar'>
             <Navbar/>
                 <div className='container-compra-realizada'>
-                    <h2>TU PAGO HA SIDO RECHAZADO</h2>
+                    <h2 className='texto-compra'>TU PAGO HA SIDO RECHAZADO</h2>
                     <p>Intenta nuevamente</p>
                     <a href='/checkout'>
                     <button className="boton-agregar-carrito boton-compra-uala">
@@ -17,7 +17,6 @@ function CompraRechazada () {
                     </button>
                     </a>
                 </div>            
-            <Footer/>
         </div>
     );
 };

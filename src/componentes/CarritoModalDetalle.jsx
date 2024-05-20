@@ -35,9 +35,9 @@ function CarritoModalDetalle({ isOpen, onClose }) {
     const customStyles = {
         content: {
             top: '25%',
-            left: '12%',
+            left: '25%',
             transform: 'translate(0%, 0%)',
-            width: '76%',
+            width: '50%',
             height: '60%',
             border: '1px solid #888888',
             borderRadius: '0',
@@ -71,24 +71,10 @@ function CarritoModalDetalle({ isOpen, onClose }) {
                                 </div>
                                 <div className='tabla-container'>
                                     <table className='tabla-carrito-pc'>
-                                        <thead>
-                                            <td className='td-carrito texto-carrito'>PRODUCTO</td>
-                                            <td className='td-carrito texto-carrito'></td>
-                                            <td className='td-carrito texto-carrito'>COLOR</td>
-                                            <td className='td-carrito texto-carrito'>CANTIDAD</td>
-                                            <td className='td-carrito texto-carrito'>PRECIO UNIDAD</td>
-                                            <td className='td-carrito texto-carrito'></td>
-                                        </thead>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
-                                        <td className='border-thead'></td>
                                         <tbody className='tbody-carrito'>
                                             {carrito.map((item, index) => (
                                                 <tr key={index}>
-                                                    <td className='td-carrito'><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="60px" height="60px" alt={item.description} /></td>
+                                                    <td className='td-carrito td-imagen-carrito'><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="60px" height="60px" alt={item.description} /></td>
                                                     <td className='td-carrito-left'><span className='titulo-item-carrito'>{item.description}{"("}{item.talle}{")"}</span></td>
                                                     <td className='td-carrito'><span className='texto-carrito'>{item.color}</span></td>
                                                     <td className='td-carrito'>
@@ -113,17 +99,16 @@ function CarritoModalDetalle({ isOpen, onClose }) {
                                                     <td className='texto-carrito'><button className='boton-eliminar' onClick={() => handleDeleteItem(index)}>ELIMINAR</button></td>
                                                 </tr>
                                             ))}
-                                            <tr>
-                                                <td><p>Total {'('}{totalQuantity}{')'} items: </p></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><h3>${totalPrice}</h3></td>
-                                                <td></td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                                <div className='borde-tabla-carrito'></div>
+                                {totalQuantity === 1 ? (
+                                    <p className='total-carrito'>Total ({totalQuantity}) item: <strong>&nbsp;${totalPrice}</strong></p>
+                                ) : (
+                                    <p className='total-carrito'>Total ({totalQuantity}) items:<strong>&nbsp;${totalPrice}</strong></p>
+                                )}
+                                <div className='borde-tabla-carrito'></div>
                                 <div className="container-boton-agregar-carrito">
                                 <a href='/checkout'>
                                 <button className="boton-agregar-carrito">

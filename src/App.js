@@ -8,6 +8,7 @@ import { ProductosProvider } from "./componentes/contexts/ProductosContext.jsx";
 import { LoggedProvider } from "./componentes/contexts/LoggedContext.jsx";
 import Panel from "./componentes/Panel.jsx";
 import Checkout from "./componentes/Checkout.jsx";
+import Footer from "./componentes/Footer.jsx";
 import Categorias from "./componentes/Categorias.jsx";
 import CategoriaProductos from "./componentes/CategoriaProductos.jsx";
 import BotonWsp from "./componentes/BotonWsp.jsx";
@@ -18,7 +19,8 @@ import CompraRechazada from "./componentes/CompraRechazada.jsx";
 
 function App() {
   return (
-    <div>
+    <div className="body">
+        <div className="content">
         <Loader/>
         <Router>
           <ProductosProvider>
@@ -41,6 +43,8 @@ function App() {
           </CarritoProvider>
           </ProductosProvider>
         </Router>
+        </div>
+        <Footer/>
     </div>
   );
 }

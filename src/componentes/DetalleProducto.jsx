@@ -4,6 +4,7 @@ import "./css/DetalleProducto.css";
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { CarritoContext } from "./contexts/CarritoContext";
+import CarritoModalDetalleCel from './CarritoModalDetalleCel';
 import CarritoModalDetalle from './CarritoModalDetalle';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ReglaImg from "./img/regla.png";
@@ -81,7 +82,12 @@ function DetalleProducto() {
     setIsCarritoModalOpen(!isCarritoModalOpen);
   };
 
+  const toggleCarritoModalCel = () => {
+    setIsCarritoModalCelOpen(!isCarritoModalCelOpen);
+  };
+
   const [isCarritoModalOpen, setIsCarritoModalOpen] = useState(false);
+  const [isCarritoModalCelOpen, setIsCarritoModalCelOpen] = useState(false);
   const [carrito, setCarrito] = useContext(CarritoContext);
 
   const addToCarrito = () => {
@@ -306,15 +312,23 @@ function DetalleProducto() {
             </span>
           )}
           {isSelectionValid && (
-              <span onClick={() => {
-                if (isCarritoModalOpen !== true) {
-                  addToCarrito();
-                }
-              }}>
-                <CarritoModalDetalle isOpen={isCarritoModalOpen} onClose={toggleCarritoModal} />
+              <span>
+                <span className="modal-detalle-cel" onClick={() => {
+                  if (isCarritoModalCelOpen !== true) {
+                    addToCarrito();
+                  }
+                }}>
+                  <CarritoModalDetalleCel isOpen={isCarritoModalCelOpen} onClose={toggleCarritoModalCel} />
+                </span>
+                <span className="modal-detalle-pc" onClick={() => {
+                  if (isCarritoModalOpen !== true) {
+                    addToCarrito();
+                  }
+                }}>
+                  <CarritoModalDetalle isOpen={isCarritoModalOpen} onClose={toggleCarritoModal} />
+                </span>
               </span>
           )}
-          
           </div>
         </div>
       </div>
@@ -347,7 +361,6 @@ function DetalleProducto() {
             ))}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

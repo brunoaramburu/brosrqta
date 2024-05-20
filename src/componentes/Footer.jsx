@@ -8,24 +8,6 @@ function Footer() {
     return(
         <div>
             <BotonWsp/>
-            <h3 className="titulo-clientes">CONFIARON EN NOSOTROS</h3>
-            <div className="footer-items">
-                <div className="footer-cliente">
-
-                </div>
-                <div className="footer-cliente">
-
-                </div>
-                <div className="footer-cliente">
-
-                </div>
-                <div className="footer-cliente">
-
-                </div>
-                <div className="footer-cliente">
-
-                </div>
-            </div>
             <div className="footer-bros">
                 {/* <div>
                     <img className="logo-redes" src={LogoIg} alt="Instagram"></img>
