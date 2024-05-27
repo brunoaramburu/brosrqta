@@ -60,10 +60,7 @@ function Inicio() {
                     ))}
                     </div>
                 </div>
-                <div className="row-btn-ver-todos">
-                    <a className="btn-ver-todos" href="/tienda">VER TODOS</a>
-                    
-                </div>
+                <a href="/tienda"><button className="btn-ver-todos">VER TODOS</button></a>
                 {/* <div className="container-suscripcion">
                     <p className="texto-suscripcion">SUSCRIBITE PARA RECIBIR NOVEDADES</p>
                     <div>

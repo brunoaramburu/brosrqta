@@ -19,7 +19,7 @@ function Productos() {
     return(
         <div className="padding-top-navbar">
             <Navbar/>
-            <h3 className="titulo-Productos">PRODUCTOS</h3>
+            <h3 className="titulo-Productos">TIENDA</h3>
             <div className="Productos">
                 <div className="row">
                 {productos.map(producto => (

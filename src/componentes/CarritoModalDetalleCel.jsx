@@ -6,7 +6,6 @@ import closeIcon from "./img/close.png";
 import { Link } from 'react-router-dom';
 import Carrito from "./img/carrito.png";
 import Borrar from "./img/borrar.png";
-import CarritoModalDetalle from './CarritoModalDetalle';
 
 Modal.setAppElement('#root'); // Set the app root element for accessibility
 
@@ -21,7 +20,6 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
     const handleDeleteItem = (index) => {
         const updatedCarrito = carrito.filter((item, i) => i !== index);
         setCarrito(updatedCarrito);
-        console.log("borrar item");
     };
 
     const handleSubtractOne = (index) => {
@@ -75,16 +73,16 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
                                     <h2 className='titulo-carrito'>CARRITO</h2>
                                     <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
                                 </div>
-                                <div className='tabla-container'>
-                                    <table className='tabla-carrito-pc'>
-                                        <tbody className='tbody-carrito'>
+                                <div className='tabla-container tabla-carrito-cel'>
+                                    <table className='tabla-carrito-cel'>
+                                        <tbody className='tbody-carrito tabla-carrito-cel'>
                                             {carrito.map((item, index) => (
                                                 <tr key={index}>
-                                                    <td className='td-carrito-left'><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="60px" height="60px" alt={item.description} /></td>
+                                                    <td className='td-carrito-left'><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="80px" height="80px" alt={item.description} /></td>
                                                     <td className='td-carrito-left'><span className='titulo-item-carrito'>{item.description}{"("}{item.talle}{")"}</span></td>
                                                     <td className='td-carrito'>
-                                                        <div className='cantidad-carrito texto-carrito'>
-                                                            <button className='btn-quantity' onClick={() => {
+                                                        <div className='cantidad-carrito texto-carrito texto-carrito-3'>
+                                                            <button className='btn-quantity-2' onClick={() => {
                                                                 // Check if quantity is equal to 1 before subtracting one
                                                                 if (item.quantity === 1) {
                                                                     // If quantity is 1, delete the item
@@ -97,16 +95,17 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
                                                                 -
                                                             </button>
                                                             {item.quantity}
-                                                            <button className='btn-quantity' onClick={() => handleAddOne(index)}>+</button>
+                                                            <button className='btn-quantity-2' onClick={() => handleAddOne(index)}>+</button>
                                                         </div>
                                                     </td>
-                                                    <td className='texto-carrito precio-carrito'>${item.price}</td>
+                                                    <td className='texto-carrito precio-carrito texto-carrito-3'>${item.price}</td>
                                                     <td className='td-borrar'><img className='imagen-borrar-carrito-cel' width="25px" height="25px" src={Borrar} alt="" onClick={() => handleDeleteItem(index)}/></td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </table>
                                 </div>
+                                <div className='margen-tabla-carrito'></div>
                                 <div className='borde-tabla-carrito'></div>
                                     {totalQuantity === 1 ? (
                                         <p className='total-carrito'>Total ({totalQuantity}) item: <strong>&nbsp;${totalPrice}</strong></p>

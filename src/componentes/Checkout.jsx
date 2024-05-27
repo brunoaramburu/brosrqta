@@ -687,7 +687,7 @@ function Checkout() {
                             <tr className='img-items-checkout' key={index}>
                                 <td className='td-img-item'><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="70px" height="70px" alt={item.description} />
                                 <div className='texto-item-checkout'>
-                                {item.description +'(x' + item.quantity + ')'}<br />
+                                <strong>{item.description +'(x' + item.quantity + ')'}</strong><br />
                                 Talle: {item.talle} <br />
                                 Color: {item.color}
                                 </div>

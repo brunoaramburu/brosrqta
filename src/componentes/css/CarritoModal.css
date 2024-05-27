@@ -9,6 +9,10 @@
     text-align: center;
     vertical-align: middle;
 }
+.tabla-carrito-cel{
+    width: 100%;
+    margin-inline: auto;
+}
 
 .tabla-carrito td {
     width: auto; /* Remove the fixed width for table cells */
@@ -29,7 +33,8 @@
 
 .tabla-carrito-pc {
     text-align: center;
-    width: 100%;
+    width: 60%;
+    margin-inline: auto;
 }
 
 .contenido-centrado{
@@ -55,20 +60,49 @@
 }
 
 .boton-cerrar-carrito:hover{
-    background-color: lightgray;
+    background-color: gray;
 }
 
 .btn-quantity{
-    background-color: transparent;
+    background-color: rgb(230, 230, 230);
     border: 1px solid lightgray;
     margin-inline: 5px;
-    color: grey;
+    color: rgb(25, 25, 25);
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.btn-quantity{
+    background-color: rgb(230, 230, 230);
+    border: 1px solid lightgray;
+    margin-inline: 5px;
+    color: rgb(25, 25, 25);
     font-size: 18px;
     font-weight: 500;
     cursor: pointer;
     width: 25px;
     height: 25px;
     text-align: center;
+    border-radius: 50%;
+}
+
+.btn-quantity-2{
+    background-color: rgb(25, 25, 25);
+    border: 1px solid rgb(230, 230, 230);
+    margin-inline: 5px;
+    color: rgb(230, 230, 230);
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 50%;
 }
 
 .cantidad-carrito{
@@ -78,9 +112,9 @@
 }
 
 .boton-eliminar{
-    background-color: white;
-    color: #1D1B1B;
-    border: 1px solid #1D1B1B;
+    background-color: rgb(25, 25, 25);
+    color: white;
+    border: 1px solid white;
     transition: background-color 0s ease 0s;
     transition: color 0s ease 0s;
     cursor: pointer;
@@ -88,8 +122,8 @@
 }
 
 .boton-eliminar:hover{
-    background-color: #1D1B1B;
-    color: white;
+    background-color: white;
+    color: rgb(25, 25, 25);
 }
 
 .titulo-carrito{
@@ -104,6 +138,11 @@
 
 .texto-carrito{
     font-size: 14px;
+    color: rgb(230, 230, 230);
+}
+
+.texto-carrito-2{
+    color: rgb(230, 230, 230);
 }
 
 .precio-carrito{
@@ -126,9 +165,11 @@
 }
 
 .imagen-borrar-carrito-cel{
-    border: 1px solid lightgray;
     display: flex;
     margin-inline: auto;
+    cursor: pointer;
+    align-items: center;
+    margin-left: 10px;
 }
 
 .texto-total-carrito-cel{
@@ -177,13 +218,53 @@
     justify-content: center;
 }
 
+.margen-tabla-carrito{
+    margin-top: 25px;
+}
+
+.boton-agregar-carrito-carrito{
+    background-color: rgb(230, 230, 230);
+    color: rgb(25, 25, 25);
+    width: 100%;
+    height: 70px;
+    border: 2px solid rgb(230, 230, 230);
+    transition: background-color 0s ease 0s;
+    transition: color 0s ease 0s;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton-agregar-carrito-carrito:hover{
+    background-color: rgb(25, 25, 25);
+    color: rgb(230, 230, 230);
+}
+
+.margin-carrito{
+    display: flex;
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center;    /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+.img-item-carrito{
+    border-radius: 2px;
+}
+
+.width-boton-carrito{
+    width: 100%;
+}
+
+.texto-carrito-3{
+    color: rgb(25, 25, 25);
+}
+
 @media only screen and (max-width: 767px) {
     .boton-cel{
-        background-color: #1D1B1B;
+        background-color: rgb(25, 25, 25);
         color: white;
         width: 100%;
         height: 70px;
-        border: 2px solid #1D1B1B;
+        border: 2px solid rgb(25, 25, 25);
         transition: background-color 0s ease 0s;
         transition: color 0s ease 0s;
         font-weight: 600;
