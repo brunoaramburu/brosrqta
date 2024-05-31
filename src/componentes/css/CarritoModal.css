@@ -258,6 +258,30 @@
     color: rgb(25, 25, 25);
 }
 
+.texto-no-productos-carrito{
+    color: rgb(230, 230, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton-tienda-carrito-vacio{
+    color: rgb(25, 25, 25);
+    background-color: rgb(230, 230, 230);
+    width: 100%;
+    height: 50px;
+    font-weight: 600;
+    border: 2px solid rgb(25, 25, 25);
+    cursor: pointer;
+}
+
+.boton-tienda-carrito-vacio:hover{
+    color: rgb(230, 230, 230);
+    background-color: rgb(25, 25, 25);
+    border: 2px solid rgb(230, 230, 230);
+}
+
+
 @media only screen and (max-width: 767px) {
     .boton-cel{
         background-color: rgb(25, 25, 25);
@@ -272,5 +296,34 @@
     }
     .td-carrito{
         padding-left: 0px;
+    }
+    .padding-carrito-vacio-cel{
+        padding: 20px;
+    }
+    .boton-tienda-carrito-vacio{
+        color: rgb(230, 230, 230);
+        background-color: rgb(25, 25, 25);
+        border: 2px solid rgb(230, 230, 230);
+        width: 90vw;
+        height: 50px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .boton-tienda-carrito-vacio:hover{
+        color: rgb(25, 25, 25);
+        background-color: rgb(230, 230, 230);
+        border: 2px solid rgb(25, 25, 25);
+    }
+    .texto-no-productos-carrito{
+        color: rgb(25, 25, 25);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .texto-carrito-2{
+        color: rgb(25, 25, 25);
+    }
+    .btn-quantity-2{
+        font-size: 15px;
     }
 }

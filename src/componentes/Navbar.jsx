@@ -4,7 +4,7 @@ import CarritoModalCel from './CarritoModalCel';
 import { ProductosContext } from './contexts/ProductosContext';
 import './css/Navbar.css';
 import closeIcon from "./img/close.png";
-import Logo from "./img/logo.png";
+import Logo from "./img/logo2.png";
 import SearchWhite from "./img/search-white.png";
 import Menu from "./img/menu.png";
 
@@ -124,7 +124,7 @@ function Navbar() {
           </a>
         </div>
         <div className="logo-nav">
-          <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='50px' height='50px'/></a>
+          <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='120px'/></a>
         </div>
         <div className="nav-derecha">
           <p className="item-nav buscar-text link" onClick={toggleSearchInput}>BUSCAR</p>
@@ -165,7 +165,7 @@ function Navbar() {
             <img src={Menu} alt="" width="18px" height="18px" onClick={handleMenuToggle}/>
           </div>
           <div className="logo-nav">
-            <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='40px' height='40px'/></a>
+            <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='90px'/></a>
           </div>
           <div className="nav-derecha nav-derecha-cel">
             <span><img src={SearchWhite} alt="buscar" width="17px" height="17px" onClick={toggleSearchInput}/></span>

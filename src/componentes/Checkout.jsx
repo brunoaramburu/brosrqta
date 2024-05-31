@@ -16,7 +16,7 @@ function Checkout() {
     const [envioGratisHabilitado, setEnvioGratisHabilitado] = useState(false);
     const [descuentoTransferencia, setDescuentoTransferencia] = useState();
     const [descuentoTransferenciaHabilitado, setDescuentoTransferenciaHabilitado] = useState(false);
-    const [selectedEnvioMethod, setSelectedEnvioMethod] = useState();
+    const [selectedEnvioMethod, setSelectedEnvioMethod] = useState('');
     const [carrito, setCarrito] = useContext(CarritoContext);
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalPriceOriginal, setTotalPriceOriginal] = useState(0);
@@ -601,7 +601,7 @@ function Checkout() {
                                     })
                                 }
                             >
-                                <option value="">Selecciona una provincia</option>
+                                <option value="" disabled>Seleccione una provincia</option>
                                 {argentineProvinces.map((province) => (
                                     <option key={province} value={province}>
                                         {province}
@@ -680,12 +680,11 @@ function Checkout() {
             </div>
             <div className='container-tabla-carrito-checkout'>
                 <h2 className='titulo-tu-pedido'>TU PEDIDO</h2>
-                <div className='separacion-checkout'></div>
                 <table className='tabla-carrito-checkout'>
                     <tbody>
                         {carrito.map((item, index) => (
                             <tr className='img-items-checkout' key={index}>
-                                <td className='td-img-item'><img src={`${process.env.REACT_APP_API_URL}${item.img}`} width="70px" height="70px" alt={item.description} />
+                                <td className='td-img-item'><img className='img-items-checkout' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="70px" height="70px" alt={item.description} />
                                 <div className='texto-item-checkout'>
                                 <strong>{item.description +'(x' + item.quantity + ')'}</strong><br />
                                 Talle: {item.talle} <br />
@@ -708,95 +707,42 @@ function Checkout() {
                     <label className='titulo-checkout'>
                         MEDIO DE PAGO:
                     </label>
-                    <label>
-                        <input
-                            className='input-radio input-form-checkout'
-                            type="checkbox"
-                            value="uala"
-                            checked={selectedPaymentMethod === 'uala'}
-                            onChange={() => setSelectedPaymentMethod('uala')}
-                        />
-                        Pagar con tarjeta de credito / debito
-                    </label>
-                    <label>
-                        <input
-                            className='input-form-checkout'
-                            type="checkbox"
-                            value="transferencia"
-                            checked={selectedPaymentMethod === 'transferencia'}
-                            onChange={() => setSelectedPaymentMethod('transferencia')}
-                        />
-                        Pagar con transferencia bancaria{descuentoTransferenciaHabilitado && <span>{' ('}{descuentoTransferencia}% de descuento{')'}</span>}
-                    </label>
+                    <select
+                    value={selectedPaymentMethod}
+                    onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+                    className="input-form-checkout select-checkout"
+                  >
+                    <option value="" disabled>Seleccione una opción</option>
+                    <option value="uala">Tarjeta de debito / credito</option>
+                    <option value="transferencia">Transferencia bancaria{descuentoTransferenciaHabilitado && <span>{' ('}{descuentoTransferencia}% de descuento{')'}</span>}</option>
+                  </select>
                 </div>
                 <div className="payment-method-container">
                     <div className='separacion-checkout'></div>
                     <label className='titulo-checkout'>
                         ENVIO:
                     </label>
-                    {envioGratisHabilitado ? (
-                        <label>
-                            <input
-                                className='input-form-checkout'
-                                type="checkbox"
-                                value="domicilio"
-                                checked={selectedEnvioMethod === 'domicilio'}
-                                onChange={() => setSelectedEnvioMethod('domicilio')}
-                            />
-                            Envio a domicilio por Correo Argentino (GRATIS)
-                        </label>
-                    ) : (
-                        <label>
-                            <input
-                                className='input-form-checkout'
-                                type="checkbox"
-                                value="domicilio"
-                                checked={selectedEnvioMethod === 'domicilio'}
-                                onChange={() => setSelectedEnvioMethod('domicilio')}
-                            />
-                            Envio a domicilio por Correo Argentino (${costoEnvioDomicilio})
-                        </label>
-                    )}
-                    {envioGratisHabilitado ? (
-                        <label>
-                            <input
-                                className='input-form-checkout'
-                                type="checkbox"
-                                value="sucursal"
-                                checked={selectedEnvioMethod === 'sucursal'}
-                                onChange={() => setSelectedEnvioMethod('sucursal')}
-                            />
-                            Envio a sucursal de Correo Argentino (GRATIS)
-                        </label>
-                    ) : (
-                        <label>
-                            <input
-                                className='input-form-checkout'
-                                type="checkbox"
-                                value="sucursal"
-                                checked={selectedEnvioMethod === 'sucursal'}
-                                onChange={() => setSelectedEnvioMethod('sucursal')}
-                            />
-                            Envio a sucursal de Correo Argentino (${costoEnvioSucursal})
-                        </label>
-                    )}
-                    <label>
-                        <input
-                            className='input-form-checkout'
-                            type="checkbox"
-                            value="retiro"
-                            checked={selectedEnvioMethod === 'retiro'}
-                            onChange={() => setSelectedEnvioMethod('retiro')}
-                        />
+                    <select
+                        value={selectedEnvioMethod}
+                        onChange={(e) => setSelectedEnvioMethod(e.target.value)}
+                        className="input-form-checkout select-checkout"
+                    >
+                        <option value="" disabled>Seleccione una opción</option>
+                        <option value="domicilio">
+                        Envío a domicilio - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioDomicilio}</strong>}
+                        </option>
+                        <option value="sucursal">
+                        Retiro en sucursal - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioSucursal}</strong>}
+                        </option>
+                        <option value="retiro">
                         Retiro en <a href="https://maps.app.goo.gl/aCG18yCDpEiqVXTh9" target='_blank' className='label-retiro'>San Martín 771, Reconquista, Santa Fe</a>
-                    </label>
+                        </option>
+                    </select>
                 </div>
                 {envio != 0 && (
                     <span>
                         <div className='separacion-checkout'></div>
-                        <div className='carrito-space-between'>
-                            <p>Costo total con envio: </p><h3>${totalPriceWithShipping}</h3>
-                        </div>
+                            <span className='costo-total-checkout'><p>Costo total con envio: </p>&nbsp;<h3> ${totalPriceWithShipping}</h3></span>
                     </span>
                 )}
                 

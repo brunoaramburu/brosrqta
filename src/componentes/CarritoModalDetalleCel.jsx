@@ -56,14 +56,18 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
             <button onClick={onClose} className="boton-agregar-carrito">AGREGAR AL CARRITO</button>
             <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles} contentLabel="Cart Modal">
                 {totalQuantity === 0 ? (
-                    <div className='container-carrito-vacio'>
+                    <div className='padding-carrito-vacio-cel'>
                         <div className='carrito-space-between'>
-                            <h2 className='titulo-carrito'>CARRITO</h2>
+                            <h2 className='titulo-carrito texto-carrito-2'>CARRITO</h2>
                             <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
                         </div>
-                        <div className="carrito-modal-content">
-                            <p>El carrito está vacío...</p>
-                        </div>
+                        <h3 className='texto-no-productos-carrito'>El carrito está vacío...</h3>
+                        <p className='texto-no-productos texto-no-productos-carrito'>¡Agrega algunos productos!</p>
+                        <a href='/tienda'>
+                        <button className="boton-tienda-carrito-vacio">
+                            IR A LA TIENDA
+                        </button>
+                        </a>
                     </div>
                 ) : (
                     <div className="carrito-modal-content padding-carrito-cel">

@@ -211,6 +211,22 @@
     text-align: center;
 }
 
+.select-checkout{
+    height: 35px;
+    margin-top: 5px;
+}
+
+.costo-total-checkout{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: min-content;
+}
+
+.img-items-checkout{
+    border-radius: 2px;
+}
 
 @media only screen and (max-width: 767px) {
     .container-checkout-1{

@@ -61,15 +61,19 @@ function CarritoModalCel({ isOpen, onClose }) {
             </div>
             <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles} contentLabel="Cart Modal">
                 {totalQuantity === 0 ? (
-                    <div className='container-carrito-vacio'>
-                        <div className='carrito-space-between'>
-                            <h2 className='titulo-carrito'>CARRITO</h2>
-                            <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
-                        </div>
-                        <div className="carrito-modal-content">
-                            <p>El carrito está vacío...</p>
-                        </div>
+                <div className='padding-carrito-vacio-cel'>
+                    <div className='carrito-space-between'>
+                        <h2 className='titulo-carrito texto-carrito-2'>CARRITO</h2>
+                        <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
                     </div>
+                    <h3 className='texto-no-productos-carrito'>El carrito está vacío...</h3>
+                    <p className='texto-no-productos texto-no-productos-carrito'>¡Agrega algunos productos!</p>
+                    <a href='/tienda'>
+                    <button className="boton-tienda-carrito-vacio">
+                        IR A LA TIENDA
+                    </button>
+                    </a>
+                </div>
                 ) : (
                     <div className="carrito-modal-content padding-carrito-cel">
                         <div>
@@ -111,13 +115,11 @@ function CarritoModalCel({ isOpen, onClose }) {
                                     </table>
                                 </div>
                                 <div className='margen-tabla-carrito'></div>
-                                <div className='borde-tabla-carrito'></div>
                                     {totalQuantity === 1 ? (
                                         <p className='total-carrito'>Total ({totalQuantity}) item: <strong>&nbsp;${totalPrice}</strong></p>
                                     ) : (
                                         <p className='total-carrito'>Total ({totalQuantity}) items:<strong>&nbsp;${totalPrice}</strong></p>
                                     )}
-                                    <div className='borde-tabla-carrito'></div>
                                 <div className="container-boton-agregar-carrito">
                                     <a href='/checkout'>
                                     <button className="boton-cel">
