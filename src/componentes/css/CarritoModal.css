@@ -53,8 +53,7 @@
 .boton-cerrar-carrito{
     background-color: transparent;
     border: 0;
-    width: 22px;
-    height: 22px;
+    width: 32px;
     cursor: pointer;
     transition: background-color 0.7s ease 0s;
 }
@@ -92,17 +91,19 @@
 }
 
 .btn-quantity-2{
+    display: flex;
     background-color: rgb(25, 25, 25);
-    border: 1px solid rgb(230, 230, 230);
     margin-inline: 5px;
+    border: 1px solid lightgray;
     color: rgb(230, 230, 230);
     font-size: 18px;
-    font-weight: 500;
     cursor: pointer;
     width: 25px;
     height: 25px;
     text-align: center;
     border-radius: 50%;
+    justify-content: center;
+    align-items: center;
 }
 
 .cantidad-carrito{
@@ -293,6 +294,7 @@
         transition: color 0s ease 0s;
         font-weight: 600;
         cursor: pointer;
+        font-size: 16px;
     }
     .td-carrito{
         padding-left: 0px;

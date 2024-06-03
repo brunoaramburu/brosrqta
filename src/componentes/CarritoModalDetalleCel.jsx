@@ -86,7 +86,7 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
                                                     <td className='td-carrito-left'><span className='titulo-item-carrito'>{item.description}{"("}{item.talle}{")"}</span></td>
                                                     <td className='td-carrito'>
                                                         <div className='cantidad-carrito texto-carrito texto-carrito-3'>
-                                                            <button className='btn-quantity-2' onClick={() => {
+                                                            <div className='btn-quantity-2' onClick={() => {
                                                                 // Check if quantity is equal to 1 before subtracting one
                                                                 if (item.quantity === 1) {
                                                                     // If quantity is 1, delete the item
@@ -97,9 +97,9 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
                                                                 }
                                                             }}>
                                                                 -
-                                                            </button>
+                                                            </div>
                                                             {item.quantity}
-                                                            <button className='btn-quantity-2' onClick={() => handleAddOne(index)}>+</button>
+                                                            <div className='btn-quantity-2' onClick={() => handleAddOne(index)}>+</div>
                                                         </div>
                                                     </td>
                                                     <td className='texto-carrito precio-carrito texto-carrito-3'>${item.price}</td>

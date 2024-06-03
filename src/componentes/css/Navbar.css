@@ -61,15 +61,16 @@ h4{
 
 .link-dropdown {
     text-decoration: none;
-    background-color: transparent; /* Establece el color de fondo predeterminado */
     transition: background-color 0.4s ease; /* Transición solo para el color de fondo */
     padding: 0;
-    background-color: rgb(25, 25, 25);
+    background-color: white;
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
 }
 
 /* Define el efecto de hover para cambiar el color de fondo */
 .link-dropdown:hover {
-    background-color: rgba(0, 0, 0, 0.7); /* Cambia el color de fondo al pasar el mouse */
+    background-color: rgba(230, 230, 230, 0.7); /* Cambia el color de fondo al pasar el mouse */
 }
 
 .aviso-container {
@@ -206,6 +207,10 @@ animation: fade-in-out-animation 8s linear infinite;
     font-size: 12px;
 }
 
+.img-cerrar-nav{
+    max-width: 35px;
+}
+
 .search-container {
     display: flex;
     align-items: center;
@@ -315,6 +320,7 @@ animation: fade-in-out-animation 8s linear infinite;
 list-style-type: none;
 padding: 0;
 margin: 0;
+border-top: 1px solid gray;
 }
 
 .nav-derecha:hover .categorias-dropdown,
@@ -334,9 +340,9 @@ display: block;
     margin-left: 5px;
     margin-right: 5px;
     text-align: center;
-    font-weight: 550;
+    font-weight: 600;
     font-size: 12px;
-    color: rgb(230, 230, 230);
+    color: rgb(25, 25, 25);
 }
 
 .container-cat-nav{
@@ -345,7 +351,6 @@ display: block;
     height: 60px;
     align-items: center;
     padding-right: 20px;
-    border-top: 1px solid rgb(230, 230, 230);
 }
 
 .navbar-cel{
@@ -357,7 +362,7 @@ display: block;
 }
 
 .category-list{
-    background-color: rgb(25, 25, 25);
+    background-color: rgb(230, 230, 230);
     margin: 0;
     padding: 0;
 }
@@ -379,4 +384,39 @@ display: block;
     .navbar-cel{
         display: block;
     }
+    .texto-categorias-navbar{
+        justify-content: center;
+        margin-left: 5px;
+        margin-right: 5px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 12px;
+        color: rgb(230, 230, 230);
+    }
+    .link-dropdown {
+        text-decoration: none;
+        transition: background-color 0.4s ease; /* Transición solo para el color de fondo */
+        padding: 0;
+        background-color: rgb(25, 25, 25);
+        border-bottom: 1px solid gray;
+        border-right: 0px solid gray;
+        display: flex;
+    }
+    .category-list{
+        background-color: rgb(25, 25, 25);
+    }
+    
+    /* Define el efecto de hover para cambiar el color de fondo */
+    .link-dropdown:hover {
+        background-color: rgba(0, 0, 0, 0.7); /* Cambia el color de fondo al pasar el mouse */
+    }
+    .container-cat-nav{
+    }
+
+    .categorias-dropdown {
+        
+        padding-top: 20px;
+        
+    }
+    
 }

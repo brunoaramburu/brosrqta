@@ -9,7 +9,7 @@ const Loader = () => {
     const timer = setTimeout(() => {
       setLoading(false);
     //}, 50);
-    }, 4000);
+    }, 50);
 
     return () => clearTimeout(timer);
   }, []);

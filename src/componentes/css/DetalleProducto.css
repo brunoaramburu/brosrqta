@@ -289,6 +289,7 @@
     }
     .boton-agregar-carrito{
         width: 95vw;
+        font-size: 16px;
     }
     .margin-block-cel{
         margin-block: 8px;
@@ -298,6 +299,9 @@
     }
     .modal-detalle-cel{
         display: block;
+    }
+    .titulo-relacionados{
+        margin-top: 0px;
     }
 }
 

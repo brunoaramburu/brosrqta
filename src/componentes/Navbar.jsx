@@ -3,7 +3,7 @@ import CarritoModal from './CarritoModal';
 import CarritoModalCel from './CarritoModalCel';
 import { ProductosContext } from './contexts/ProductosContext';
 import './css/Navbar.css';
-import closeIcon from "./img/close.png";
+import closeIcon from "./img/close-nav.png";
 import Logo from "./img/logo2.png";
 import SearchWhite from "./img/search2.png";
 import Menu from "./img/menu.png";
@@ -141,7 +141,7 @@ function Navbar() {
             className="barra-busqueda"
           />
           <span className="close-link" onClick={toggleSearchInput}>
-            <img src={closeIcon} alt="Close" />
+            <img className='img-cerrar-nav' src={closeIcon} alt="Close" />
           </span>
         </div>
       </div>
@@ -194,7 +194,7 @@ function Navbar() {
               className="barra-busqueda"
             />
             <span className="close-link" onClick={toggleSearchInput}>
-              <img src={closeIcon} alt="Close" />
+              <img className='img-cerrar-nav' src={closeIcon} alt="Close" />
             </span>
           </div>
         </div>

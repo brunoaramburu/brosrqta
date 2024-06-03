@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: white; /* Fondo blanco semi-transparente */
+  background-color: rgb(252, 252, 252); /* Fondo blanco semi-transparente */
   display: flex;
   justify-content: center;
   align-items: center;
