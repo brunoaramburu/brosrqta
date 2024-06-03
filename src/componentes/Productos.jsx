@@ -17,7 +17,7 @@ function Productos() {
     }, []);
 
     return(
-        <div className="padding-top-navbar">
+        <div className="padding-top-navbar productos-component">
             <Navbar/>
             <h3 className="titulo-Productos">TIENDA</h3>
             <div className="Productos">

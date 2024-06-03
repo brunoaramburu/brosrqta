@@ -83,7 +83,7 @@
 .section-nombre{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
 }
 
 .span-nombre{
@@ -95,13 +95,19 @@
 .span-id{
     display: flex;
     flex-direction: column;
-    width: 20%;
+    width: auto;
 }
 
 .span-id-number{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: -webkit-fill-available;
+    margin-left: 20px;
+}
+
+.span-apellido{
+    margin-left: 20px;
+    width: -webkit-fill-available;
 }
 
 .span-telefono{
@@ -252,11 +258,11 @@
     }
     
     .span-id{
-        width: 100%;
+        width: auto;
     }
     
     .span-id-number{
-        width: 100%;
+        width: auto;
     }
 
     .section-nombre{
@@ -269,5 +275,21 @@
 
     label{
         margin-block: 5px;
+    }
+
+    .span-apellido{
+        margin-left: 0px;
+    }
+    
+    .span-id-number{
+        margin-left: 0px;
+    }
+
+    .section-nombre-cel{
+        display: block;
+    }
+
+    .span-nombre{
+        width: -webkit-fill-available;
     }
 }

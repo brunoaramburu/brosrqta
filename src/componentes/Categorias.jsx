@@ -16,7 +16,7 @@ function Categorias() {
     }, []);
 
     return(
-        <div className="padding-top-navbar">
+        <div className="padding-top-navbar productos-component">
             <Navbar/>
             <h3 className="titulo-colecciones">CATEGORIAS</h3>
             <div className="Productos">

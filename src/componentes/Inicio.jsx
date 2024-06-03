@@ -16,7 +16,7 @@ function Inicio() {
     }, []);
 
     return(
-        <div className="padding-top-navbar">
+        <div className="padding-top-navbar productos-component">
             <span className="z-index-1"><Navbar/></span>
             <div className="carousel">
 
@@ -60,7 +60,7 @@ function Inicio() {
                     ))}
                     </div>
                 </div>
-                <a href="/tienda"><button className="btn-ver-todos">VER TODOS</button></a>
+                {/* <a href="/tienda"><button className="btn-ver-todos">VER TODOS</button></a> */}
                 {/* <div className="container-suscripcion">
                     <p className="texto-suscripcion">SUSCRIBITE PARA RECIBIR NOVEDADES</p>
                     <div>

@@ -38,7 +38,7 @@ function CategoriaProductos () {
     }, []);
 
     return(
-        <div className="padding-top-navbar">
+        <div className="padding-top-navbar productos-component">
             <Navbar/>
             <h3 className="titulo-Productos">{categoria.nombre}</h3>
             <div className="Productos">

@@ -511,7 +511,7 @@ function Checkout() {
                             }
                         />
                         </span>
-                        <span className='span-nombre'>
+                        <span className='span-nombre span-apellido'>
                         <label for="surname">* Apellido:</label>
                         <input
                             className='input-form-checkout'

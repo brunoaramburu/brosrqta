@@ -239,7 +239,7 @@ function DetalleProducto() {
   };
 
   return (
-    <div className="z-index-carrito padding-top-navbar">
+    <div className="z-index-carrito padding-top-navbar productos-component">
       <Navbar />
       {isGuiaTallesOpen && (
         <div className="modal-background" onClick={() => setIsGuiaTallesOpen(false)}>
@@ -291,10 +291,11 @@ function DetalleProducto() {
             </div>
             </span>
           )}
+            {fotoTalle.img && (
+              <a className="container-guia-talles" onClick={() => handleOpenGuiaTalles(`${process.env.REACT_APP_API_URL}/media/${fotoTalle.img}`)}><img src={ReglaImg} className="guia-talles-img" /><p className="texto-guia-talles">VER GUÍA DE TALLES</p></a>
+            )}
           <div className="container-boton-agregar-carrito">
-          {fotoTalle.img && (
-            <a className="container-guia-talles" onClick={() => handleOpenGuiaTalles(`${process.env.REACT_APP_API_URL}/media/${fotoTalle.img}`)}><img src={ReglaImg} className="guia-talles-img" /><p className="texto-guia-talles">VER GUÍA DE TALLES</p></a>
-         )}
+          
           {!isSelectionValid && (
             <span>
               <button className="boton-agregar-carrito" onClick={errorTalle}>AGREGAR AL CARRITO</button>

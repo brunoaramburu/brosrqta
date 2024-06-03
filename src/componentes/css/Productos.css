@@ -54,6 +54,10 @@
     font-weight: 600;
 }
 
+.productos-component{
+    margin-bottom: 20px;
+}
+
 @media only screen and (max-width: 767px) {
     .titulo-Productos{
         margin-block-end: 20px;

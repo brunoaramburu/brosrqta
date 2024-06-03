@@ -4,7 +4,7 @@ import { CarritoContext } from './contexts/CarritoContext';
 import "./css/CarritoModal.css";
 import closeIcon from "./img/close.png";
 import { Link } from 'react-router-dom';
-import Carrito from "./img/carrito.png";
+import Carrito from "./img/carrito2.png";
 import Borrar from "./img/borrar.png";
 
 Modal.setAppElement('#root'); // Set the app root element for accessibility
@@ -54,7 +54,7 @@ function CarritoModalCel({ isOpen, onClose }) {
     return (
         <div>
             <div className="carrito-icon-container" onClick={onClose}>
-                <img className="boton-carrito-cel" src={Carrito} alt="carrito" height="18px" />
+                <img className="boton-carrito-cel" src={Carrito} alt="carrito" height="25px" />
                 {totalQuantity > 0 && (
                 <div className="cart-badge">{totalQuantity}</div>
                 )}

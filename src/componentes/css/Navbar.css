@@ -20,6 +20,7 @@ h4{
     background-color: rgb(25, 25, 25);
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid gray;
 }
 
 .nav-izquierda{
@@ -294,17 +295,20 @@ animation: fade-in-out-animation 8s linear infinite;
 .categorias-dropdown {
     display: none;
     position: absolute;
+    left: 0;
     background-color: rgb(25, 25, 25);
     z-index: 1000;
-    max-height: 0; /* Inicialmente oculto */
+    max-width: 0; /* Inicialmente oculto */
     overflow: hidden; /* Oculta el contenido que excede la altura máxima */
-    transition: max-height 10s ease; /* Transición suave de altura máxima */
+    transition: max-width 10s ease; /* Transición suave de altura máxima */
     padding-top: 12px;
+    width: 20%;
+    height: 100vw;
 }
 
 .categorias-dropdown.show {
     display: block;
-    max-height: 10000px; /* Altura máxima para mostrar el menú */
+    max-width: 10000px; /* Altura máxima para mostrar el menú */
 }
 
 .categorias-dropdown ul {
@@ -338,9 +342,10 @@ display: block;
 .container-cat-nav{
     display: flex;
     text-align: center;
-    height: 50px;
+    height: 60px;
     align-items: center;
     padding-right: 20px;
+    border-top: 1px solid rgb(230, 230, 230);
 }
 
 .navbar-cel{

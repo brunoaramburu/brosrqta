@@ -110,13 +110,11 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
                                     </table>
                                 </div>
                                 <div className='margen-tabla-carrito'></div>
-                                <div className='borde-tabla-carrito'></div>
                                     {totalQuantity === 1 ? (
                                         <p className='total-carrito'>Total ({totalQuantity}) item: <strong>&nbsp;${totalPrice}</strong></p>
                                     ) : (
                                         <p className='total-carrito'>Total ({totalQuantity}) items:<strong>&nbsp;${totalPrice}</strong></p>
                                     )}
-                                    <div className='borde-tabla-carrito'></div>
                                 <div className="container-boton-agregar-carrito">
                                     <a href='/checkout'>
                                     <button className="boton-cel">

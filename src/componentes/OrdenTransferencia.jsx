@@ -20,11 +20,11 @@ function OrdenTransferencia () {
                 setProductos(data.productos);
 
                 // Verificar si la orden ha expirado
-                const currentDate = new Date();
-                const orderDate = new Date(data.fecha);
-                if (currentDate > orderDate) {
-                    setOrdenExpirada(true);
-                }
+                // const currentDate = new Date();
+                // const orderDate = new Date(data.fecha);
+                // if (currentDate > orderDate) {
+                //     setOrdenExpirada(true);
+                // }
             })
             .catch(error => console.error(error));
     }, [id]); // Include id as a dependency to useEffect    
@@ -98,7 +98,6 @@ function OrdenTransferencia () {
                                     ))}
                                 </tbody>
                             </table>
-                            <div className='separacion-checkout'></div>
                 </div>
                 <div className='container-tabla-carrito-checkout'>
                     <h2 className="titulo-orden-transferencia">

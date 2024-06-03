@@ -39,10 +39,11 @@
     position: relative; /* Add this to position the button */
     display: flex; /* Add flexbox to align items */
     flex-direction: column; /* Stack elements vertically */
-    align-items: left; /* Center items horizontally */
+    align-items: center; /* Center items horizontally */
     opacity: 1;
     border: 1px solid transparent;
     margin-top: 20px;
+    text-align: center;
 }
 
 .precio-tarjeta-Productos {
@@ -188,7 +189,7 @@
 
 .color-circles {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     margin-top: 5px; /* Adjust as needed */
 }

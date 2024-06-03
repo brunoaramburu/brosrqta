@@ -5,7 +5,7 @@ import { ProductosContext } from './contexts/ProductosContext';
 import './css/Navbar.css';
 import closeIcon from "./img/close.png";
 import Logo from "./img/logo2.png";
-import SearchWhite from "./img/search-white.png";
+import SearchWhite from "./img/search2.png";
 import Menu from "./img/menu.png";
 
 function Navbar() {
@@ -162,13 +162,13 @@ function Navbar() {
       <div className="navbar-container">
         <div className="navbar">
           <div className="nav-derecha nav-derecha-cel" onMouseLeave={handleMouseLeave}>
-            <img src={Menu} alt="" width="18px" height="18px" onClick={handleMenuToggle}/>
+            <img src={Menu} alt="" width="25px" height="25px" onClick={handleMenuToggle}/>
           </div>
           <div className="logo-nav">
             <a className='container-logo-nav' href="/"><img className='logo' src={Logo} alt="BROS" width='90px'/></a>
           </div>
           <div className="nav-derecha nav-derecha-cel">
-            <span><img src={SearchWhite} alt="buscar" width="17px" height="17px" onClick={toggleSearchInput}/></span>
+            <span><img src={SearchWhite} alt="buscar" width="25px" height="25px" onClick={toggleSearchInput}/></span>
             <span onClick={toggleCarritoModalCelClose}><CarritoModalCel isOpen={isCarritoModalCelOpen} onClose={toggleCarritoModalCel}/></span>
           </div>
         </div>
