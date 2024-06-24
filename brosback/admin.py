@@ -25,9 +25,13 @@ class OrdenForm(forms.ModelForm):
 
 class OrdenAdmin(admin.ModelAdmin):
     form = OrdenForm
-    list_display = ('id', 'fecha', 'estado', 'medio')  # Mostrar estas columnas en la lista del admin
-    ordering = ('fecha',)  # Ordenar por fecha
-    list_filter = ('estado', 'medio')  # Filtrar por estado
+    list_display = ('id', 'fecha', 'estado', 'medio', 'medioenvio')  # Mostrar estas columnas en la lista del admin
+    ordering = ('-fecha',)  # Ordenar por fecha
+    list_filter = ('estado', 'medio', 'medioenvio')  # Filtrar por estado
+
+    def medioenvio_display(self, obj):
+        return obj.medioenvio
+    medioenvio_display.short_description = 'Medio de envío'
 
 admin.site.register(Orden, OrdenAdmin)
 

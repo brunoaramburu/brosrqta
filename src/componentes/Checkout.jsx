@@ -729,10 +729,10 @@ function Checkout() {
                     >
                         <option value="" disabled>Seleccione una opción</option>
                         <option value="domicilio">
-                        Envío a domicilio - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioDomicilio}</strong>}
+                        Envío a domicilio - Correo Argentino - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioDomicilio}</strong>}
                         </option>
                         <option value="sucursal">
-                        Retiro en sucursal - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioSucursal}</strong>}
+                        Retiro en sucursal cercana - Correo Argentino - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioSucursal}</strong>}
                         </option>
                         <option value="retiro">
                         Retiro en <a href="https://maps.app.goo.gl/aCG18yCDpEiqVXTh9" target='_blank' className='label-retiro'>San Martín 771, Reconquista, Santa Fe</a>
