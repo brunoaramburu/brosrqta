@@ -305,4 +305,9 @@
     }
 }
 
+@media only screen and (min-width: 768px) {
+    .col-informacion{
+        padding-right: 20px;
+    }
+}
   

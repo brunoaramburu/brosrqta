@@ -63,14 +63,14 @@ h4{
     text-decoration: none;
     transition: background-color 0.4s ease; /* Transición solo para el color de fondo */
     padding: 0;
-    background-color: white;
+    background-color: rgb(25, 25, 25);
     border-bottom: 1px solid gray;
     border-right: 1px solid gray;
 }
 
 /* Define el efecto de hover para cambiar el color de fondo */
 .link-dropdown:hover {
-    background-color: rgba(230, 230, 230, 0.7); /* Cambia el color de fondo al pasar el mouse */
+    background-color: rgba(230, 230, 230, 0.1); /* Cambia el color de fondo al pasar el mouse */
 }
 
 .aviso-container {
@@ -305,7 +305,7 @@ animation: fade-in-out-animation 8s linear infinite;
     z-index: 1000;
     max-width: 0; /* Inicialmente oculto */
     overflow: hidden; /* Oculta el contenido que excede la altura máxima */
-    transition: max-width 10s ease; /* Transición suave de altura máxima */
+    transition: max-width 0s ease; /* Transición suave de altura máxima */
     padding-top: 12px;
     width: 20%;
     height: 100vw;
@@ -342,7 +342,7 @@ display: block;
     text-align: center;
     font-weight: 600;
     font-size: 12px;
-    color: rgb(25, 25, 25);
+    color: rgb(230, 230, 230);
 }
 
 .container-cat-nav{

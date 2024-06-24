@@ -320,7 +320,7 @@ def CrearOrdenView(request):
 
                 # Send email with HTML content
                 email_to = [orden.datoscliente.get('email', 'fallback_email@example.com')]
-                send_mail(email_subject, '', 'brunoaramburu8@gmail.com', email_to, html_message=email_message)
+                send_mail(email_subject, '', 'brosrqtaindumentaria@gmail.com', email_to, html_message=email_message)
 
             # Return the order details as JSON response
             orden_data = {
@@ -368,6 +368,9 @@ def ObtenerOrdenView(request):
             'estado': orden.estado,
             'medio': orden.medio,
             'preciototal': orden.preciototal,
+            'precioproductos': orden.precioproductos,
+            'precioenvio': orden.precioenvio,
+            'medioenvio': orden.medioenvio,
             'idtransferencia': orden.idtransferencia,
         }
 
@@ -475,7 +478,7 @@ def ActualizarEstadoView(request):
                         'medioenvio': order.medioenvio,
                     })
                     email_to = [order.datoscliente.get('email', 'fallback_email@example.com')]
-                    send_mail(email_subject, '', 'brunoaramburu8@gmail.com', email_to, html_message=email_message)
+                    send_mail(email_subject, '', 'brosrqtaindumentaria@gmail.com', email_to, html_message=email_message)
 
                 return JsonResponse({'success': 'Order status updated successfully'})
             else:

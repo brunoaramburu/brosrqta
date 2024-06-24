@@ -37,7 +37,7 @@
 }
 
 .customer-form select{
-    height: 36px;
+    height: 34px;
 }
 
 .customer-form-container{
@@ -291,5 +291,9 @@
 
     .span-nombre{
         width: -webkit-fill-available;
+    }
+
+    .customer-form select{
+        height: 38px;
     }
 }

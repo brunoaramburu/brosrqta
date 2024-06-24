@@ -7,11 +7,8 @@ admin.site.register(Categoria)
 admin.site.register(Grupo)
 admin.site.register(Producto)
 admin.site.register(Tamaño)
-admin.site.register(CarritoCheckout)
 admin.site.register(FotoTalle)
 admin.site.register(Color)
-admin.site.register(ProductoColorTamaño)
-admin.site.register(ImagenesProducto)
 admin.site.register(Aviso)
 admin.site.register(Envio)
 admin.site.register(DescuentoTransferencia)
@@ -28,6 +25,27 @@ class OrdenForm(forms.ModelForm):
 
 class OrdenAdmin(admin.ModelAdmin):
     form = OrdenForm
+    list_display = ('id', 'fecha', 'estado', 'medio')  # Mostrar estas columnas en la lista del admin
+    ordering = ('fecha',)  # Ordenar por fecha
+    list_filter = ('estado', 'medio')  # Filtrar por estado
 
 admin.site.register(Orden, OrdenAdmin)
+
+class ProductoColorTamañoAdmin(admin.ModelAdmin):
+    list_display = ('producto', 'color', 'tamaño', 'stock')  # Mostrar estas columnas en la lista del admin
+    ordering = ('color', 'tamaño', 'stock')  # Ordenar por color, luego por tamaño y finalmente por stock
+    list_filter = ('producto',)  # Filtrar por estado
+
+
+admin.site.register(ProductoColorTamaño, ProductoColorTamañoAdmin)
+
+class ImagenesProductoAdmin(admin.ModelAdmin):
+    list_display = ('producto', 'color')  # Mostrar estas columnas en la lista del admin
+    list_filter = ('producto',)  # Filtrar por producto
+
+admin.site.register(ImagenesProducto, ImagenesProductoAdmin)
+
+
+    
+
 

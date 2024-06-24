@@ -152,7 +152,7 @@ EMAIL_PORT = 587  # Use the appropriate port for your SMTP server
 EMAIL_USE_TLS = True  # Use TLS for secure connection
 
 # SMTP server credentials
-EMAIL_HOST_USER = 'brunoaramburu8@gmail.com'
-EMAIL_HOST_PASSWORD = 'mqifgfwwhazjzndu'
+EMAIL_HOST_USER = 'brosrqtaindumentaria@gmail.com'
+EMAIL_HOST_PASSWORD = 'mitfjbkwgzwmmzau'
 
 CSRF_TRUSTED_ORIGINS = ['https://brosrqta.com.ar']

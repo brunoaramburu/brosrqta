@@ -274,7 +274,7 @@ function DetalleProducto() {
               </div>
             ))}
           </div>
-          <p className="colores-talles margin-block-cel">Talles</p>
+          <p className="colores-talles margin-block-cel">Talles disponibles</p>
           {availableSizes.length > 0 && (
             <span>
             <div className="talles-producto padding-10-left margin-block-cel">

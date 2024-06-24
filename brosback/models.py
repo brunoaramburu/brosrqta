@@ -26,6 +26,9 @@ class Color(models.Model):
 
     def __str__(self):
         return self.nombre
+    class Meta:
+        verbose_name = "Configuracion de color"
+        verbose_name_plural = "Configuracion de colores"
     
 class FotoTalle(models.Model):
     nombre = models.CharField(max_length=50)
@@ -34,6 +37,9 @@ class FotoTalle(models.Model):
 
     def __str__(self):
         return self.nombre
+    class Meta:
+        verbose_name = "Guia de talle"
+        verbose_name_plural = "Guias de talle"
 
 class Producto(models.Model):
     id = models.AutoField(primary_key=True)
@@ -57,6 +63,9 @@ class ImagenesProducto(models.Model):
 
     def __str__(self):
         return f"{self.producto} - {self.color}"
+    class Meta:
+        verbose_name = "Configuracion de imagenes de productos por color"
+        verbose_name_plural = "Configuracion de imagenes de productos por color"
 
 class Tamaño(models.Model):
     id = models.AutoField(primary_key=True)
@@ -65,6 +74,9 @@ class Tamaño(models.Model):
 
     def __str__(self):
         return self.nombre
+    class Meta:
+        verbose_name = "Tamaño"
+        verbose_name_plural = "Tamaños"
 
 class ProductoColorTamaño(models.Model):
     id = models.AutoField(primary_key=True)
@@ -75,7 +87,10 @@ class ProductoColorTamaño(models.Model):
     # Otros campos relevantes para la relación entre producto y tamaño
 
     def __str__(self):
-        return f"{self.producto} - {self.tamaño}"
+        return f"{self.producto} - {self.color} - {self.tamaño} - STOCK: {self.stock}"
+    class Meta:
+        verbose_name = "Configuración de productos por color, tamaño y stock"
+        verbose_name_plural = "Configuraciónes de productos por color, tamaño y stock"
 
 class CarritoCheckout(models.Model):
     id = models.AutoField(primary_key=True)
@@ -84,6 +99,9 @@ class CarritoCheckout(models.Model):
 
     def __str__(self):
         return self.checkout_datetime
+    class Meta:
+        verbose_name = "Carrito generado"
+        verbose_name_plural = "Carritos generados"
 
 class Orden(models.Model):
     ESTADO_CHOICES = [
@@ -112,34 +130,45 @@ class Orden(models.Model):
 
     def __str__(self):
         return f"Orden {self.id} - {self.estado} - {self.medio}"
+    class Meta:
+        verbose_name = "Orden de compra"
+        verbose_name_plural = "Ordenes de compra"
     
 class Envio(models.Model):
     aDomicilio = models.IntegerField(primary_key=True)
     aSucursal = models.IntegerField()
 
     def __str__(self):
-        return f"A domicilio ${self.aDomicilio} - A sucursal ${self.aSucursal}"
-
-class EnvioGratis(models.Model):
-    activo = models.BooleanField(primary_key=True)
-    compraminima = models.IntegerField()
-
-    def __str__(self):
-        return f"Envio gratis activo: {self.activo} - Compra minima: ${self.compraminima}"
+        return f"Precio a domicilio ${self.aDomicilio} - Precio a sucursal ${self.aSucursal}"
+    class Meta:
+        verbose_name = "Configuración de precios de envío"
+        verbose_name_plural = "Configuración de precios de envío"
     
 class EnvioGratis(models.Model):
     activo = models.BooleanField(primary_key=True)
     compraminima = models.IntegerField()
 
     def __str__(self):
-        return f"Envio gratis activo: {self.activo} - Compra minima: ${self.compraminima}"
+        if self.activo:
+            return f"Envio gratis - Activado - Compra minima: ${self.compraminima}"
+        else:
+            return f"Envio gratis - Desactivado - Compra minima: ${self.compraminima}"
+    class Meta:
+        verbose_name = "Configuración de envío gratis"
+        verbose_name_plural = "Configuración de envío gratis"
     
 class DescuentoTransferencia(models.Model):
     activo = models.BooleanField(primary_key=True)
     porcentaje = models.IntegerField()
-
+    
     def __str__(self):
-        return f"Descuento transferencia activo: {self.activo} - Porcentaje: ${self.porcentaje}"
+        if self.activo:
+            return f"Activado - Porcentaje: {self.porcentaje}%"
+        else:
+            return f"Desactivado - Porcentaje: {self.porcentaje}%"
+    class Meta:
+        verbose_name = "Configuración de descuento por transferencia"
+        verbose_name_plural = "Configuración de descuento por transferencia"
     
 class Aviso(models.Model):
     id = models.AutoField(primary_key=True)

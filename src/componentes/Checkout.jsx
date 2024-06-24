@@ -223,8 +223,8 @@ function Checkout() {
               Authorization: `Bearer ${access_token}`
             },
             body: JSON.stringify({
-            //   amount: totalPriceWithShipping.toString(),
-                amount: '50',
+              amount: totalPriceWithShipping.toString(),
+              //amount: '50',
               description: 'BROS. tienda online',
               userName: 'agustinmar7inez',
               callback_fail: `${process.env.REACT_APP_API_URL}/pago-rechazado`,
