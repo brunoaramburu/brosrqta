@@ -490,18 +490,18 @@ function Checkout() {
             toastOptions={{ 
             className: '',
             style: {
-                borderRadius: "0px",
-                border: "1px solid rgb(25, 25, 25)",
+                borderRadius: "5px",
+                border: "2px solid gray",
                 textAlign: "center",
             }}}
             />
             <div className='customer-form-container'>    
-                <h2>DETALLES DE FACTURACIÓN</h2>
-                <p>{'(*) Campos obligatorios.'}</p>
+                <h2 className='titulo-checkout'>DETALLES DE FACTURACIÓN</h2>
+                <p className='texto-campos'>{'(*) Campos obligatorios.'}</p>
                 <form className="customer-form">
                         <div className="form-section section-nombre section-nombre-cel">
                         <span className='span-nombre'>
-                        <label for="name">* Nombre:</label>
+                        <label for="name">* Nombre</label>
                         <input
                             className='input-form-checkout'
                             type="text"
@@ -512,7 +512,7 @@ function Checkout() {
                         />
                         </span>
                         <span className='span-nombre span-apellido'>
-                        <label for="surname">* Apellido:</label>
+                        <label for="surname">* Apellido</label>
                         <input
                             className='input-form-checkout'
                             type="text"
@@ -526,7 +526,7 @@ function Checkout() {
                     <div className="form-section">
                         <div className="section-nombre">
                             <span className='span-id'>
-                            <label for="identificationType">* Tipo:</label>
+                            <label for="identificationType">* Tipo</label>
                             <select
                                 className='input-form-checkout'
                                 value={customerData.identificacion.tipo} // Aquí estás estableciendo el valor seleccionado en el estado
@@ -543,7 +543,7 @@ function Checkout() {
                             </select>
                             </span>
                             <span className='span-id-number'>
-                            <label for="identificationNumber">* Número de Identificación:</label>
+                            <label for="identificationNumber">* Número de Identificación</label>
                             <input
                                 className='input-form-checkout'
                                 type="text"
@@ -559,7 +559,7 @@ function Checkout() {
                         </div> 
                     </div>
                     <div className="form-section">
-                        <label for="email">* Email:</label>
+                        <label for="email">* Email</label>
                         <input
                             className='input-form-checkout'
                             type="email"
@@ -572,7 +572,7 @@ function Checkout() {
                     <div className="form-section">
                         <div className="section-nombre">
                             <span className='span-telefono'>
-                            <label for="phone">* Teléfono:</label>
+                            <label for="phone">* Teléfono</label>
                             <input
                                 className='input-form-checkout'
                                 type="text"
@@ -590,7 +590,7 @@ function Checkout() {
                     <div className="form-section">
                         <div className="section-nombre">
                             <span className='span-id'>
-                            <label for="identificationType">* Provincia:</label>
+                            <label for="identificationType">* Provincia</label>
                             <select
                                 className='input-form-checkout'
                                 value={customerData.direccion.provincia}
@@ -610,7 +610,7 @@ function Checkout() {
                             </select>
                             </span>
                             <span className='span-id-number'>
-                            <label for="identificationNumber">* Localidad:</label>
+                            <label for="identificationNumber">* Localidad</label>
                             <input
                                 className='input-form-checkout'
                                 type="text"
@@ -626,7 +626,7 @@ function Checkout() {
                         </div> 
                     </div>
                     <div className="form-section">
-                        <label for="streetName">Dirección:</label>
+                        <label for="streetName">Dirección</label>
                         <input
                             className='input-direccion input-form-checkout'
                             type="text"
@@ -678,96 +678,96 @@ function Checkout() {
                     </div>
                 </form>
             </div>
-            <div className='container-tabla-carrito-checkout'>
-                <h2 className='titulo-tu-pedido'>TU PEDIDO</h2>
-                <table className='tabla-carrito-checkout'>
-                    <tbody>
-                        {carrito.map((item, index) => (
-                            <tr className='img-items-checkout' key={index}>
-                                <td className='td-img-item'><img className='img-items-checkout' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="70px" height="70px" alt={item.description} />
-                                <div className='texto-item-checkout'>
-                                <strong>{item.description +'(x' + item.quantity + ')'}</strong><br />
-                                Talle: {item.talle} <br />
-                                Color: {item.color}
-                                </div>
-                                </td>
+            <span className='span-checkout-2'>
+                <div className='container-tabla-carrito-checkout'>
+                    <h2 className='titulo-tu-pedido titulo-checkout'>TU PEDIDO</h2>
+                    <table className='tabla-carrito-checkout'>
+                        <tbody>
+                            {carrito.map((item, index) => (
+                                <tr className='img-items-checkout' key={index}>
+                                    <td className='td-img-item'><img className='img-items-checkout' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="70px" height="70px" alt={item.description} />
+                                    <div className='texto-item-checkout'>
+                                    <strong>{item.description +'(x' + item.quantity + ')'}</strong><br />
+                                    Talle: {item.talle} <br />
+                                    Color: {item.color}
+                                    </div>
+                                    </td>
+                                    <td></td>
+                                    <td>${item.price}</td>
+                                </tr>
+                            ))}
+                            <tr className='img-items-checkout'>
+                                <td className='total-precio-items'>Total {'('}{totalQuantity}{')'} items:</td>
                                 <td></td>
-                                <td>${item.price}</td>
+                                <td className='total-precio-items'>${totalPrice}</td>
                             </tr>
-                        ))}
-                        <tr className='img-items-checkout'>
-                            <td className='total-precio-items'>Total {'('}{totalQuantity}{')'} items:</td>
-                            <td></td>
-                            <td className='total-precio-items'>${totalPrice}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div className="payment-method-container">
-                    <div className="separacion-checkout"></div>
-                    <label className='titulo-checkout'>
-                        MEDIO DE PAGO:
-                    </label>
-                    <select
-                    value={selectedPaymentMethod}
-                    onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                    className="input-form-checkout select-checkout"
-                  >
-                    <option value="" disabled>Seleccione una opción</option>
-                    <option value="uala">Tarjeta de debito / credito</option>
-                    <option value="transferencia">Transferencia bancaria{descuentoTransferenciaHabilitado && <span>{' ('}{descuentoTransferencia}% de descuento{')'}</span>}</option>
-                  </select>
-                </div>
-                <div className="payment-method-container">
-                    <div className='separacion-checkout'></div>
-                    <label className='titulo-checkout'>
-                        ENVIO:
-                    </label>
-                    <select
-                        value={selectedEnvioMethod}
-                        onChange={(e) => setSelectedEnvioMethod(e.target.value)}
+                        </tbody>
+                    </table>
+                    </div>
+                    <div className='container-tabla-carrito-checkout'>
+                    <div className="payment-method-container">
+                        <label className='titulo-checkout'>
+                            MEDIO DE PAGO
+                        </label>
+                        <select
+                        value={selectedPaymentMethod}
+                        onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                         className="input-form-checkout select-checkout"
                     >
                         <option value="" disabled>Seleccione una opción</option>
-                        <option value="domicilio">
-                        Envío a domicilio - Correo Argentino - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioDomicilio}</strong>}
-                        </option>
-                        <option value="sucursal">
-                        Retiro en sucursal cercana - Correo Argentino - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioSucursal}</strong>}
-                        </option>
-                        <option value="retiro">
-                        Retiro en <a href="https://maps.app.goo.gl/aCG18yCDpEiqVXTh9" target='_blank' className='label-retiro'>San Martín 771, Reconquista, Santa Fe</a>
-                        </option>
+                        <option value="uala">Tarjeta de debito / credito</option>
+                        <option value="transferencia">Transferencia bancaria{descuentoTransferenciaHabilitado && <span>{' ('}{descuentoTransferencia}% de descuento{')'}</span>}</option>
                     </select>
-                </div>
-                {envio != 0 && (
-                    <span>
-                        <div className='separacion-checkout'></div>
-                            <span className='costo-total-checkout'><p>Costo total con envio: </p>&nbsp;<h3> ${totalPriceWithShipping}</h3></span>
-                    </span>
-                )}
-                
-                {/* <div className="container-boton-agregar-carrito">
-                    {selectedPaymentMethod === 'mercadopago' && (
-                    <Wallet initialization={{ preferenceId: idMP, redirectMode: 'modal' }} customization={customization} />
+                    </div>
+                    <div className="payment-method-container">
+                        <div className='margen-titulo-envio'></div>
+                        <label className='titulo-checkout'>
+                            ENVIO
+                        </label>
+                        <select
+                            value={selectedEnvioMethod}
+                            onChange={(e) => setSelectedEnvioMethod(e.target.value)}
+                            className="input-form-checkout select-checkout"
+                        >
+                            <option value="" disabled>Seleccione una opción</option>
+                            <option value="domicilio">
+                            Envío a domicilio - Correo Argentino - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioDomicilio}</strong>}
+                            </option>
+                            <option value="sucursal">
+                            Retiro en sucursal cercana - Correo Argentino - {envioGratisHabilitado ? "GRATIS" : <strong>${costoEnvioSucursal}</strong>}
+                            </option>
+                            <option value="retiro">
+                            Retiro en <a href="https://maps.app.goo.gl/aCG18yCDpEiqVXTh9" target='_blank' className='label-retiro'>San Martín 771, Reconquista, Santa Fe</a>
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <span className='costo-total-checkout'><p>Costo total: </p>&nbsp;<h3> ${totalPriceWithShipping}</h3></span>
+                    
+                    
+                    {/* <div className="container-boton-agregar-carrito">
+                        {selectedPaymentMethod === 'mercadopago' && (
+                        <Wallet initialization={{ preferenceId: idMP, redirectMode: 'modal' }} customization={customization} />
+                        )}
+                    </div> */}
+                    <div className="btn-pagar-checkout">
+                        {selectedPaymentMethod != 'uala' && selectedPaymentMethod != 'transferencia' && (
+                        <button className="boton-cel boton-pagar-checkout" onClick={errorMetodos}>PAGAR</button>
+                        )}
+                    </div>
+                    
+                    <div className="btn-pagar-checkout">
+                        {selectedPaymentMethod === 'uala' && (
+                        <button className='boton-cel boton-pagar-checkout' onClick={postUALAWithRetry}>PAGAR</button>
+                        )}
+                    </div>
+                    <div className="btn-pagar-checkout">
+                    {selectedPaymentMethod === 'transferencia' && (
+                        <button className='boton-cel boton-pagar-checkout' onClick={() => transferenciaCheckout()}>PAGAR</button>
                     )}
-                </div> */}
-                <div className="container-boton-agregar-carrito">
-                    {selectedPaymentMethod != 'uala' && selectedPaymentMethod != 'transferencia' && (
-                    <button className="boton-cel boton-pagar-checkout" onClick={errorMetodos}>PAGAR</button>
-                    )}
+                    </div>
                 </div>
-                
-                <div className="container-boton-agregar-carrito">
-                    {selectedPaymentMethod === 'uala' && (
-                    <button className='boton-cel boton-pagar-checkout' onClick={postUALAWithRetry}>PAGAR</button>
-                    )}
-                </div>
-                <div className="container-boton-agregar-carrito">
-                {selectedPaymentMethod === 'transferencia' && (
-                    <button className='boton-cel boton-pagar-checkout' onClick={() => transferenciaCheckout()}>PAGAR</button>
-                )}
-                </div>
-            </div>
+            </span>
             </span>
             )}
         </div>

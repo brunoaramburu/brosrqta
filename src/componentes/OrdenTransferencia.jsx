@@ -39,7 +39,7 @@ function OrdenTransferencia () {
     };
     
     return(
-        <div className='padding-top-navbar'>
+        <div className='padding-top-navbar margin-block-auto'>
             <Navbar/>
             {ordenExpirada ? ( 
                 <div className='container-compra-realizada'>
@@ -52,8 +52,9 @@ function OrdenTransferencia () {
                 </div>
             ) : (
             <span className='container-checkout-1'>
-                <div className='customer-form-container'>
-                    <h2 className="titulo-orden-transferencia">RESUMEN DE TU PEDIDO</h2>
+                <span className='span-orden-2'>
+                <div className='customer-form-container width-100'>
+                    <h2 className="titulo-checkout">RESUMEN DE TU PEDIDO</h2>
                     <span className='container-orden'>
                     <table className='tabla-carrito-checkout tabla-orden-80'>
                         <thead>
@@ -90,8 +91,9 @@ function OrdenTransferencia () {
                         </tbody>
                     </table>
                     </span>
-                    <div className='separacion-checkout'></div>
-                    <h2 className="titulo-orden-transferencia">
+                </div>
+                <div className='customer-form-container width-100'>
+                    <h2 className="titulo-checkout">
                     PRODUCTOS
                     </h2>
                     <span className='container-orden'>
@@ -114,10 +116,12 @@ function OrdenTransferencia () {
                     </table>
                     </span>
                 </div>
-                <div className='container-tabla-carrito-checkout'>
-                    <h2 className="titulo-orden-transferencia">
+                </span>
+                <div className='container-tabla-carrito-checkout pasos-a-seguir-container'>
+                    <h2 className="titulo-checkout">
                         PASOS A SEGUIR
                     </h2>
+                    <div className='margin-block-auto'>
                     <table className='tabla-carrito-checkout table-orden'>
                         <tr>
                             <td>
@@ -131,10 +135,10 @@ function OrdenTransferencia () {
                             <td>
                             <div>
                                 <p className='texto-pasos-a-seguir'>
-                                Alias: bros.mp
+                                Alias: brosrqta
                                 </p>
                                 <p className='texto-pasos-a-seguir'>
-                                CBU/CVU n°: 0000003100071795533792
+                                CBU/CVU n°: 0000003100058502843249
                                 </p>
                             </div>
                             </td>
@@ -148,6 +152,7 @@ function OrdenTransferencia () {
                             </td>
                         </tr>
                     </table>
+                    </div>
                 </div>
             </span>
             )}

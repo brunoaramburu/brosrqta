@@ -27,12 +27,10 @@
 
 .col-informacion{
     width: 40%;
-    height: 1000px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: column;
     align-items: flex-start;
-    height: 100vh;
     padding-left: 10px;
 }
 
@@ -43,11 +41,13 @@
 .nombre-producto{
     font-size: 20px;
     font-weight: 600;
+    margin-bottom: 0px;
 }
 
 .precio-producto{
     font-size: 18px;
     font-weight: 600;
+    margin-bottom: 0px;
 }
 
 .talles-producto{
@@ -62,11 +62,11 @@
     color: white;
     width: 100%;
     height: 70px;
-    border: 2px solid #1D1B1B;
-    transition: background-color 0s ease 0s;
-    transition: color 0s ease 0s;
     font-weight: 600;
     cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.4s ease;
+    border: 2px solid gray;
 }
 
 .boton-agregar-carrito-disabled{
@@ -74,7 +74,6 @@
     color: rgb(153, 153, 153);
     width: 100%;
     height: 70px;
-    border: 2px solid rgb(153, 153, 153);
     font-weight: 600;
 }
 
@@ -91,6 +90,8 @@
 .container-guia-talles{
     width: 100%;
     margin-top: 15px;
+    background-color: rgb(230, 230, 230);
+    transition: background-color 0.4s ease;
 }
 
 .container-guia-talles:hover{
@@ -118,7 +119,7 @@
     width: 50px;
     aspect-ratio: 1/1;
     font-weight: 600;
-    border-radius: 0;
+    border-radius: 5px;
     border: 2px solid gray;
 }
 
@@ -131,8 +132,8 @@
     width: 50px;
     aspect-ratio: 1/1;
     font-weight: 600;
-    border-radius: 0;
     border: 1px solid gray;
+    border-radius: 5px;
 }
 
 .boton-talle:hover{
@@ -150,6 +151,11 @@
     aspect-ratio: 1/1;
     border: 1px solid gray;
     padding: 0;
+    border-radius: 5px;
+}
+
+.imagen-color-option{
+    border-radius: 5px;
 }
 
 .color-option:hover{
@@ -181,12 +187,16 @@
 }
 
 .imagen-producto{
-    width: 95%;
-    padding: 20px;
+    width: 65%;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .colores-talles{
     font-weight: 600;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .guia-talles-img{
@@ -198,9 +208,11 @@
     display: flex;
     align-items: center;
     width: auto;
-    border: 1px solid rgb(25, 25, 25);
+    border: 2px solid gray;
     width: fit-content;
     padding-inline: 5px;
+    border-radius: 5px;
+    margin-top: 0px;
 }
 
 .container-guia-talles:hover{
@@ -209,6 +221,7 @@
 
 .texto-guia-talles{
     font-size: 14px;
+    font-weight: 600;
 }
 
 .container-guia-talles:hover .texto-guia-talles{
@@ -246,6 +259,7 @@
     position: relative;
     background-color: white;
     padding: 20px;
+    border-radius: 5px;
 }
 
 .close-button {
@@ -283,6 +297,9 @@
     .imagen-producto{
         padding: 0px;
         width: 100vw;
+        margin-top: 0px;
+        margin-bottom: 5px;
+        border-radius: 0px;
     }
     .padding-top-navbar{
         padding-top: 60px;

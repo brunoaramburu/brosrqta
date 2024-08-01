@@ -5,6 +5,8 @@ import "./css/CarritoModal.css";
 import closeIcon from "./img/close-blanco.png";
 import { Link } from 'react-router-dom';
 import Borrar from "./img/borrar.png";
+import Sumar from "./img/add-white.png";
+import Restar from "./img/substract-white.png";
 
 Modal.setAppElement('#root'); // Set the app root element for accessibility
 
@@ -44,11 +46,11 @@ function CarritoModalDetalle({ isOpen, onClose }) {
             height: 'min-content',
             maxHeight: '65%',
             border: '0',
-            borderRadius: '0px',
+            borderRadius: '5px',
             padding: '25px',
             paddingTop: '10px',
             paddingBottom: '25px',
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.8)',
+            boxShadow: '2px 2px 5px 0px rgba(0,0,0,0.5)',
             backgroundColor: 'rgb(25, 25, 25)',
         },
     };
@@ -73,7 +75,7 @@ function CarritoModalDetalle({ isOpen, onClose }) {
                     </div>
                 ) : (
                     <div className="carrito-modal-content">
-                        <div className='width-100'>
+                        <div className='width-100-carrito'>
                             <div className='carrito-space-between'>
                                 <h2 className='titulo-carrito texto-carrito-2'>CARRITO</h2>
                                 <img className='boton-cerrar-carrito' onClick={onClose} src={closeIcon} alt="close" />
@@ -85,11 +87,11 @@ function CarritoModalDetalle({ isOpen, onClose }) {
                                         {carrito.map((item, index) => (
                                             <tr key={index}>
                                                 <td className='td-carrito td-imagen-carrito'><img className='img-item-carrito' src={`${process.env.REACT_APP_API_URL}${item.img}`} width="80px" height="80px" alt={item.description} /></td>
-                                                <td className='td-carrito-left'><span className='titulo-item-carrito texto-carrito-2'>{item.description}{" ("}{item.talle}{")"}</span></td>
+                                                <td className='td-carrito-center'><span className='titulo-item-carrito texto-carrito-2'>{item.description}{" ("}{item.talle}{")"}</span></td>
                                                 <td className='td-carrito'><span className='texto-carrito'>{item.color}</span></td>
                                                 <td className='td-carrito'>
                                                     <div className='cantidad-carrito texto-carrito'>
-                                                        <button className='btn-quantity' onClick={() => {
+                                                        <img src={Restar} className='btn-quantity' onClick={() => {
                                                             // Check if quantity is equal to 1 before subtracting one
                                                             if (item.quantity === 1) {
                                                                 // If quantity is 1, delete the item
@@ -99,10 +101,10 @@ function CarritoModalDetalle({ isOpen, onClose }) {
                                                                 handleSubtractOne(index);
                                                             }
                                                         }}>
-                                                            -
-                                                        </button>
+                                                            
+                                                        </img>
                                                         {item.quantity}
-                                                        <button className='btn-quantity' onClick={() => handleAddOne(index)}>+</button>
+                                                        <img src={Sumar} className='btn-quantity' onClick={() => handleAddOne(index)}></img>
                                                     </div>
                                                 </td>
                                                 <td className='texto-carrito precio-carrito'>${item.price}</td>

@@ -6,6 +6,8 @@ import closeIcon from "./img/close.png";
 import { Link } from 'react-router-dom';
 import Carrito from "./img/carrito.png";
 import Borrar from "./img/borrar.png";
+import Sumar from "./img/add.png";
+import Restar from "./img/substract.png";
 
 Modal.setAppElement('#root'); // Set the app root element for accessibility
 
@@ -86,7 +88,7 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
                                                     <td className='td-carrito-left'><span className='titulo-item-carrito'>{item.description}{"("}{item.talle}{")"}</span></td>
                                                     <td className='td-carrito'>
                                                         <div className='cantidad-carrito texto-carrito texto-carrito-3'>
-                                                            <div className='btn-quantity-2' onClick={() => {
+                                                            <img src={Restar} className='btn-quantity-2' onClick={() => {
                                                                 // Check if quantity is equal to 1 before subtracting one
                                                                 if (item.quantity === 1) {
                                                                     // If quantity is 1, delete the item
@@ -96,11 +98,11 @@ function CarritoModalDetalleCel({ isOpen, onClose }) {
                                                                     handleSubtractOne(index);
                                                                 }
                                                             }}>
-                                                                -
-                                                            </div>
+                                                                
+                                                            </img>
                                                             {item.quantity}
-                                                            <div className='btn-quantity-2' onClick={() => handleAddOne(index)}>+</div>
-                                                        </div>
+                                                            <img src={Sumar} className='btn-quantity-2' onClick={() => handleAddOne(index)}></img>
+                                                            </div>
                                                     </td>
                                                     <td className='texto-carrito precio-carrito texto-carrito-3'>${item.price}</td>
                                                     <td className='td-borrar'><img className='imagen-borrar-carrito-cel' width="25px" height="25px" src={Borrar} alt="" onClick={() => handleDeleteItem(index)}/></td>

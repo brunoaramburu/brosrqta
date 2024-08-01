@@ -65,6 +65,22 @@
     font-size: 10px;
 }
 
+.width-100{
+    width: 40vw;
+}
+
+.span-orden-2{
+    margin-block: auto;
+}
+
+.pasos-a-seguir-container{
+    height: 70vh;
+}
+
+.margin-block-auto{
+    margin-block: auto;
+}
+
 .tabla-pasos-medio{
     margin-block: 20px;
 }
@@ -83,6 +99,14 @@
     width: 50%;
 }
 
+.margin-block-auto{
+    margin-block: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90%;
+}
+
 @media only screen and (max-width: 767px) {
     .titulo-orden-transferencia{
         font-size: 18px;
@@ -92,5 +116,24 @@
     }
     .tabla-orden-50{
         width: 100%;
+    }
+    .width-100{
+        width: 85vw;
+        margin-inline: auto;
+    }
+    .pasos-a-seguir-container{
+        width: 85vw;
+        margin-inline: auto;
+    }
+}
+
+@media only screen and (max-width: 1250px) {
+    .width-100{
+        width: 90vw;
+        margin-inline: auto;
+    }
+    .pasos-a-seguir-container{
+        width: 90vw;
+        margin-inline: auto;
     }
 }

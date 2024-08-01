@@ -269,7 +269,7 @@ function DetalleProducto() {
                 className={selectedColor === image.color ? 'color-option selected-color' : 'color-option'}
                 onClick={() => handleColorSelection(image.color)}
               >
-                <img src={`${process.env.REACT_APP_API_URL}${image.image_url}`} alt="" width="100%" height="100%"/>
+                <img className="imagen-color-option" src={`${process.env.REACT_APP_API_URL}${image.image_url}`} alt="" width="100%" height="100%"/>
               </button>
               </div>
             ))}

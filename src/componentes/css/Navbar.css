@@ -70,8 +70,13 @@ h4{
 
 /* Define el efecto de hover para cambiar el color de fondo */
 .link-dropdown:hover {
-    background-color: rgba(230, 230, 230, 0.1); /* Cambia el color de fondo al pasar el mouse */
+    background-color: rgba(230, 230, 230);
+    color: rgb(25, 25, 25); /* Cambia el color de fondo al pasar el mouse */
 }
+
+.link-dropdown:hover .texto-categorias-navbar {
+    color: black;
+  }
 
 .aviso-container {
     height: 35px;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './css/Loader.css';
-import loaderGif from './img/loader.gif';
+import loaderGif from './img/loader2.gif';
 
 const Loader = () => {
   const [loading, setLoading] = useState(true);
@@ -8,7 +8,7 @@ const Loader = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3500);
+    }, 2000);
     //}, 4000);
 
     return () => clearTimeout(timer);

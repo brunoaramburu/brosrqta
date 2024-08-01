@@ -4,7 +4,7 @@ import CarritoModalCel from './CarritoModalCel';
 import { ProductosContext } from './contexts/ProductosContext';
 import './css/Navbar.css';
 import closeIcon from "./img/close-nav.png";
-import Logo from "./img/logo2.png";
+import Logo from "./img/logo3.png";
 import SearchWhite from "./img/search2.png";
 import Menu from "./img/menu.png";
 
