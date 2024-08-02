@@ -174,16 +174,15 @@
 }
 
 .categoria-buzos{
-    background-image: url('../img/categoria-buzos.PNG');
-
+    background-image: url('../img/categoria-buzos.jpg');
 }
 
 .categoria-remeras{
-    background-image: url('../img/categoria-remeras.PNG');
+    background-image: url('../img/categoria-remeras.jpg');
 }
 
 .categoria-pantalones{
-    background-image: url('../img/categoria-pantalones.png');
+    background-image: url('../img/categoria-pantalones.jpg');
 }
 
 .categoria-buzos, .categoria-remeras, .categoria-pantalones {
