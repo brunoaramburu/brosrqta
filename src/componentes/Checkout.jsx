@@ -697,7 +697,11 @@ function Checkout() {
                                 </tr>
                             ))}
                             <tr className='img-items-checkout'>
-                                <td className='total-precio-items'>Total {'('}{totalQuantity}{')'} items:</td>
+                                {totalQuantity === 1 ? (
+                                    <td className='total-precio-items'>Total {'('}{totalQuantity}{')'} item:</td>
+                                ) : (
+                                    <td className='total-precio-items'>Total {'('}{totalQuantity}{')'} items:</td>
+                                )}
                                 <td></td>
                                 <td className='total-precio-items'>${totalPrice}</td>
                             </tr>
