@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from brosback.views import create_preference, ProductoCreateAPIView, ProductoListView, ProductoDetailView, TamanoNombreView, CategoriaListView, ProductsByCategoryView, CategoryDetailView, FotoTalleView, ProductosConColoresView, ProductoDetalleView, ImagenesProductoView, CrearOrdenView, ModificarEstadoView, ObtenerOrdenView, ActualizarEstadoUalaView, AvisoListView, EnvioListView, ActualizarEstadoView, EnvioGratisListView, DescuentoTransferenciaListView
+from brosback.views import create_preference, ProductoCreateAPIView, EmailSuscripcionView , CuponListView, CodigosListView ,InhabilitarWebView ,ProductoListView, ProductoDetailView, TamanoNombreView, CategoriaListView, ProductsByCategoryView, CategoryDetailView, FotoTalleView, ProductosConColoresView, ProductoDetalleView, ImagenesProductoView, CrearOrdenView, ModificarEstadoView, ObtenerOrdenView, ActualizarEstadoUalaView, AvisoListView, EnvioListView, ActualizarEstadoView, EnvioGratisListView, DescuentoTransferenciaListView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -46,10 +46,14 @@ urlpatterns = [
     path('api/actualizarestadouala/', ActualizarEstadoUalaView, name='actualizar_estado_uala_api'),
     path('api/modificarestado/<int:id>/', ModificarEstadoView.as_view(), name='modify_estado_api'),
     path('api/actualizarestado/', ActualizarEstadoView, name='actualizar_estado_api'),
+    path('api/inhabilitar/', InhabilitarWebView, name='inhabilitar_web'),
+    path('api/cupones/', CuponListView, name='cupon_list'),
+    path('api/codigos/', CodigosListView, name='codigos_list'),
     path('api/envio/', EnvioListView.as_view(), name='envio'),
     path('api/enviogratis/', EnvioGratisListView.as_view(), name='envio-gratis'),
     path('api/descuentotransferencia/', DescuentoTransferenciaListView.as_view(), name='descuento-transferencia'),
     path('api/avisos/', AvisoListView.as_view(), name='avisos'),
+    path('api/emailsuscripcion/', EmailSuscripcionView, name='email-suscripcion'),
     path('', TemplateView.as_view(template_name='index.html')),
     path('categorias/', TemplateView.as_view(template_name='index.html')),
     path('tienda/', TemplateView.as_view(template_name='index.html')),

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Producto, Categoria, Orden, Envio, Aviso, EnvioGratis, DescuentoTransferencia
+from .models import Producto, Categoria, Orden, Envio, Aviso, EnvioGratis, DescuentoTransferencia, Cupon
 
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,9 +12,11 @@ class CategoriaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrdenSerializer(serializers.ModelSerializer):
+    cupon = serializers.PrimaryKeyRelatedField(queryset=Cupon.objects.all(), allow_null=True, required=False)
+
     class Meta:
         model = Orden
-        fields = ['id', 'datoscliente', 'productos', 'fecha', 'estado', 'medio', 'preciototal', 'precioenvio', 'precioproductos', 'idtransferencia', 'medioenvio']    
+        fields = ['id', 'datoscliente', 'productos', 'fecha', 'estado', 'medio', 'preciototal', 'precioenvio', 'precioproductos', 'idtransferencia', 'medioenvio', 'cupon']
 
 class EnvioSerializer(serializers.ModelSerializer):
     class Meta:

@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import mercadopago
 import json
 from rest_framework import generics
-from .models import Producto, ProductoColorTamaño, Tamaño, CarritoCheckout, Grupo, Categoria, FotoTalle, ImagenesProducto, Orden, Envio, Aviso, EnvioGratis, DescuentoTransferencia
+from .models import Producto, Cupon, CodigoAcceso, ProductoColorTamaño, Tamaño, CarritoCheckout, Grupo, InhabilitarWeb, Categoria, FotoTalle, ImagenesProducto, Orden, Envio, Aviso, EnvioGratis, DescuentoTransferencia
 from .serializers import ProductoSerializer, CategoriaSerializer, OrdenSerializer, EnvioSerializer, AvisoSerializer, EnvioGratisSerializer, DescuentoTransferenciaSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -14,6 +14,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.utils.timezone import now
 
 sdk = mercadopago.SDK("APP_USR-7175554635488661-060808-916c187ef1eae6a6bf86f08d9e936479-173724544")
 
@@ -297,17 +298,15 @@ def CrearOrdenView(request):
     try:
         order_data = json.loads(request.body)
 
-        # Assuming you have an OrdenSerializer defined
         serializer = OrdenSerializer(data=order_data)
         if serializer.is_valid():
-            # Save the order
+            # Save the order with the associated coupon if provided
             orden = serializer.save()
 
             # Only send email if medio is 'transferencia'
             if orden.medio == 'transferencia':
                 email_subject = f'Orden de compra n.º{orden.id} realizada con éxito.'
 
-                # Render HTML email template with product data
                 email_message = render_to_string('email_transferencia.html', {
                     'orden_id': orden.id,
                     'productos': orden.productos,
@@ -316,9 +315,9 @@ def CrearOrdenView(request):
                     'precioenvio': orden.precioenvio,
                     'datoscliente': orden.datoscliente,
                     'medioenvio': orden.medioenvio,
+                    'cupon': orden.cupon,
                 })
 
-                # Send email with HTML content
                 email_to = [orden.datoscliente.get('email', 'fallback_email@example.com'), 'agustinmar7inez@gmail.com']
                 send_mail(email_subject, '', 'brosrqtaindumentaria@gmail.com', email_to, html_message=email_message)
 
@@ -335,15 +334,14 @@ def CrearOrdenView(request):
                 'precioenvio': orden.precioenvio,
                 'medioenvio': orden.medioenvio,
                 'idtransferencia': orden.idtransferencia,
+                'cupon': orden.cupon.id if orden.cupon else None
             }
 
             return JsonResponse(orden_data)
         else:
-            # If the provided data is not valid, return an error response
             return JsonResponse({'error': 'Invalid order data'}, status=400)
 
     except json.JSONDecodeError:
-        # Handle JSON decoding error
         return JsonResponse({'error': 'Invalid JSON data'}, status=400)
 
 class ModificarEstadoView(generics.UpdateAPIView):
@@ -352,14 +350,22 @@ class ModificarEstadoView(generics.UpdateAPIView):
     lookup_field = 'id'
 
 def ObtenerOrdenView(request):
-    # Get the 'id' parameter from the query string
+    # Obtener el parámetro 'id' desde la query string
     order_id = request.GET.get('id')
 
     try:
-        # Retrieve the order object based on the 'order_id'
+        # Recuperar el objeto Orden basado en el 'order_id'
         orden = get_object_or_404(Orden, id=order_id)
 
-        # Serialize the order as a JSON object
+        # Serializar el objeto Cupon si existe
+        cupon_data = {
+            'id': orden.cupon.id,
+            'codigo': orden.cupon.codigo,
+            'descuento': orden.cupon.descuento,
+            'validohasta': orden.cupon.validohasta.isoformat(),
+        } if orden.cupon else None
+
+        # Serializar la orden como un objeto JSON
         orden_data = {
             'id': orden.id,
             'datoscliente': orden.datoscliente,
@@ -372,16 +378,18 @@ def ObtenerOrdenView(request):
             'precioenvio': orden.precioenvio,
             'medioenvio': orden.medioenvio,
             'idtransferencia': orden.idtransferencia,
+            'cupon': cupon_data  # Incluir los datos del cupón serializados
         }
 
-        # Return JSON response with the order data
+        # Devolver la respuesta en formato JSON con los datos de la orden
         return JsonResponse(orden_data)
 
     except json.JSONDecodeError:
-        # Handle JSON decoding error
+        # Manejar error de decodificación JSON
         return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+
     except Orden.DoesNotExist:
-        # Handle the case where the order with the specified ID does not exist
+        # Manejar el caso donde la orden con el ID especificado no existe
         return JsonResponse({'error': 'Order does not exist'}, status=404)
     
 @require_POST
@@ -476,6 +484,7 @@ def ActualizarEstadoView(request):
                         'precioenvio': order.precioenvio,
                         'datoscliente': order.datoscliente,
                         'medioenvio': order.medioenvio,
+                        'cupon': order.cupon,
                     })
                     email_to = [order.datoscliente.get('email', 'fallback_email@example.com'), 'agustinmar7inez@gmail.com']
                     send_mail(email_subject, '', 'brosrqtaindumentaria@gmail.com', email_to, html_message=email_message)
@@ -490,3 +499,49 @@ def ActualizarEstadoView(request):
 
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+    
+def InhabilitarWebView(request):
+    try:
+        # Obtén el primer (y único) registro de la tabla
+        estado = InhabilitarWeb.objects.first()
+        if estado:
+            return JsonResponse({'Inhabilitada': estado.inhabilitar})
+        else:
+            # Si no existe ningún registro, devolvemos False por defecto
+            return JsonResponse({'Inhabilitada': False})
+    except Exception as e:
+        # Manejo general de errores
+        return JsonResponse({'error': str(e), 'Inhabilitada': False})
+    
+def CuponListView(request):
+    hoy = now().date()  # Obtiene la fecha actual
+    cupones = Cupon.objects.filter(validohasta__gte=hoy).values('id', 'codigo', 'descuento', 'validohasta')
+    return JsonResponse(list(cupones), safe=False)
+
+def CodigosListView(request):
+    codigos = CodigoAcceso.objects.values('id', 'codigo')
+    return JsonResponse(list(codigos), safe=False)
+
+@csrf_exempt  # Solo necesario si quieres omitir la verificación CSRF
+def EmailSuscripcionView(request):
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        email_usuario = body.get('email')
+
+        if email_usuario:
+            try:
+                # Enviar el correo
+                send_mail(
+                    'Nueva suscripcion de email en brosrqta.com.ar',  # Asunto del correo
+                    f'Se suscribio la siguiente dirección de correo: {email_usuario}',  # Cuerpo del mensaje
+                    'brosrqtaindumentaria@gmail.com',  # Remitente (debe coincidir con tu configuración)
+                    ['agustinmar7inez@gmail.com'],  # Destinatario
+                    fail_silently=False,
+                )
+                return JsonResponse({'message': 'Correo enviado correctamente'}, status=200)
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'El campo de correo electrónico es obligatorio'}, status=400)
+
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

@@ -54,7 +54,12 @@
                 </table>
                 </span>
                 {% if medioenvio != 'retiro' %}
-                    <h3 style="margin-top: 20px; color: rgb(25, 25, 25); text-align: center;">SUBTOTAL: <span style="color: black;">${{ precioproductos }}</span></h3>
+                    <h3 style="margin-top: 20px; color: rgb(25, 25, 25); text-align: center;">
+                        SUBTOTAL: <span style="color: black;">${{ precioproductos }}</span>
+                        {% if cupon %}
+                            <span style="color: rgb(25, 25, 25);"> ({{ cupon.descuento }}% OFF con código {{ cupon.codigo }})</span>
+                        {% endif %}
+                    </h3>                    
                     <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>
                     <h3 style="margin-top: 20px; color: rgb(25, 25, 25); text-align: center;">ENVIO (A {{ medioenvio }} - Correo Argentino): <span style="color: black;">${{ precioenvio }}</span></h3>
                 {% endif %}
@@ -64,6 +69,11 @@
                 {% endif %}
                 <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>
                 <h3 style="margin-top: 20px; color: rgb(25, 25, 25); text-align: center;">TOTAL: <span style="color: black;">${{ preciototal }}</span></h3>
+                {% if medioenvio == 'retiro' %}
+                    {% if cupon %}
+                        <span style="color: rgb(25, 25, 25);"> ({{ cupon.descuento }}% OFF con código {{ cupon.codigo }})</span>
+                    {% endif %}
+                {% endif %}
                 <div style="width: 100%; height: 1px; background-color: rgb(25, 25, 25);"></div>
                 {% if medioenvio == 'retiro' %}
                 <h3 style="margin-top: 20px; color: rgb(25, 25, 25);">DATOS DE FACTURACION</h3>

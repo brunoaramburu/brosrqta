@@ -41,3 +41,12 @@ html, body {
 .content {
   flex: 1;
 }
+
+.texto-mantenimiento{
+  color: #e1ffff;
+}
+
+.btn-codigo{
+  display: block;
+  top: 50px;
+}

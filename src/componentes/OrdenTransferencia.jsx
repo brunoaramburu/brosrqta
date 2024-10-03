@@ -11,6 +11,7 @@ function OrdenTransferencia () {
     const [orden, setOrden] = useState([]);
     const [productos, setProductos] = useState([]);
     const [ordenExpirada, setOrdenExpirada] = useState(false); // Estado para indicar si la orden ha expirado
+    const [cupon, setCupon] = useState();
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/api/obtenerorden?id=${id}`)
@@ -18,6 +19,8 @@ function OrdenTransferencia () {
             .then(data => {
                 setOrden(data);
                 setProductos(data.productos);
+                setCupon(data.cupon);
+                console.log(data);
 
                 if (data.estado == 'cancelada')
                     {
@@ -77,19 +80,23 @@ function OrdenTransferencia () {
                     <table className='tabla-carrito-checkout tabla-orden-80'>
                         <thead>
                             <tr>
-                                <th>PRECIO PRODUCTOS</th>
                                 <th>MEDIO DE ENVIO</th>
+                                <th>PRECIO PRODUCTOS</th>
                                 <th>PRECIO TOTAL</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>${orden.precioproductos}</td>
                                 <td>{orden.medioenvio}{' ('}${orden.precioenvio}{')'}</td>
+                                <td>
+                                    ${orden.precioproductos} <br />
+                                    {cupon && ` (${cupon.descuento}% OFF con código ${cupon.codigo})`}
+                                </td>
                                 <td>${orden.preciototal}</td>
                             </tr>
                         </tbody>
                     </table>
+
                     </span>
                 </div>
                 <div className='customer-form-container width-100'>

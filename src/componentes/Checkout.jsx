@@ -10,9 +10,13 @@ function Checkout() {
 
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
     const [costoEnvioSucursal, setCostoEnvioSucursal] = useState();
+    const [inputCuponVisible, setInputCuponVisible] = useState(false);
     const [costoEnvioDomicilio, setCostoEnvioDomicilio] = useState();
     const [envio, setEnvio] = useState(0);
     const [envioGratis, setEnvioGratis] = useState();
+    const [selectedCupon, setSelectedCupon] = useState(null);
+    const [cupones, setCupones] = useState();
+    const [codigoCupon, setCodigoCupon] = useState();
     const [envioGratisHabilitado, setEnvioGratisHabilitado] = useState(false);
     const [descuentoTransferencia, setDescuentoTransferencia] = useState();
     const [descuentoTransferenciaHabilitado, setDescuentoTransferenciaHabilitado] = useState(false);
@@ -81,6 +85,15 @@ function Checkout() {
         .then(data => {
             setCostoEnvioSucursal(data[0].aSucursal);
             setCostoEnvioDomicilio(data[0].aDomicilio);
+        })
+        .catch(error => console.error(error));
+    }, []);
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/api/cupones/`) 
+        .then(response => response.json())
+        .then(data => {
+            setCupones(data);
         })
         .catch(error => console.error(error));
     }, []);
@@ -253,6 +266,7 @@ function Checkout() {
                 precioenvio: envio,
                 medioenvio: selectedEnvioMethod,
                 idtransferencia: paymentResult.uuid,
+                cupon: selectedCupon ? selectedCupon.id : null  // Asigna el ID del cupón solo si no es null
             };
     
             // Make an HTTP POST request to the Django API endpoint
@@ -347,7 +361,10 @@ function Checkout() {
                 precioenvio: envio,
                 medioenvio: selectedEnvioMethod,
                 idtransferencia: ".",
+                cupon: selectedCupon ? selectedCupon.id : null  // Asigna el ID del cupón solo si no es null
             };
+
+            console.log(requestData);
     
             // Make an HTTP POST request to the Django API endpoint
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/crearorden/`, {
@@ -467,6 +484,34 @@ function Checkout() {
     };
 
     const errorMetodos = () => toast.error("Debe seleccionar un medio de pago y envio.");
+
+    function aplicarCupon(codigoCupon) {
+        const cuponEncontrado = cupones.find(cupon => cupon.codigo === codigoCupon);
+        
+        if (cuponEncontrado) {
+            const hoy = new Date();
+            const fechaValidez = new Date(cuponEncontrado.validohasta);
+            
+            if (fechaValidez >= hoy) {
+                setSelectedCupon(cuponEncontrado);
+                const descuento = (totalPriceOriginal * (cuponEncontrado.descuento / 100));
+                const nuevoTotalPrice = Math.floor(totalPriceOriginal - descuento); // Usar Math.floor para redondear hacia abajo
+                setTotalPrice(nuevoTotalPrice);
+                toast.success("Cupón aplicado. Descuento de " + cuponEncontrado.descuento + "%.");
+                console.log(cuponEncontrado);
+            } else {
+                console.log("El cupón ha expirado.");
+            }
+        } else {
+            toast.error('Cupón no encontrado.');
+        }
+    }
+
+    useEffect(() => {
+        if (selectedCupon) {
+            aplicarCupon(selectedCupon.codigo);
+        }
+    }, [selectedPaymentMethod]);
 
     return(
         <div className="padding-top-navbar">
@@ -748,7 +793,34 @@ function Checkout() {
                     
                     <span className='costo-total-checkout'><p>Costo total: </p>&nbsp;<h3> ${totalPriceWithShipping}</h3></span>
                     
-                    
+                    <div className="coupon-container">
+                        {inputCuponVisible ? (
+                        <div className="coupon-input">
+                            <input
+                            type="text"
+                            id="couponCode"
+                            placeholder="Ingresa tu código de cupón"
+                            value={codigoCupon}
+                            onChange={(e) => setCodigoCupon(e.target.value)}
+                            className="input-cupon"
+                            />
+                            <button
+                            onClick={() => aplicarCupon(codigoCupon)}
+                            className="btn-aplicar-cupon"
+                            >
+                            APLICAR
+                            </button>
+                        </div>
+                        ) : (
+                        <p
+                            className="texto-cupon"
+                            onClick={() => setInputCuponVisible(true)} // Mostrar el input al hacer clic
+                            style={{ cursor: 'pointer' }}
+                        >
+                            Tengo un cupón de descuento
+                        </p>
+                        )}
+                    </div>
                     {/* <div className="container-boton-agregar-carrito">
                         {selectedPaymentMethod === 'mercadopago' && (
                         <Wallet initialization={{ preferenceId: idMP, redirectMode: 'modal' }} customization={customization} />

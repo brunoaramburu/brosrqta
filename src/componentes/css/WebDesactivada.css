@@ -1,0 +1,48 @@
+.btn-codigo{
+    height: 32px;
+    background-color: rgb(25, 25, 25);
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-codigo:hover {
+    background-color: white;
+    color: rgb(25, 25, 25);
+}
+
+.btn-enviar-email{
+    height: 32px;
+    background-color: rgb(25, 25, 25);
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.label-codigo{
+    color: rgb(25, 25, 25);
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.btn-enviar-email:hover{
+    background-color: white;
+    color: rgb(25, 25, 25);
+    border: 1px solid rgb(25, 25, 25);
+}
+
+.input-email-desac{
+    height: 32px;
+    background-color: rgb(50, 50, 50);
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+}

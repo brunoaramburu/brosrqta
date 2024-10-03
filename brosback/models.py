@@ -103,6 +103,18 @@ class CarritoCheckout(models.Model):
         verbose_name = "Carrito generado"
         verbose_name_plural = "Carritos generados"
 
+class Cupon(models.Model):
+    id = models.AutoField(primary_key=True)
+    codigo = models.CharField(max_length=200)
+    descuento =  models.IntegerField()
+    validohasta = models.DateField()    
+
+    def __str__(self):
+        return self.codigo
+    class Meta:
+        verbose_name = "Cupón de descuento"
+        verbose_name_plural = "Cupónes de descuento"
+
 class Orden(models.Model):
     ESTADO_CHOICES = [
         ('cancelada', 'Cancelada'),
@@ -127,6 +139,7 @@ class Orden(models.Model):
     preciototal = models.CharField(max_length=50)
     medioenvio = models.CharField(max_length=100)
     idtransferencia = models.CharField(max_length=100, default=None)
+    cupon = models.ForeignKey(Cupon, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"Orden {self.id} - {self.estado} - {self.medio}"
@@ -145,7 +158,8 @@ class Envio(models.Model):
         verbose_name_plural = "Configuración de precios de envío"
     
 class EnvioGratis(models.Model):
-    activo = models.BooleanField(primary_key=True)
+    id = models.AutoField(primary_key=True) 
+    activo = models.BooleanField()
     compraminima = models.IntegerField()
 
     def __str__(self):
@@ -176,3 +190,29 @@ class Aviso(models.Model):
 
     def __str__(self):
         return self.aviso
+
+class InhabilitarWeb(models.Model):
+    id = models.AutoField(primary_key=True) 
+    inhabilitar = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.inhabilitar:
+            return f"Estado: Web inhabilitada"
+        else:
+            return f"Estado: Web activa"
+    class Meta:
+        verbose_name = "Inhabilitar web"
+        verbose_name_plural = "Inhabilitar web"
+
+class CodigoAcceso(models.Model):
+    id = models.AutoField(primary_key=True)
+    codigo = models.CharField(max_length=200) 
+
+    def __str__(self):
+        return self.codigo
+    class Meta:
+        verbose_name = "Codigo de acceso"
+        verbose_name_plural = "Codigos de acceso"
+
+
+
