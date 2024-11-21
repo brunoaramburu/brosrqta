@@ -34,6 +34,11 @@ function Productos() {
                                     <div key={color.nombre} className="color-circle" style={{ backgroundColor: color.rgb_value }}></div>
                                 ))}
                             </div>
+                            {producto.precio_transferencia && (
+                                <p className="precio-transferencia">
+                                    TRANSFERENCIA ${producto.precio_transferencia}
+                                </p>
+                            )}
                             <p className="precio-tarjeta-Productos">${producto.precio}</p>
                             </span>
                             <span className="ver-producto-span"></span>

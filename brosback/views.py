@@ -108,9 +108,30 @@ class ProductoCreateAPIView(generics.CreateAPIView):
 
 class ProductoListView(APIView):
     def get(self, request):
+        # Obtener todos los productos
         productos = Producto.objects.all()
+        
+        # Verificar si hay un descuento por transferencia activo
+        descuento_transferencia = DescuentoTransferencia.objects.filter(activo=True).first()
+        descuento_porcentaje = descuento_transferencia.porcentaje if descuento_transferencia else None
+        
+        # Serializar los productos
         serializer = ProductoSerializer(productos, many=True)
-        return Response(serializer.data)
+        productos_data = serializer.data
+        
+        # Redondear precios y agregar precio_transferencia si corresponde
+        for producto in productos_data:
+            producto['precio'] = round(producto['precio'])  # Redondear precio base
+            
+            if descuento_porcentaje:
+                producto['precio_transferencia'] = round(
+                    producto['precio'] * (1 - descuento_porcentaje / 100)
+                )
+            else:
+                producto['precio_transferencia'] = None
+        
+        return Response(productos_data)
+
     
 class AvisoListView(APIView):
     def get(self, request):
@@ -144,10 +165,25 @@ class CategoriaListView(APIView):
 
 class ProductoDetailView(APIView):
     def get(self, request, pk):
-        producto = Producto.objects.get(pk=pk)
+        # Obtener el producto o devolver un error 404
+        producto = get_object_or_404(Producto, pk=pk)
+
+        # Serializar el producto
         serializer = ProductoSerializer(producto)
-        return Response(serializer.data)
-    
+        producto_data = serializer.data
+
+        # Verificar si hay un descuento por transferencia activo
+        descuento_transferencia = DescuentoTransferencia.objects.filter(activo=True).first()
+        if descuento_transferencia:
+            descuento_porcentaje = descuento_transferencia.porcentaje
+            # Calcular el precio de transferencia redondeado
+            producto_data['precio_transferencia'] = round(
+                producto.precio * (1 - descuento_porcentaje / 100)
+            )
+        else:
+            producto_data['precio_transferencia'] = None
+
+        return Response(producto_data)
     
 def TamanoNombreView(request, tamano_id):
     try:
@@ -217,6 +253,10 @@ def ProductosConColoresView(request):
     # Query all products with their associated color information
     products = Producto.objects.all()
 
+    # Verificar si hay un descuento por transferencia activo
+    descuento_transferencia = DescuentoTransferencia.objects.filter(activo=True).first()
+    descuento_porcentaje = descuento_transferencia.porcentaje if descuento_transferencia else None
+
     # Create a list to store the product data
     product_list = []
 
@@ -228,11 +268,17 @@ def ProductosConColoresView(request):
         for color in colors:
             unique_colors.add((color['color__nombre'], color['color__rgb_value']))
 
+        # Calculate the price with transfer discount if applicable
+        precio_transferencia = (
+            round(product.precio * (1 - descuento_porcentaje / 100)) if descuento_porcentaje else None
+        )
+
         # Create a dictionary for each product
         product_data = {
             'id': product.id,
             'nombre': product.nombre,
             'precio': product.precio,
+            'precio_transferencia': precio_transferencia,
             'img': str(product.img),
             'categoria': str(product.categoria),
             'grupo': str(product.grupo_id),

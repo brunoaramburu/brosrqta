@@ -25,12 +25,20 @@
 
 .titulo-tarjeta-Productos{
     display: flex;
-    justify-content: left;
+    justify-content: center;
     font-weight: 600;
     font-size: 15px;
     margin-top: 5px;
     margin-bottom: 0px;
     color: rgb(25, 25, 25);
+}
+
+.precio-transferencia{
+    margin-block: 5px;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    color: green;
 }
 
 .boton-tarjeta-Productos{

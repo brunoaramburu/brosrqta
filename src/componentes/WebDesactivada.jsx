@@ -96,10 +96,9 @@ function WebDesactivada({ onAccessGranted }) {
             <button onClick={handlerCodigo} className="btn-codigo">Ingresar con código</button>
             <span>
                 <img src={Logo} alt="Estamos trabajando..." height="80px" />
-                <h2 className="texto-mantenimiento">Estamos trabajando en nuestra página web para mejorar su experiencia.</h2>
             </span>
             <div className="form-section">
-                <label htmlFor="email">Ingresa tu correo electrónico para obtener acceso antes que nadie.</label>
+                <h2 className="texto-mantenimiento">Ingresa tu correo electrónico para obtener acceso antes que nadie.</h2>
                 <input
                     className='input-email-desac'
                     type="email"

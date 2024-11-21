@@ -259,6 +259,9 @@ function DetalleProducto() {
         <div className="col-informacion">
           <p className="nombre-producto padding-10-left margin-block-cel">{producto.nombre}</p>
           <p className="precio-producto padding-10-left margin-block-cel">${producto.precio}</p>
+          {producto.precio_transferencia && (
+          <p className="precio-producto-transferencia padding-10-left margin-block-cel">TRANSFERENCIA ${producto.precio_transferencia}</p>
+          )}
           <span><p className="descripcion-producto padding-10-left margin-block-cel">{producto.descripcion}</p></span>
           <p className="colores-talles margin-block-cel">Colores</p>
           <div className="talles-producto padding-10-left margin-block-cel">
@@ -352,6 +355,11 @@ function DetalleProducto() {
                           <div key={color.nombre} className="color-circle" style={{ backgroundColor: color.rgb_value }}></div>
                         ))}
                     </div>
+                    {producto.precio_transferencia && (
+                        <p className="precio-transferencia">
+                            TRANSFERENCIA ${producto.precio_transferencia}
+                        </p>
+                    )}
                     <p className="precio-tarjeta-Productos">${relatedProduct.precio}</p>
                     </span>
                     <span className="ver-producto-span"></span>

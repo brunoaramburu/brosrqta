@@ -172,7 +172,7 @@ class EnvioGratis(models.Model):
         verbose_name_plural = "Configuración de envío gratis"
     
 class DescuentoTransferencia(models.Model):
-    activo = models.BooleanField(primary_key=True)
+    activo = models.BooleanField(unique=True)
     porcentaje = models.IntegerField()
     
     def __str__(self):

@@ -53,7 +53,7 @@ function Inicio() {
                             <p className="texto-categoria">REMERAS</p>    
                         </div> 
                         </a>
-                        <a href="/categoria/3">
+                        <a href="/categoria/8">
                         <div className="tarjeta-categoria categoria-pantalones">
                             <p className="texto-categoria">PANTALONES</p>    
                         </div> 
@@ -74,6 +74,11 @@ function Inicio() {
                                                 <div key={color.nombre} className="color-circle" style={{ backgroundColor: color.rgb_value }}></div>
                                             ))}
                                         </div>
+                                        {producto.precio_transferencia && (
+                                            <p className="precio-transferencia">
+                                                TRANSFERENCIA ${producto.precio_transferencia}
+                                            </p>
+                                        )}
                                         <p className="precio-tarjeta-Productos">${producto.precio}</p>
                                     </span>
                                     <span className="ver-producto-span"></span>
